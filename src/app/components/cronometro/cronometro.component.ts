@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-cronometro',
   templateUrl: './cronometro.component.html',
-  styleUrls: ['./cronometro.component.sass']
+  styleUrls: ['./cronometro.component.scss']
 })
 export class CronometroComponent implements OnInit {
 
@@ -15,9 +15,11 @@ export class CronometroComponent implements OnInit {
   minutesDisplay: string = "00";
   hoursDisplay: string = "00";
 
+  isStop: boolean = true;
+
   timer: NodeJS.Timeout;
-  
-  constructor(){}
+
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -44,12 +46,16 @@ export class CronometroComponent implements OnInit {
   }
 
   startTimer() {
-    this.timer = setInterval(() => {
-      this.updateTimer();
-    }, 1000);
+    if (this.isStop) {
+      this.isStop = false;
+      this.timer = setInterval(() => {
+        this.updateTimer();
+      }, 1000);
+    }
   }
 
   stopTimer() {
+    this.isStop = true;
     clearInterval(this.timer);
   }
 
@@ -62,5 +68,4 @@ export class CronometroComponent implements OnInit {
     this.minutesDisplay = "00";
     this.hoursDisplay = "00";
   }
-
 }

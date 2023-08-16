@@ -1,0 +1,27 @@
+$primary-color: #EDE7E3;
+$azul: #489FB5;
+$azul-secundario: #16697A;
+$azul-claro: #82C0CC;
+
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 15vw;
+    border-radius: 7px;
+    background-color: $azul;
+    
+}
+.display-cronometro{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: $primary-color;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.digito{
+    display: flex;
+    align-items: center;
+}

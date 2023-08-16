@@ -1,5 +1,7 @@
-<div>
-    <span>{{hoursDisplay}}</span>:<span>{{minutesDisplay}}</span>:<span>{{secondsDisplay}}</span>
+<div class="container">
+    <div class="display-cronometro" >
+        <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
+    </div>
 </div>
 <button type="button" (click)="startTimer()">Start</button>
 <button type="button" (click)="stopTimer()">Stop</button>

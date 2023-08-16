@@ -1,0 +1,32 @@
+.grid{
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 50px 1fr 50px;
+    height: 100%;
+    grid-template-areas: 'header header' 'menu content' 'footer footer';
+}
+
+.grid div{
+    background-color: rgb(63, 105, 105);
+    width: 100%;
+    height: auto;
+    border: solid 1px black;
+}
+
+.grid .header{
+    background-color: rgba(0, 0, 0, 80%);
+    grid-area: header;
+}
+.grid .menu{
+    grid-area:menu;
+}
+
+.grid .content{
+    grid-area: content;
+}
+
+.grid .footer
+{
+    background-color: rgba(0, 0, 0, 80%);
+    grid-area: footer;
+}
