@@ -1,0 +1,14 @@
+$primary-color: #EDE7E3;
+$azul: #489FB5;
+$azul-secundario: #16697A;
+$azul-claro: #82C0CC;
+
+.container{
+    display:flex;
+    flex-direction: column;
+    background-color: $azul-claro;
+    width: fit-content;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}

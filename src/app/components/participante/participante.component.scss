@@ -13,6 +13,7 @@ $azul-claro: #82C0CC;
     color: $primary-color;
     align-items: center;
     gap: 13px;
+    min-width: 400px;
 }
 
 .info{
@@ -29,17 +30,16 @@ $azul-claro: #82C0CC;
     border-radius: 100%;
     width: 20px;
     height: 20px;
-    justify-content: center
+    justify-content: center;
 }
 .imagem {
-    width: 75px;
-    height: 75px;
+    width: 60px;
+    height: 60px;
     padding: 7px;
     object-fit: cover;
     border-radius: 100%;
 }
 
-.imagem img {
-    border: solid 1px $primary-color;
-    size: 100%;
+.ordem p{
+    font-size: 14px;
 }

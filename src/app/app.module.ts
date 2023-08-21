@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { CronometroComponent } from './components/cronometro/cronometro.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ParticipanteComponent } from './components/participante/participante.component';
+import { ListaParticipantesComponent } from './components/lista-participantes/lista-participantes.component';
+import { ParticipanteLocutorComponent } from './components/participante-locutor/participante-locutor.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { ParticipanteComponent } from './components/participante/participante.co
     CronometroComponent,
     HeaderComponent,
     ParticipanteComponent,
+    ListaParticipantesComponent,
+    ParticipanteLocutorComponent,
   ],
   imports: [
     BrowserModule,
