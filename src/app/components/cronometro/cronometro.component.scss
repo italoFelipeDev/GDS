@@ -27,3 +27,12 @@ $azul-claro: #82C0CC;
     display: flex;
     align-items: center;
 }
+
+.container-cronometro-locutor{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    background-color: $azul-secundario;
+    padding: 5px;
+    
+}

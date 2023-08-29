@@ -6,15 +6,15 @@ $azul-claro: #82C0CC;
 .container{
     display: flex;
     flex-direction: column;
-    width: 35%;
-    height: 30%;
+    width: 35vw;
     color: $primary-color;
+    padding: 0;
 }
 
 .container img{
     width: auto;
     height: auto;
-    object-fit: contain;
+    object-fit:fill;
 }
 
 .nome{
@@ -26,12 +26,32 @@ $azul-claro: #82C0CC;
     font-size: 30px;
 }
 
-::ng-deep .cronometro-locutor{
-    width: auto;
-    height: auto;
-    min-width: none;
-    min-height: none;
-    max-width: none;
-    max-height: none;
-    border-radius: 0%;
+
+.container-impedimento{
+    background-color: $azul;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
+
+.titulo{
+    font-size: 20px;
+    align-self: center;
+    padding-bottom: 10px;
+}
+
+.impedimento{
+    background-color: $azul-secundario;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.impedimento-descricao{
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+
+

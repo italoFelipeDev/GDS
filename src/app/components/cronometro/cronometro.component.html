@@ -1,8 +1,23 @@
-<div class="container">
-    <div class="display-cronometro" >
-        <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
+<div *ngIf="isLocutor == false">
+    <div class="container">
+        <div class="display-cronometro" >
+            <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
+        </div>
     </div>
+    <!-- <button type="button" (click)="startTimer()">Start</button>
+    <button type="button" (click)="stopTimer()">Stop</button>
+    <button type="button" (click)="resetTimer()">Reset</button> -->
 </div>
-<button type="button" (click)="startTimer()">Start</button>
-<button type="button" (click)="stopTimer()">Stop</button>
-<button type="button" (click)="resetTimer()">Reset</button>
+
+
+<div *ngIf="isLocutor">
+    <div class="container-cronometro-locutor">
+        <div class="display-cronometro" >
+            <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
+        </div>
+    </div>
+    <!-- <button type="button" (click)="startTimer()">Start</button>
+    <button type="button" (click)="stopTimer()">Stop</button>
+    <button type="button" (click)="resetTimer()">Reset</button> -->
+</div>
+

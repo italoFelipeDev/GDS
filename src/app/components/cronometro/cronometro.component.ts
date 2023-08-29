@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cronometro',
@@ -18,6 +18,8 @@ export class CronometroComponent implements OnInit {
   isStop: boolean = true;
 
   timer: NodeJS.Timeout;
+
+  @Input() isLocutor: boolean = false;
 
   constructor() { }
 

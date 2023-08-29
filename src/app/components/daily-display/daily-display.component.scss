@@ -1,0 +1,43 @@
+$primary-color: #EDE7E3;
+$azul: #489FB5;
+$azul-secundario: #16697A;
+$azul-claro: #82C0CC;
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.cronometro{
+    display: flex;
+}
+
+.container-pariticipantes{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+.lista{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: auto
+}
+
+.botao{
+    background-color: $azul;
+    color: $primary-color;
+    font-size: 18px;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    transition: 0.3s;
+    width: 100%;
+    margin-top: 20px;
+}
+.botao:hover{
+    background-color: $azul-secundario;
+}

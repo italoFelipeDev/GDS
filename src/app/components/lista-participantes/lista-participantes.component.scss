@@ -3,6 +3,10 @@ $azul: #489FB5;
 $azul-secundario: #16697A;
 $azul-claro: #82C0CC;
 
+:host {
+    display: block;
+    left: 0;
+}
 .container{
     display:flex;
     flex-direction: column;

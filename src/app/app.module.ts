@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ParticipanteComponent } from './components/participante/participante.component';
 import { ListaParticipantesComponent } from './components/lista-participantes/lista-participantes.component';
 import { ParticipanteLocutorComponent } from './components/participante-locutor/participante-locutor.component';
+import { DailyDisplayComponent } from './components/daily-display/daily-display.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ParticipanteLocutorComponent } from './components/participante-locutor/
     ParticipanteComponent,
     ListaParticipantesComponent,
     ParticipanteLocutorComponent,
+    DailyDisplayComponent,
   ],
   imports: [
     BrowserModule,
