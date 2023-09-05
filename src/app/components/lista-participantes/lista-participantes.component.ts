@@ -15,14 +15,12 @@ export class ListaParticipantesComponent  implements OnInit{
   constructor() { }
 
   ngOnInit(): void {
-    var participantes: Array<Usuario> = new Array<Usuario>;
-
-    participantes.push(new Usuario(1,"Sussuaranus Caetana",1,"../../assets/susuarana.jpg"));
-    participantes.push(new Usuario(1,"Maracas Virgulino", 2, "../../assets/maraca.jpg"));
-    participantes.push(new Usuario(1,"Lobotomia Albuquerque", 3, "../../assets/Lobo.jpg"));
-    this.listaParcipantes = participantes;
     this.mostrar = true;
 
+    this.listaParcipantes.sort((a, b) => a.nome.localeCompare(b.nome));
+    this.listaParcipantes.forEach((participante)=>{
+      participante.ordem = this.listaParcipantes.indexOf(participante) + 1
+    })
   }
 
 

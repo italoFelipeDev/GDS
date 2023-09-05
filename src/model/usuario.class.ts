@@ -6,6 +6,8 @@ export class Usuario{
     ordem: number;
     icone: string;
     impedimentos: Array<Impedimento>
+    reportFeito: boolean = false;
+    realizandoReport: boolean = false;
 
     constructor(id: number, nome: string , ordem: number, icone:string) {
         this.id = id;

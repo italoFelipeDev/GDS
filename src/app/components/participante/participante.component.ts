@@ -13,9 +13,18 @@ export class ParticipanteComponent implements OnInit{
   @Input() ordem: number;
   @Input() icone: string;
   @Input() usuario: Usuario;
-  
+  reportFeito: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  finalizarReport(){
+    this.reportFeito = true;
+  }
+
+  isReportFeito() : boolean{
+    return this.reportFeito;
   }
 }

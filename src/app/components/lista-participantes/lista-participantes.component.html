@@ -1,4 +1,14 @@
 <div class="container" >
-   <app-participante *ngFor="let participante of listaParcipantes" class="participante" [usuario]="participante" ></app-participante>
+   <div class="titulo">
+      Ordem de fala
+   </div>
+   <div *ngFor="let participante of listaParcipantes">
+      <app-participante *ngIf="participante.reportFeito == false" class="participante" [usuario]="participante" ></app-participante>
+   </div>
+   <div class="titulo">
+      Report Concluido
+   </div>
+   <div *ngFor="let participante of listaParcipantes">
+      <app-participante *ngIf="participante.reportFeito == true" class="participante" [usuario]="participante" ></app-participante>
+   </div>
 </div>
-

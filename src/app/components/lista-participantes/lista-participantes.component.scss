@@ -15,4 +15,15 @@ $azul-claro: #82C0CC;
     gap: 5px;
     padding: 10px;
     border-radius: 5px;
+    min-width: 400px;
+}
+
+.titulo{
+    display: flex;
+    background-color: $azul-secundario;
+    width: fit-content;
+    align-self: center;
+    color: $primary-color;
+    padding: 5px;
+    border-radius: 4px;
 }
