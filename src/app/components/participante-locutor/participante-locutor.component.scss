@@ -14,7 +14,9 @@ $azul-claro: #82C0CC;
 .container img{
     width: auto;
     height: auto;
-    object-fit:fill;
+    max-width: 35vw;
+    max-height: 25vw;
+    object-fit:cover;
 }
 
 .nome{

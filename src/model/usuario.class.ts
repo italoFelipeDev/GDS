@@ -3,17 +3,20 @@ import { Impedimento } from "./impedimento.class";
 export class Usuario{
     id: number;
     nome: string;
-    ordem: number;
+    email: string;
+    senha: string;
     icone: string;
+    ordem: number;
+    scrumMaster: boolean;
     impedimentos: Array<Impedimento>
     reportFeito: boolean = false;
     realizandoReport: boolean = false;
 
-    constructor(id: number, nome: string , ordem: number, icone:string) {
-        this.id = id;
+    constructor(nome: string, icone: string, email: string, senha: string) {
         this.nome = nome;
-        this.ordem = ordem;
         this.icone = icone;
+        this.email = email;
+        this. senha = senha;
      }
 
      addImpedimento(impedimento: Impedimento) : Array<Impedimento>{

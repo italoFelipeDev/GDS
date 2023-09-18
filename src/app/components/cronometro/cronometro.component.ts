@@ -70,4 +70,8 @@ export class CronometroComponent implements OnInit {
     this.minutesDisplay = "00";
     this.hoursDisplay = "00";
   }
+
+  tempoExtrapolado(): string{
+    return this.seconds > 30 ? 'red' : '$primary-color';
+  }
 }

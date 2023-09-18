@@ -12,7 +12,7 @@
 
 <div *ngIf="isLocutor">
     <div class="container-cronometro-locutor">
-        <div class="display-cronometro" >
+        <div class="display-cronometro" [style.color]="tempoExtrapolado()" >
             <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
         </div>
     </div>

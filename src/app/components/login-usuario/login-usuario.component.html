@@ -1,0 +1,22 @@
+<div class="container">
+    <div>
+        Registrar Usuário
+    </div>
+    <form [formGroup]="usuarioGroup" (ngSubmit)="submit()">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" formControlName="nome" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="text" formControlName="senha" class="form-control">
+        </div>
+        <button class="btn" type="submit">
+            Cadastrar
+        </button>
+    </form>
+</div>

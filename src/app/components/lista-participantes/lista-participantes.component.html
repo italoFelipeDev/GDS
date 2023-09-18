@@ -3,12 +3,12 @@
       Ordem de fala
    </div>
    <div *ngFor="let participante of listaParcipantes">
-      <app-participante *ngIf="participante.reportFeito == false" class="participante" [usuario]="participante" ></app-participante>
+      <app-participante *ngIf="participante.reportFeito == false && participante != this.listaParcipantes[0]" class="participante" [usuario]="participante" ></app-participante>
    </div>
    <div class="titulo">
       Report Concluido
    </div>
-   <div *ngFor="let participante of listaParcipantes">
-      <app-participante *ngIf="participante.reportFeito == true" class="participante" [usuario]="participante" ></app-participante>
+   <div *ngFor="let participante of listaReportConcluido">
+      <app-participante class="participante" [usuario]="participante" ></app-participante>
    </div>
 </div>

@@ -2,12 +2,13 @@
 
     <div class="container-pariticipantes">
         <div>
-            <app-participante-locutor>
+            <app-participante-locutor [usuario]="this.listaParcipantes[0]">
                 
             </app-participante-locutor>
-            <button class="botao" (click)="iniciarCronometro()">
-                Finalizar report
-            </button>
+        
+            <button class="botao" (click)="prosseguirDaily()">
+                {{isDailyIniciada() ? 'Finalizar report' : 'Iniciar daily'}}
+             </button>
         </div>
         
       

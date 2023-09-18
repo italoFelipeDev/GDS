@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Usuario } from 'src/model/usuario.class';
 
 @Component({
@@ -12,7 +12,9 @@ export class ListaParticipantesComponent  implements OnInit{
 
   mostrar: boolean;
   
-  constructor() { }
+  listaReportConcluido: Array<Usuario> = new Array<Usuario>();
+
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.mostrar = true;
@@ -23,5 +25,23 @@ export class ListaParticipantesComponent  implements OnInit{
     })
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.listaParcipantes = this.listaParcipantes;
+  }
+
+  updateListaParticipante(){
+    if(this.listaParcipantes.length != 0){
+      this.addListaReportConcluido(this.listaParcipantes[0]);
+      this.listaParcipantes.shift();
+      this.cd.detectChanges();
+    }
+   
+  }
+  addListaReportConcluido(usuario: Usuario){
+    this.listaReportConcluido.push(usuario);
+    this.cd.detectChanges();
+  }
+
+  
 
 }

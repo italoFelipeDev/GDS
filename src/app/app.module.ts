@@ -9,6 +9,8 @@ import { ParticipanteComponent } from './components/participante/participante.co
 import { ListaParticipantesComponent } from './components/lista-participantes/lista-participantes.component';
 import { ParticipanteLocutorComponent } from './components/participante-locutor/participante-locutor.component';
 import { DailyDisplayComponent } from './components/daily-display/daily-display.component';
+import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,10 +21,13 @@ import { DailyDisplayComponent } from './components/daily-display/daily-display.
     ListaParticipantesComponent,
     ParticipanteLocutorComponent,
     DailyDisplayComponent,
+    LoginUsuarioComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
