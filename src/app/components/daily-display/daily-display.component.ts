@@ -4,6 +4,7 @@ import { ParticipanteLocutorComponent } from '../participante-locutor/participan
 import { Usuario } from 'src/model/usuario.class';
 import { Impedimento } from 'src/model/impedimento.class';
 import { ListaParticipantesComponent } from '../lista-participantes/lista-participantes.component';
+import { UsuarioService} from 'src/app/service/usuario-service.service';
 
 @Component({
   selector: 'app-daily-display',
@@ -25,28 +26,30 @@ export class DailyDisplayComponent implements OnInit{
   dailyIniciada: boolean = false;
   
   ngOnInit(): void {
-
-    this.participanteOrador = this.listaParcipantes[0];
+    this.loadDailyDisplay();
+    
     
   }
 
-  constructor(private cd: ChangeDetectorRef) { 
-    var participantes = new Array<Usuario>();
-    
-    participantes.push(new Usuario("José Silva","../../assets/Pessoa3.jpg",'',''));
-    participantes.push(new Usuario("João Virgulino", "../../assets/Pessoa.jpg",'',''));
-    participantes.push(new Usuario("Carlos Albuquerque", "../../assets/Pessoa2.webp",'',''));
-    
-    this.listaParcipantes = participantes;
-    var impedimentos = new Array<Impedimento>();
-    impedimentos.push(new Impedimento("Probelma de infra", "Não cosnigo realizar deploy."));
-    var impedimento = new Impedimento("Sem documentação", "Documentação da funcionalidade não dipsonível.");
-    impedimento.solucionado = true;
-    impedimentos.push(impedimento);
+  constructor(private cd: ChangeDetectorRef, private usuarioService: UsuarioService) { 
+
+  }
+
+  loadDailyDisplay(){
+    this.usuarioService.getUsuarios().subscribe(response =>{ 
+      this.listaParcipantes = <Array<Usuario>>response;
+      
+      var impedimentos = new Array<Impedimento>();
+      impedimentos.push(new Impedimento("Probelma de infra", "Não cosnigo realizar deploy."));
+      var impedimento = new Impedimento("Sem documentação", "Documentação da funcionalidade não dipsonível.");
+      impedimento.solucionado = true;
+      impedimentos.push(impedimento);
   
-    participantes.forEach((participante) =>{
+      this.listaParcipantes.forEach((participante) =>{
       participante.impedimentos = impedimentos;
+      })
     })
+    
   }
 
   iniciarDaily():void{

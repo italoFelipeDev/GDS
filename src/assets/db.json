@@ -1,0 +1,24 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "José Silva",
+      "email": "",
+      "senha": "",
+      "icone": "../../assets/Pessoa3.jpg",
+      "ordem": null,
+      "scrumMaster": false,
+      "reportFeito": false,
+      "realizandoReport": false
+    },
+    {
+      "reportFeito": false,
+      "realizandoReport": false,
+      "nome": "Manuel",
+      "icone": "../../assets/Pessoa3.jpg",
+      "email": "italofelipegaldino36@gmail.com",
+      "senha": "asdadas",
+      "id": 2
+    }
+  ]
+}

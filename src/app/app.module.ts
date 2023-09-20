@@ -11,7 +11,7 @@ import { ParticipanteLocutorComponent } from './components/participante-locutor/
 import { DailyDisplayComponent } from './components/daily-display/daily-display.component';
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {HttpClientModule} from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,12 +22,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ParticipanteLocutorComponent,
     DailyDisplayComponent,
     LoginUsuarioComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

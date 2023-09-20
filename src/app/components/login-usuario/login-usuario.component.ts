@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Usuario } from 'src/model/usuario.class';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginUsuarioComponent implements OnInit {
 
   scrumMaster: boolean;
  
-  constructor(formBuilder:FormBuilder){
+  constructor(formBuilder:FormBuilder, private usuarioService:UsuarioService){
     this.usuarioGroup = formBuilder.group({
       nome: ['',[Validators.required]],
       email: ['',[Validators.required,Validators.email]],
@@ -26,7 +27,8 @@ export class LoginUsuarioComponent implements OnInit {
   submit(){
 
    var usuario: Usuario = new Usuario(this.usuarioGroup.get('nome')?.value,'',this.usuarioGroup.get('email')?.value,this.usuarioGroup.get('senha')?.value);
+   usuario.icone = "../../assets/Pessoa3.jpg";
+   this.usuarioService.postUsuario(usuario).subscribe(response =>{});
 
-   console.log(usuario);
   }
 }
