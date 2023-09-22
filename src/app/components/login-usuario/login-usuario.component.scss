@@ -2,3 +2,21 @@ $primary-color: #EDE7E3;
 $azul: #489FB5;
 $azul-secundario: #16697A;
 $azul-claro: #82C0CC;
+
+*{
+    color: $primary-color;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-checkbox{
+    display: flex;
+    gap: 3px;
+}
+
+.label-checkbox{
+    color: black;
+}

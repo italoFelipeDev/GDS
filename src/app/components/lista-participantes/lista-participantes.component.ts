@@ -6,7 +6,7 @@ import { Usuario } from 'src/model/usuario.class';
   templateUrl: './lista-participantes.component.html',
   styleUrls: ['./lista-participantes.component.scss']
 })
-export class ListaParticipantesComponent  implements OnInit{
+export class ListaParticipantesComponent implements OnInit{
 
   @Input() listaParcipantes: Array<Usuario>;
 

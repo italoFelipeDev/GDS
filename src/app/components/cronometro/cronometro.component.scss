@@ -4,34 +4,17 @@ $azul-secundario: #16697A;
 $azul-claro: #82C0CC;
 
 .container{
-    display: flex;
-    flex-direction: column;
-    width: 15vw;
     border-radius: 7px;
     background-color: $azul;
-    max-width: 180px;
-    padding: 5px;
-    
 }
 .display-cronometro{
-    display: flex;
-    justify-content: center;
     font-size: 40px;
     color: $primary-color;
-    flex-direction: row;
-    flex-wrap: wrap;
     gap: 4px;
 }
 
-.digito{
-    display: flex;
-    align-items: center;
-}
 
 .container-cronometro-locutor{
-    display: flex;
-    flex-direction: column;
-    width: auto;
     background-color: $azul-secundario;
     padding: 5px;
     

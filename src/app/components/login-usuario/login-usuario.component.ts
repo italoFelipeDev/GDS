@@ -12,13 +12,16 @@ export class LoginUsuarioComponent implements OnInit {
 
   usuarioGroup: FormGroup;
 
-  scrumMaster: boolean;
+  scrumMaster: boolean = true;
+
+  imagem: string;
  
   constructor(formBuilder:FormBuilder, private usuarioService:UsuarioService){
     this.usuarioGroup = formBuilder.group({
       nome: ['',[Validators.required]],
       email: ['',[Validators.required,Validators.email]],
-      senha: ['',[Validators.required]]
+      senha: ['',[Validators.required]],
+      icone: ['']
     })
   }
   ngOnInit() {
@@ -27,8 +30,28 @@ export class LoginUsuarioComponent implements OnInit {
   submit(){
 
    var usuario: Usuario = new Usuario(this.usuarioGroup.get('nome')?.value,'',this.usuarioGroup.get('email')?.value,this.usuarioGroup.get('senha')?.value);
-   usuario.icone = "../../assets/Pessoa3.jpg";
-   this.usuarioService.postUsuario(usuario).subscribe(response =>{});
+   usuario.icone = this.imagem;
 
+   this.usuarioService.postUsuario(usuario).subscribe(response =>{});
+  }
+
+  handleFileInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    const files = target.files as FileList;
+
+    const file = files[0];
+
+    this.saveFile(file);
+  }
+
+  saveFile(file: File){
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      console.log(reader.result);
+
+      this.imagem = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 }

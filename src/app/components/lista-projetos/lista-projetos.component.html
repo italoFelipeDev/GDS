@@ -1,0 +1,7 @@
+<h3 class="label-container">Meus projetos:</h3>
+
+<div class="container d-flex flex-row gap-4">
+    <div *ngFor="let projeto of listaProjetos">
+        <app-projeto [projeto]="projeto"></app-projeto>
+    </div>
+</div>

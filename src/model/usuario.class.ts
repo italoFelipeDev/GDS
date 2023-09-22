@@ -5,7 +5,7 @@ export class Usuario{
     nome: string;
     email: string;
     senha: string;
-    icone: string;
+    icone: any;
     ordem: number;
     scrumMaster: boolean;
     impedimentos: Array<Impedimento>

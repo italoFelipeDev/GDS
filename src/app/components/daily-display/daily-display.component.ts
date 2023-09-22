@@ -17,7 +17,7 @@ export class DailyDisplayComponent implements OnInit{
 
   @ViewChild(ParticipanteLocutorComponent) participanteLocutor: ParticipanteLocutorComponent;
 
-  @ViewChild(ListaParticipantesComponent) ListaParticipantesComponent: ListaParticipantesComponent;
+  @ViewChild(ListaParticipantesComponent) listaParticipantesComponent: ListaParticipantesComponent;
 
   listaParcipantes: Array<Usuario>;
 
@@ -60,7 +60,7 @@ export class DailyDisplayComponent implements OnInit{
   }
 
   finalizarReport():void{
-      this.ListaParticipantesComponent.updateListaParticipante();
+      this.listaParticipantesComponent.updateListaParticipante();
       this.participanteLocutor.reiniciarCronometro();
       this.cd.detectChanges()
   }

@@ -11,7 +11,13 @@ import { ParticipanteLocutorComponent } from './components/participante-locutor/
 import { DailyDisplayComponent } from './components/daily-display/daily-display.component';
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CadastroProjetoComponent } from './components/cadastro-projeto/cadastro-projeto.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HomeComponent } from './components/home/home.component';
+import { ProjetoComponent } from './components/projeto/projeto.component';
+import { ListaProjetosComponent } from './components/lista-projetos/lista-projetos.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +28,11 @@ import {HttpClientModule} from '@angular/common/http'
     ParticipanteLocutorComponent,
     DailyDisplayComponent,
     LoginUsuarioComponent,
+    CadastroProjetoComponent,
+    NavbarComponent,
+    HomeComponent,
+    ProjetoComponent,
+    ListaProjetosComponent,
     
   ],
   imports: [
@@ -29,7 +40,8 @@ import {HttpClientModule} from '@angular/common/http'
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
