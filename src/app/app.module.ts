@@ -17,7 +17,8 @@ import { CadastroProjetoComponent } from './components/cadastro-projeto/cadastro
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProjetoComponent } from './components/projeto/projeto.component';
-import { ListaProjetosComponent } from './components/lista-projetos/lista-projetos.component'
+import { ListaProjetosComponent } from './components/lista-projetos/lista-projetos.component';
+import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,7 @@ import { ListaProjetosComponent } from './components/lista-projetos/lista-projet
     HomeComponent,
     ProjetoComponent,
     ListaProjetosComponent,
+    ProjetoViewComponent,
     
   ],
   imports: [

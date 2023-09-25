@@ -1,1 +1,25 @@
-<p>cadastro-projeto works!</p>
+<form [formGroup]="projetoGroup" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="nome">Nome do Projeto</label>
+      <input type="text" class="form-control" id="nome" placeholder="Digite o nome do seu projeto" formControlName="nome">
+    </div>
+    <div class="form-group">
+      <label for="descricao">Descrição do Projeto</label>
+      <textarea class="form-control" id="descricao" rows="3" formControlName="descricao"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="tempoMedioDeDaily">Tempo Médio da Reunião</label>
+        <input type="number" class="form-control" id="tempoMedioDeDaily" placeholder="Digite o tempo medio de sua reunião em minutos." formControlName="tempoMedioDeDaily">
+        <small id="tempoMedioDeDailyHelp" class="form-text text-muted">É recomendado que sua reunião tenha em média 15 minutos, sendo ajustado pelo o tamanho de sua equipe.</small>
+    </div>
+    <div class="form-group">
+        <label for="tempoMedioDeFala">Tempo Médio de Fala</label>
+        <input type="number" class="form-control" id="tempoMedioDeDaily" placeholder="Digite o tempo medio de fala de seus participantes em minutos." formControlName="tempoMedioDeFala">
+        <small id="tempoMedioDeFalaHelp" class="form-text text-muted">É recomendado que sua cada participante tenha 2 minutos para realizar seu report, sendo ajustado pelo o tamanho de sua equipe.</small>
+    </div>
+    <div class="form-group">
+        <label for="icone">Icone de seu projeto</label>
+        <input type="file" class="form-control-file" id="icone" formControlName="icone" (change)="handleFileInput($event)">
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+  </form>

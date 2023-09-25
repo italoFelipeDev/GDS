@@ -29,7 +29,10 @@ export class LoginUsuarioComponent implements OnInit {
 
   submit(){
 
-   var usuario: Usuario = new Usuario(this.usuarioGroup.get('nome')?.value,'',this.usuarioGroup.get('email')?.value,this.usuarioGroup.get('senha')?.value);
+   var usuario: Usuario = new Usuario();
+   usuario.nome = this.usuarioGroup.get('nome')?.value;
+   usuario.email = this.usuarioGroup.get('email')?.value;
+   usuario.senha = this.usuarioGroup.get('senha')?.value;
    usuario.icone = this.imagem;
 
    this.usuarioService.postUsuario(usuario).subscribe(response =>{});

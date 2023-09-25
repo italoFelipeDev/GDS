@@ -27,8 +27,6 @@ export class DailyDisplayComponent implements OnInit{
   
   ngOnInit(): void {
     this.loadDailyDisplay();
-    
-    
   }
 
   constructor(private cd: ChangeDetectorRef, private usuarioService: UsuarioService) { 

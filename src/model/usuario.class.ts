@@ -11,12 +11,17 @@ export class Usuario{
     impedimentos: Array<Impedimento>
     reportFeito: boolean = false;
     realizandoReport: boolean = false;
+    listaProjetosId: Array<string>;
 
-    constructor(nome: string, icone: string, email: string, senha: string) {
-        this.nome = nome;
-        this.icone = icone;
-        this.email = email;
-        this. senha = senha;
+    //constructor(nome: string, icone: string, email: string, senha: string) {
+        //this.nome = nome;
+       // this.icone = icone;
+        //this.email = email;
+        //this. senha = senha;
+     //}
+
+     constructor(){
+
      }
 
      addImpedimento(impedimento: Impedimento) : Array<Impedimento>{
