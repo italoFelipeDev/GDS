@@ -12,8 +12,8 @@ export class UsuarioService{
 
   constructor(private httpClient: HttpClient) { }
 
-  getUsuarios(){
-    return this.httpClient.get(this.baseUrl);
+  getUsuarios(): Observable<Array<Usuario>>{
+    return this.httpClient.get<Array<Usuario>>(this.baseUrl);
   }
 
   getUsuario(id: string): Observable<Usuario>{
@@ -24,7 +24,7 @@ export class UsuarioService{
     return this.httpClient.post<Usuario>(this.baseUrl,usuario);
   }
 
-  putUsuario(usuario:Usuario): Observable<void>{
-    return this.httpClient.put<void>(`${this.baseUrl}/${usuario.id}`,usuario);
+  putUsuario(usuario:Usuario): Observable<Usuario>{
+    return this.httpClient.put<Usuario>(`${this.baseUrl}/${usuario.id}`,usuario);
   }
 }

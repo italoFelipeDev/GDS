@@ -1,1 +1,25 @@
-<p>projeto-view works!</p>
+<div class="container d-inline-flex flex-column">
+
+    <div>
+        <div class="media mb-5">
+            <img class="mr-3 rounded-circle" src={{projeto.icone}} alt="Generic placeholder image"  style="width: 200px; height: 200px;">
+            <div class="media-body">
+              <h5 class="mt-0">{{projeto.nome}}</h5>
+              {{projeto.descricao}}
+            </div>
+        </div>
+        
+    </div>
+    
+    <ul class="list-group list-group-flush mb-5">
+        <li *ngFor="let participanteL of listaParticipantes">{{participanteL.nome}}</li>
+    </ul>
+    <form [formGroup]="addParticipanteGroup" (ngSubmit)="submit()">
+        <div class="form-group">
+            <label for="email">Adicionar participante</label>
+            <input type="text" class="form-control" id="tempoMedioDeDaily" placeholder="Digite o email do participante." formControlName="email">
+            <small id="emailHelp" class="form-text text-muted">Digite o email do participante.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      </form>
+</div>

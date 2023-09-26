@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   listaProjetos: Array<Projeto> = new Array<Projeto>;
   usuarioLogado: Usuario;
   idUsuario: string;
-  private readonly ROTA_CADASTRO = "/cadastro/projeto";
+  private readonly ROTA_CADASTRO = "cadastro/projeto";
 
 
   constructor(
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recuparIdUsuarioLogado();
+    this.recuperarIdUsuarioLogado();
     this.carregarUsuarioLogado();
   }
 
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  recuparIdUsuarioLogado() {
+  recuperarIdUsuarioLogado() {
     if (this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "") {
       this.idUsuario = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
     }
@@ -62,6 +62,6 @@ export class HomeComponent implements OnInit {
   }
 
   direcionarCadastroProjeto() {
-    this.router.navigate([`${this.ROTA_CADASTRO}/${this.idUsuario}`])
+    this.router.navigate([`${this.idUsuario}/${this.ROTA_CADASTRO}`])
   }
 }

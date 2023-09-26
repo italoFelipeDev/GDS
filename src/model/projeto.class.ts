@@ -9,7 +9,7 @@ export class Projeto{
     icone: string;
     impedimentos: Array<Impedimento>;
     logReunioes: any;
-    participantesId: Array<number>;
+    participantesId: Array<string> = new Array<string>;
     participantes: Array<Usuario>;
     tempoMedioDeDaily: number;
     tempoMedioDeFala: number;

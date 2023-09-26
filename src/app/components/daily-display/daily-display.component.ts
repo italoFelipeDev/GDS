@@ -35,7 +35,7 @@ export class DailyDisplayComponent implements OnInit{
 
   loadDailyDisplay(){
     this.usuarioService.getUsuarios().subscribe(response =>{ 
-      this.listaParcipantes = <Array<Usuario>>response;
+      this.listaParcipantes = response;
       
       var impedimentos = new Array<Impedimento>();
       impedimentos.push(new Impedimento("Probelma de infra", "Não cosnigo realizar deploy."));

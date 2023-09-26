@@ -4,12 +4,14 @@ import { DailyDisplayComponent } from './components/daily-display/daily-display.
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 import { HomeComponent } from './components/home/home.component';
 import { CadastroProjetoComponent } from './components/cadastro-projeto/cadastro-projeto.component';
+import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component';
 
 const routes: Routes = [
   {component:DailyDisplayComponent,path:'display'},
   {component:LoginUsuarioComponent, path:'login'},
   {component: HomeComponent,path:'home/:id'},
-  {component: CadastroProjetoComponent,path:'cadastro/projeto/:id'}
+  {component: CadastroProjetoComponent,path:':id/cadastro/projeto'},
+  {component: ProjetoViewComponent,path:'projeto/:id'}
 ];
 
 @NgModule({
