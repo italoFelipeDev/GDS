@@ -14,8 +14,12 @@ export class ListaProjetosComponent implements OnInit {
 
   
   ngOnInit(): void {
+    this.organizarListaProjetos();
+  }
+
+
+  private organizarListaProjetos() {
     this.listaProjetos.sort((a, b) => a.nome.localeCompare(b.nome));
     this.cd.detectChanges();
   }
-
 }

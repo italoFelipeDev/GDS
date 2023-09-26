@@ -11,59 +11,57 @@ import { UsuarioService } from 'src/app/service/usuario-service.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit{
-  
+export class HomeComponent implements OnInit {
+
   @ViewChild(ListaProjetosComponent) listaProjetosComponent: ListaProjetosComponent;
   listaProjetos: Array<Projeto> = new Array<Projeto>;
-  usuario: Usuario;
+  usuarioLogado: Usuario;
   idUsuario: string;
-  rotaCadastro = "/cadastro/projeto";
+  private readonly ROTA_CADASTRO = "/cadastro/projeto";
 
 
-  constructor(private projetoService: ProjetoService, 
+  constructor(
+    private projetoService: ProjetoService,
+    private usuarioService: UsuarioService,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private usuarioService: UsuarioService,
-    private router: Router){;
+    private router: Router) {
   }
 
   ngOnInit(): void {
-    this.recuparIdUsuario();
-    this.carregarUsuario();
-    console.log(this.usuario);
+    this.recuparIdUsuarioLogado();
+    this.carregarUsuarioLogado();
   }
 
-  loadHome(){
-    if(this.usuario.listaProjetosId){
-      this.usuario.listaProjetosId.forEach(projetoId =>{
-        this.projetoService.getProjeto(projetoId).subscribe((response) =>{
+  carregarPaginaHome() {
+    if (this.usuarioLogado.listaProjetosId) {
+      this.usuarioLogado.listaProjetosId.forEach(projetoId => {
+        this.projetoService.getProjeto(projetoId).subscribe((response) => {
           this.listaProjetos.push(response);
         });
       })
-      this.listaProjetos.sort((a, b) => a.nome.localeCompare(b.nome));
-      this.cd.detectChanges();
-    }
-  }
-  
-  recuparIdUsuario(){
-    if( this.route.snapshot.paramMap.get('id') ? <string> this.route.snapshot.paramMap.get('id') : ""){
-      this.idUsuario = this.route.snapshot.paramMap.get('id') ? <string> this.route.snapshot.paramMap.get('id') : "";
     }
   }
 
-  setUsuario(usuario: Usuario){
-    this.usuario = usuario
+  private organizarListaProjetos() {
+    this.listaProjetos.sort((a, b) => a.nome.localeCompare(b.nome));
+    this.cd.detectChanges();
   }
 
-  carregarUsuario(){
-    this.usuarioService.getUsuario(this.idUsuario).subscribe((response) =>{
-        
-      this.usuario =  response;
-      this.loadHome();
+  recuparIdUsuarioLogado() {
+    if (this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "") {
+      this.idUsuario = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
+    }
+  }
+
+  carregarUsuarioLogado() {
+    this.usuarioService.getUsuario(this.idUsuario).subscribe((response) => {
+      this.usuarioLogado = response;
+      this.carregarPaginaHome();
     })
   }
 
-  direcionarCadastroProjeto(){
-    this.router.navigate([`${this.rotaCadastro}/${this.idUsuario}`])
+  direcionarCadastroProjeto() {
+    this.router.navigate([`${this.ROTA_CADASTRO}/${this.idUsuario}`])
   }
 }

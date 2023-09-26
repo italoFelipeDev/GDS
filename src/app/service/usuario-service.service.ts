@@ -20,8 +20,8 @@ export class UsuarioService{
     return this.httpClient.get<Usuario>(`${this.baseUrl}/${id}`);
   }
 
-  postUsuario(usuario:Usuario){
-    return this.httpClient.post(this.baseUrl,usuario);
+  postUsuario(usuario:Usuario) : Observable<Usuario>{
+    return this.httpClient.post<Usuario>(this.baseUrl,usuario);
   }
 
   putUsuario(usuario:Usuario): Observable<void>{

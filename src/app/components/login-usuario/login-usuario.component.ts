@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Usuario } from 'src/model/usuario.class';
 
@@ -11,31 +12,39 @@ import { Usuario } from 'src/model/usuario.class';
 export class LoginUsuarioComponent implements OnInit {
 
   usuarioGroup: FormGroup;
-
-  scrumMaster: boolean = true;
-
   imagem: string;
- 
-  constructor(formBuilder:FormBuilder, private usuarioService:UsuarioService){
+  private readonly ROTA_HOME = "/home";
+
+  constructor(
+    formBuilder: FormBuilder, 
+    private usuarioService: UsuarioService,
+    private router: Router
+    ) {
     this.usuarioGroup = formBuilder.group({
-      nome: ['',[Validators.required]],
-      email: ['',[Validators.required,Validators.email]],
-      senha: ['',[Validators.required]],
+      nome: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required]],
       icone: ['']
     })
   }
   ngOnInit() {
   }
 
-  submit(){
+  submit() {
 
-   var usuario: Usuario = new Usuario();
-   usuario.nome = this.usuarioGroup.get('nome')?.value;
-   usuario.email = this.usuarioGroup.get('email')?.value;
-   usuario.senha = this.usuarioGroup.get('senha')?.value;
-   usuario.icone = this.imagem;
+    var usuario: Usuario = this.mapearFormUsuario();
+    this.usuarioService.postUsuario(usuario).subscribe(response => {
+      this.direcionarHome(response.id.toString())
+     });
+  }
 
-   this.usuarioService.postUsuario(usuario).subscribe(response =>{});
+  private mapearFormUsuario() {
+    var usuario: Usuario = new Usuario();
+    usuario.nome = this.usuarioGroup.get('nome')?.value;
+    usuario.email = this.usuarioGroup.get('email')?.value;
+    usuario.senha = this.usuarioGroup.get('senha')?.value;
+    usuario.icone = this.imagem;
+    return usuario;
   }
 
   handleFileInput(event: Event) {
@@ -48,13 +57,15 @@ export class LoginUsuarioComponent implements OnInit {
     this.saveFile(file);
   }
 
-  saveFile(file: File){
+  saveFile(file: File) {
     const reader = new FileReader();
     reader.onloadend = () => {
-      console.log(reader.result);
-
       this.imagem = reader.result as string;
     };
     reader.readAsDataURL(file);
+  }
+
+  direcionarHome(idUsuario: string) {
+    this.router.navigate([`${this.ROTA_HOME}/${idUsuario}`])
   }
 }

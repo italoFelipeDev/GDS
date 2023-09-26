@@ -1,16 +1,16 @@
-<div class="container">
+<div class="container bg-primary">
         <img clas="imagem" src={{usuario.icone}} alt="">
-        <div class="nome">{{usuario.nome}}</div>
+        <div class="nome bg-primary">{{usuario.nome}}</div>
         <app-cronometro [isLocutor]="true"></app-cronometro>
 
-        <div class="container-impedimento">
+        <div class="container-impedimento bg-primary">
                 <div class="titulo">
                         Impedimentos atuais
                 </div>
                 
                 <ng-container *ngFor="let impedimento of usuario.impedimentos">
                         
-                        <div class="impedimento" *ngIf="impedimento.solucionado">
+                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado">
                                 <div>
                                         {{impedimento.titulo}}:
                                 </div>
@@ -28,7 +28,7 @@
 
                 <ng-container *ngFor="let impedimento of usuario.impedimentos">
                         
-                        <div class="impedimento" *ngIf="impedimento.solucionado == false">
+                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado == false">
                                 <div>
                                         {{impedimento.titulo}}:
                                 </div>

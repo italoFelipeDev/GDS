@@ -1,11 +1,11 @@
-<div class="container" >
-   <div class="titulo">
+<div class="container bg-primary" >
+   <div class="titulo bg-primary">
       Ordem de fala
    </div>
    <div *ngFor="let participante of listaParcipantes">
       <app-participante *ngIf="participante.reportFeito == false && participante != this.listaParcipantes[0]" class="participante" [usuario]="participante" ></app-participante>
    </div>
-   <div class="titulo">
+   <div class="titulo bg-primary">
       Report Concluido
    </div>
    <div *ngFor="let participante of listaReportConcluido">
