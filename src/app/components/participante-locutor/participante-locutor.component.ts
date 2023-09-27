@@ -12,6 +12,8 @@ export class ParticipanteLocutorComponent implements OnInit{
 
   @Input() usuario: Usuario;
 
+  @Input() tempoExtrapoladoLocutor: number;
+
   @ViewChild(CronometroComponent) cronometro: CronometroComponent;
 
   constructor(private cd: ChangeDetectorRef) { }

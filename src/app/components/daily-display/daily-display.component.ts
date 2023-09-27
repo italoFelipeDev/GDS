@@ -34,6 +34,16 @@ export class DailyDisplayComponent implements OnInit{
   dailyIniciada: boolean = false;
 
   idProjeto: string;
+
+  inicioReport: number;
+
+  fimReport: number;
+
+  inicioDaily: number;
+
+  fimDaily: number;
+
+  dailyFinalizada: boolean = false;
   
   ngOnInit(): void {
     this.iniciarComponente();
@@ -83,12 +93,24 @@ export class DailyDisplayComponent implements OnInit{
     this.dailyIniciada = true;
     this.cronometro.startTimer();
     this.participanteLocutorComponent.iniciarCronometro();
+
+    this.inicioDaily = new Date().getTime();
+
+    this.inicioReport = new Date().getTime();
+
     this.cd.detectChanges();
   }
 
   finalizarReport():void{
       this.listaParticipantesComponent.updateListaParticipante();
       this.participanteLocutorComponent.reiniciarCronometro();
+
+      this.fimReport = new Date().getTime() - this.inicioReport;
+      this.inicioReport = new Date().getTime();
+
+     if(this.listaParticipantesComponent.isfinalizarDaily()){
+      this.dailyFinalizada = true;
+     }
       this.cd.detectChanges()
   }
 
@@ -98,7 +120,6 @@ export class DailyDisplayComponent implements OnInit{
     }
     if(!this.dailyIniciada){
       this.iniciarDaily();
-
     }
   }
 
@@ -114,5 +135,10 @@ export class DailyDisplayComponent implements OnInit{
 
   recuperarParticipanteLocutor(){
     this.participanteLocutor = this.listaParcipantes[0];
+  }
+
+  finalizarDaily(){
+    this.fimDaily = new Date().getTime() - this.inicioDaily;
+    this.dailyLog.tempoDecorrido = this.fimDaily/1000;
   }
 }

@@ -21,6 +21,9 @@ export class CronometroComponent implements OnInit {
 
   @Input() isLocutor: boolean = false;
 
+  @Input() tempoExtrapoladoDaily: number;
+
+  @Input() tempoExtrapoladoLocutor: number;
   constructor() { }
 
   ngOnInit(): void {
@@ -30,7 +33,6 @@ export class CronometroComponent implements OnInit {
     return number < 10 ? `0${number}` : number.toString();
   }
   updateTimer() {
-    console.log(this.seconds)
     this.seconds++;
     if (this.seconds >= 60) {
       this.seconds = 0;
@@ -71,7 +73,11 @@ export class CronometroComponent implements OnInit {
     this.hoursDisplay = "00";
   }
 
-  tempoExtrapolado(): string{
-    return this.seconds > 30 ? 'red' : '$primary-color';
+  istempoExtrapoladoLocutor(): string{
+    return this.minutes> this.tempoExtrapoladoLocutor ? 'red' : '$primary-color';
+  }
+
+  istempoExtrapoladoDaily(): string{
+    return this.minutes> this.tempoExtrapoladoDaily ? 'red' : '$primary-color';
   }
 }

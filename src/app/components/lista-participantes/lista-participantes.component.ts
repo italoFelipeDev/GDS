@@ -41,4 +41,8 @@ export class ListaParticipantesComponent implements OnInit{
     this.listaReportConcluido.push(usuario);
     this.cd.detectChanges();
   }
+
+  isfinalizarDaily(): boolean{
+   return this.listaParcipantes.length == 1; 
+  }
 }

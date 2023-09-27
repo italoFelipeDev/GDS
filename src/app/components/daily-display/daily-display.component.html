@@ -4,16 +4,25 @@
     </div>
     <div class="container-pariticipantes">
         <div>
-            <app-participante-locutor [usuario]="this.listaParcipantes[0]">
+            <app-participante-locutor [usuario]="this.listaParcipantes[0]" [tempoExtrapoladoLocutor]="this.projeto.tempoMedioDeFala">
                 
             </app-participante-locutor>
-        
-            <button class="botao bg-primary" (click)="prosseguirDaily()">
-                {{isDailyIniciada() ? 'Finalizar report' : 'Iniciar daily'}}
-             </button>
+
+            <div *ngIf="this.dailyFinalizada"> 
+                <button class="botao bg-primary" (click)="finalizarDaily()">
+                    Finalizar Daily
+                 </button>
+            </div>
+
+            <div *ngIf="!this.dailyFinalizada">
+                <button class="botao bg-primary" (click)="prosseguirDaily()">
+                    {{isDailyIniciada() ? 'Finalizar report' : 'Iniciar daily'}}
+                 </button>
+            </div>
+            
         </div>  
         <div class="lista">
-            <app-cronometro class="cronometro container"></app-cronometro>
+            <app-cronometro class="cronometro container" [tempoExtrapoladoDaily]="this.projeto.tempoMedioDeDaily"></app-cronometro>
             <app-lista-participantes [listaParcipantes]="listaParcipantes"></app-lista-participantes>
         </div>
         

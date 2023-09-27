@@ -1,23 +1,17 @@
 <div *ngIf="isLocutor == false">
     <div class="container d-inline-block justify-content-center w-50">
-        <div class="display-cronometro d-flex justify-content-center align-items-center" >
+        <div class="display-cronometro d-flex justify-content-center align-items-center" [style.color]="istempoExtrapoladoLocutor()" >
             <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
         </div>
     </div>
-    <!-- <button type="button" (click)="startTimer()">Start</button>
-    <button type="button" (click)="stopTimer()">Stop</button>
-    <button type="button" (click)="resetTimer()">Reset</button> -->
 </div>
 
 
 <div *ngIf="isLocutor">
     <div class="container-cronometro-locutor">
-        <div class="display-cronometro d-flex justify-content-center align-items-center" [style.color]="tempoExtrapolado()" >
+        <div class="display-cronometro d-flex justify-content-center align-items-center" [style.color]="istempoExtrapoladoLocutor()" >
             <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
         </div>
     </div>
-    <!-- <button type="button" (click)="startTimer()">Start</button>
-    <button type="button" (click)="stopTimer()">Stop</button>
-    <button type="button" (click)="resetTimer()">Reset</button> -->
 </div>
 

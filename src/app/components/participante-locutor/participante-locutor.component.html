@@ -1,7 +1,7 @@
 <div class="container bg-primary">
         <img clas="imagem" src={{usuario.icone}} alt="">
         <div class="nome bg-primary">{{usuario.nome}}</div>
-        <app-cronometro [isLocutor]="true"></app-cronometro>
+        <app-cronometro [isLocutor]="true" [tempoExtrapoladoLocutor]="this.tempoExtrapoladoLocutor"></app-cronometro>
 
         <div class="container-impedimento bg-primary">
                 <div class="titulo">
