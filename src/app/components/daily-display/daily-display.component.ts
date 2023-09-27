@@ -1,10 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CronometroComponent } from '../cronometro/cronometro.component';
 import { ParticipanteLocutorComponent } from '../participante-locutor/participante-locutor.component';
 import { Usuario } from 'src/model/usuario.class';
 import { Impedimento } from 'src/model/impedimento.class';
 import { ListaParticipantesComponent } from '../lista-participantes/lista-participantes.component';
 import { UsuarioService} from 'src/app/service/usuario-service.service';
+import { DailyLog } from 'src/model/dailyLog.class';
+import { ProjetoService } from 'src/app/service/projeto.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Projeto } from 'src/model/projeto.class';
 
 @Component({
   selector: 'app-daily-display',
@@ -15,51 +19,76 @@ export class DailyDisplayComponent implements OnInit{
 
   @ViewChild(CronometroComponent) cronometro: CronometroComponent;
 
-  @ViewChild(ParticipanteLocutorComponent) participanteLocutor: ParticipanteLocutorComponent;
+  @ViewChild(ParticipanteLocutorComponent) participanteLocutorComponent: ParticipanteLocutorComponent;
 
   @ViewChild(ListaParticipantesComponent) listaParticipantesComponent: ListaParticipantesComponent;
 
-  listaParcipantes: Array<Usuario>;
+  dailyLog: DailyLog;
 
-  participanteOrador: Usuario;
+  projeto: Projeto;
+
+  listaParcipantes: Array<Usuario> = new Array<Usuario>;
+
+  participanteLocutor: any;
   
   dailyIniciada: boolean = false;
+
+  idProjeto: string;
   
   ngOnInit(): void {
+    this.iniciarComponente();
     this.loadDailyDisplay();
   }
 
-  constructor(private cd: ChangeDetectorRef, private usuarioService: UsuarioService) { 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['usuario'].currentValue) {
+    }
+}
+
+  constructor(
+    private cd: ChangeDetectorRef, 
+    private usuarioService: UsuarioService,
+    private projetoService: ProjetoService,
+    private route: ActivatedRoute,
+    private router: Router) { 
 
   }
 
+  private iniciarComponente() {
+    this.recuperarIdProjeto();
+    this.dailyLog = new DailyLog();
+    this.dailyLog.data = new Date();
+  }
+
   loadDailyDisplay(){
-    this.usuarioService.getUsuarios().subscribe(response =>{ 
-      this.listaParcipantes = response;
-      
-      var impedimentos = new Array<Impedimento>();
-      impedimentos.push(new Impedimento("Probelma de infra", "Não cosnigo realizar deploy."));
-      var impedimento = new Impedimento("Sem documentação", "Documentação da funcionalidade não dipsonível.");
-      impedimento.solucionado = true;
-      impedimentos.push(impedimento);
-  
-      this.listaParcipantes.forEach((participante) =>{
-      participante.impedimentos = impedimentos;
+    this.projetoService.getProjeto(this.idProjeto).subscribe(response =>{
+      this.projeto = response;
+      this.projeto.participantesId.forEach(idParticipante =>{
+        this.usuarioService.getUsuario(idParticipante).subscribe(responseUser =>{
+          this.listaParcipantes.push(responseUser);
+          this.organizarListaParticipantes();
+        })
       })
     })
-    
+  }
+
+  private organizarListaParticipantes() {
+    this.listaParcipantes.sort((a, b) => a.nome.localeCompare(b.nome));
+    this.listaParcipantes.forEach((participante) => {
+      participante.ordem = this.listaParcipantes.indexOf(participante);
+    });
   }
 
   iniciarDaily():void{
     this.dailyIniciada = true;
     this.cronometro.startTimer();
-    this.participanteLocutor.iniciarCronometro();
+    this.participanteLocutorComponent.iniciarCronometro();
     this.cd.detectChanges();
   }
 
   finalizarReport():void{
       this.listaParticipantesComponent.updateListaParticipante();
-      this.participanteLocutor.reiniciarCronometro();
+      this.participanteLocutorComponent.reiniciarCronometro();
       this.cd.detectChanges()
   }
 
@@ -75,5 +104,15 @@ export class DailyDisplayComponent implements OnInit{
 
   isDailyIniciada(){
     return this.dailyIniciada;
+  }
+
+  recuperarIdProjeto() {
+    if (this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "") {
+      this.idProjeto = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
+    }
+  }
+
+  recuperarParticipanteLocutor(){
+    this.participanteLocutor = this.listaParcipantes[0];
   }
 }

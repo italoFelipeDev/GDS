@@ -17,16 +17,12 @@ export class ListaParticipantesComponent implements OnInit{
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.organizarListaParticipantes();
+    this.iniciarListaParticipantes();
   }
 
-  private organizarListaParticipantes() {
+  private iniciarListaParticipantes() {
     this.mostrar = true;
-
-    this.listaParcipantes.sort((a, b) => a.nome.localeCompare(b.nome));
-    this.listaParcipantes.forEach((participante) => {
-      participante.ordem = this.listaParcipantes.indexOf(participante) + 1;
-    });
+    this.cd.detectChanges();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -45,7 +41,4 @@ export class ListaParticipantesComponent implements OnInit{
     this.listaReportConcluido.push(usuario);
     this.cd.detectChanges();
   }
-
-  
-
 }

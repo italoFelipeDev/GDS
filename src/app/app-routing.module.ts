@@ -7,7 +7,7 @@ import { CadastroProjetoComponent } from './components/cadastro-projeto/cadastro
 import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component';
 
 const routes: Routes = [
-  {component:DailyDisplayComponent,path:'display'},
+  {component:DailyDisplayComponent,path:'display/:id'},
   {component:LoginUsuarioComponent, path:'login'},
   {component: HomeComponent,path:'home/:id'},
   {component: CadastroProjetoComponent,path:':id/cadastro/projeto'},
