@@ -110,11 +110,15 @@ export class CadastroProjetoComponent implements OnInit {
   }
 
   recuperarIdUsuarioLogado() {
-    this.idUsuarioLogado = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
+    if(window.localStorage.getItem("usuarioLogado")){
+      let usuarioLogado : string = window.localStorage.getItem("usuarioLogado") ? <string> window.localStorage.getItem("usuarioLogado") : ''
+      let usuarioObject: Usuario = JSON.parse(usuarioLogado);
+      this.idUsuarioLogado = usuarioObject.id.toString();
+    }
   }
 
   direcionarHome() {
-    this.router.navigate([`${this.ROTA_HOME}/${this.idUsuarioLogado}`])
+    this.router.navigate([`${this.ROTA_HOME}`])
   }
 
 }

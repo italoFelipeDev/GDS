@@ -1,12 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
-  <a class="navbar-brand ml-3" href="#">GDS</a>
+  <a class="navbar-brand ml-3">GDS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Perfil</a>
+      <a class="nav-item nav-link active" (click)="direcionarHome()">Home</a>
+      <a class="nav-item nav-link">Perfil</a>
+      <a class="nav-item nav-link" (click)="logOut()">Logout</a>
     </div>
   </div>
 </nav>

@@ -8,9 +8,9 @@ import { ProjetoViewComponent } from './components/projeto-view/projeto-view.com
 
 const routes: Routes = [
   {component:DailyDisplayComponent,path:'display/:id'},
-  {component:LoginUsuarioComponent, path:'login'},
-  {component: HomeComponent,path:'home/:id'},
-  {component: CadastroProjetoComponent,path:':id/cadastro/projeto'},
+  {component:LoginUsuarioComponent, path:'acesso/:modalidadeLogin'},
+  {component: HomeComponent, path:'home'},
+  {component: CadastroProjetoComponent,path:'cadastro/projeto'},
   {component: ProjetoViewComponent,path:'projeto/:id'}
 ];
 

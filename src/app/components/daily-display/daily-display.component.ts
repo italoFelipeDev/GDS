@@ -111,7 +111,7 @@ export class DailyDisplayComponent implements OnInit{
      if(this.listaParticipantesComponent.isfinalizarDaily()){
       this.dailyFinalizada = true;
      }
-      this.cd.detectChanges()
+      this.cd.detectChanges();
   }
 
   prosseguirDaily(){
@@ -128,7 +128,7 @@ export class DailyDisplayComponent implements OnInit{
   }
 
   recuperarIdProjeto() {
-    if (this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "") {
+    if (this.route.snapshot.paramMap.get('id')) {
       this.idProjeto = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
     }
   }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Usuario } from 'src/model/usuario.class';
 
@@ -14,11 +14,16 @@ export class LoginUsuarioComponent implements OnInit {
   usuarioGroup: FormGroup;
   imagem: string;
   private readonly ROTA_HOME = "/home";
+  private readonly ROTA_SINGIN = "/acesso/singin";
+  private readonly ROTA_LOGIN = "/acesso/login";
+  loginToggle: string;
 
   constructor(
+    private cd: ChangeDetectorRef,
     formBuilder: FormBuilder, 
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
     ) {
     this.usuarioGroup = formBuilder.group({
       nome: ['', [Validators.required]],
@@ -28,6 +33,10 @@ export class LoginUsuarioComponent implements OnInit {
     })
   }
   ngOnInit() {
+    this.route.paramMap.subscribe(param =>{
+      this.loginToggle = param.get('modalidadeLogin') ? <string>  param.get('modalidadeLogin') : ""
+    })
+    //this.recuperarPath();
   }
 
   submit() {
@@ -36,6 +45,19 @@ export class LoginUsuarioComponent implements OnInit {
     this.usuarioService.postUsuario(usuario).subscribe(response => {
       this.direcionarHome(response.id.toString())
      });
+  }
+
+  submitLogin() {
+    this.usuarioService.getUsuarios().subscribe(response =>{
+      response.forEach(usuario =>{
+        if(usuario.email == this.usuarioGroup.get('email')?.value){
+          if(usuario.senha == this.usuarioGroup.get('senha')?.value){
+            window.localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+            this.direcionarHome(usuario.id.toString())
+          }
+        }
+      })
+    })
   }
 
   private mapearFormUsuario() {
@@ -66,6 +88,23 @@ export class LoginUsuarioComponent implements OnInit {
   }
 
   direcionarHome(idUsuario: string) {
-    this.router.navigate([`${this.ROTA_HOME}/${idUsuario}`])
+    this.router.navigate([`${this.ROTA_HOME}`]);
+    this.cd.detectChanges();
+  }
+
+  direcionarSingIn() {
+    this.router.navigate([`${this.ROTA_SINGIN}`]);
+    this.cd.detectChanges();
+  }
+
+  direcionarLogin() {
+    this.router.navigate([`${this.ROTA_LOGIN}`]);
+    this.cd.detectChanges();
+  }
+
+  recuperarPath(){
+    this.loginToggle = this.route.snapshot.paramMap.get('modalidadeLogin') ? <string>  this.route.snapshot.paramMap.get('modalidadeLogin') : "";
+    this.recuperarPath();
+    this.cd.detectChanges();
   }
 }

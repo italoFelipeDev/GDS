@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(ListaProjetosComponent) listaProjetosComponent: ListaProjetosComponent;
   listaProjetos: Array<Projeto> = new Array<Projeto>;
   usuarioLogado: Usuario;
-  idUsuario: string;
-  private readonly ROTA_CADASTRO = "cadastro/projeto";
+  idUsuarioLogado: string;
+  private readonly ROTA_CADASTRO = "/cadastro/projeto";
 
 
   constructor(
@@ -49,19 +49,21 @@ export class HomeComponent implements OnInit {
   }
 
   recuperarIdUsuarioLogado() {
-    if (this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "") {
-      this.idUsuario = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
+    if(window.localStorage.getItem("usuarioLogado")){
+      let usuarioLogado : string = window.localStorage.getItem("usuarioLogado") ? <string> window.localStorage.getItem("usuarioLogado") : ''
+      let usuarioLogadoObject: Usuario = JSON.parse(usuarioLogado);
+      this.idUsuarioLogado = usuarioLogadoObject.id.toString();
     }
   }
 
   carregarUsuarioLogado() {
-    this.usuarioService.getUsuario(this.idUsuario).subscribe((response) => {
+    this.usuarioService.getUsuario(this.idUsuarioLogado).subscribe((response) => {
       this.usuarioLogado = response;
       this.carregarPaginaHome();
     })
   }
 
   direcionarCadastroProjeto() {
-    this.router.navigate([`${this.idUsuario}/${this.ROTA_CADASTRO}`])
+    this.router.navigate([`${this.ROTA_CADASTRO}`])
   }
 }
