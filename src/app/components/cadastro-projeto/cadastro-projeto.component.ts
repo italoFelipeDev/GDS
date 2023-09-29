@@ -21,15 +21,13 @@ export class CadastroProjetoComponent implements OnInit {
 
   idUsuarioLogado: string;
 
+  usuarioLogado: Usuario;
+
   private readonly TEMPO_MEDIO_DAILY = 15;
 
   private readonly TEMPO_MEDIO_FALA = 2;
 
   private readonly ROTA_HOME = "/home";
-
-  ngOnInit(): void {
-    this.recuperarIdUsuarioLogado()
-  }
 
   constructor(
     formBuilder: FormBuilder,
@@ -39,7 +37,7 @@ export class CadastroProjetoComponent implements OnInit {
     private usuarioService: UsuarioService
   ) {
 
-    
+
     this.projetoGroup = formBuilder.group(
       {
         nome: ['', [Validators.required]],
@@ -50,6 +48,10 @@ export class CadastroProjetoComponent implements OnInit {
 
       }
     )
+  }
+
+  ngOnInit(): void {
+    this.recuperarUsuarioLogado()
   }
 
   handleFileInput(event: Event) {
@@ -65,8 +67,6 @@ export class CadastroProjetoComponent implements OnInit {
   saveFile(file: File) {
     const reader = new FileReader();
     reader.onloadend = () => {
-      console.log(reader.result);
-
       this.imagem = reader.result as string;
     };
     reader.readAsDataURL(file);
@@ -91,34 +91,28 @@ export class CadastroProjetoComponent implements OnInit {
     projeto.tempoMedioDeDaily = this.projetoGroup.get('tempoMedioDeDaily')?.value;
     projeto.tempoMedioDeFala = this.projetoGroup.get('tempoMedioDeFala')?.value;
     projeto.icone = this.imagem;
-    projeto.idScrumMaster = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
+    projeto.idScrumMaster = this.usuarioLogado.id.toString();
+    projeto.participantesId.push(this.usuarioLogado.id.toString());
     return projeto;
   }
 
   atualizarUsuario(idProjeto: string) {
-    this.usuarioService.getUsuario(this.idUsuarioLogado).subscribe(response => {
-      var usuario: Usuario = new Usuario();
-      usuario = response;
-      usuario.listaProjetosId.push(idProjeto);
-      this.subscribeAtualizacaoUsuario(usuario);
-    })
-  }
-
-  subscribeAtualizacaoUsuario(usuario: Usuario) {
-    this.usuarioService.putUsuario(usuario).subscribe(response => {
+    this.usuarioLogado.listaProjetosId.push(idProjeto);
+    this.usuarioService.putUsuario(this.usuarioLogado).subscribe(response => {
+      window.localStorage.setItem("usuarioLogado", JSON.stringify(response));
+      this.recuperarUsuarioLogado();
+      location.reload();
     });
   }
 
-  recuperarIdUsuarioLogado() {
-    if(window.localStorage.getItem("usuarioLogado")){
-      let usuarioLogado : string = window.localStorage.getItem("usuarioLogado") ? <string> window.localStorage.getItem("usuarioLogado") : ''
-      let usuarioObject: Usuario = JSON.parse(usuarioLogado);
-      this.idUsuarioLogado = usuarioObject.id.toString();
+  recuperarUsuarioLogado() {
+    if (window.localStorage.getItem("usuarioLogado")) {
+      let usuarioLogado: string = window.localStorage.getItem("usuarioLogado") ? <string>window.localStorage.getItem("usuarioLogado") : ''
+      this.usuarioLogado = JSON.parse(usuarioLogado);
     }
   }
 
   direcionarHome() {
     this.router.navigate([`${this.ROTA_HOME}`])
   }
-
 }

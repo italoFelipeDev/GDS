@@ -7,7 +7,7 @@ export class Projeto{
     nome: string;
     descricao: string;
     icone: string;
-    impedimentos: Array<Impedimento>;
+    impedimentos: Array<Impedimento> = new Array<Impedimento>;
     logReunioes: any;
     participantesId: Array<string> = new Array<string>;
     participantes: Array<Usuario>;

@@ -18,7 +18,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProjetoComponent } from './components/projeto/projeto.component';
 import { ListaProjetosComponent } from './components/lista-projetos/lista-projetos.component';
-import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component'
+import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component';
+import { CadastrarImpedimentoComponent } from './components/cadastrar-impedimento/cadastrar-impedimento.component';
+import { ImpedimentoComponent } from './components/impedimento/impedimento.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +37,8 @@ import { ProjetoViewComponent } from './components/projeto-view/projeto-view.com
     ProjetoComponent,
     ListaProjetosComponent,
     ProjetoViewComponent,
+    CadastrarImpedimentoComponent,
+    ImpedimentoComponent,
     
   ],
   imports: [

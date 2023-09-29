@@ -43,7 +43,8 @@ export class LoginUsuarioComponent implements OnInit {
 
     var usuario: Usuario = this.mapearFormUsuario();
     this.usuarioService.postUsuario(usuario).subscribe(response => {
-      this.direcionarHome(response.id.toString())
+      window.localStorage.setItem("usuarioLogado", JSON.stringify(response));
+      this.direcionarHome();
      });
   }
 
@@ -53,7 +54,7 @@ export class LoginUsuarioComponent implements OnInit {
         if(usuario.email == this.usuarioGroup.get('email')?.value){
           if(usuario.senha == this.usuarioGroup.get('senha')?.value){
             window.localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
-            this.direcionarHome(usuario.id.toString())
+            this.direcionarHome();
           }
         }
       })
@@ -87,7 +88,7 @@ export class LoginUsuarioComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  direcionarHome(idUsuario: string) {
+  direcionarHome() {
     this.router.navigate([`${this.ROTA_HOME}`]);
     this.cd.detectChanges();
   }

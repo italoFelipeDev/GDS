@@ -16,8 +16,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(ListaProjetosComponent) listaProjetosComponent: ListaProjetosComponent;
   listaProjetos: Array<Projeto> = new Array<Projeto>;
   usuarioLogado: Usuario;
-  idUsuarioLogado: string;
-  private readonly ROTA_CADASTRO = "/cadastro/projeto";
+  private readonly ROTA_CADASTRO_PROJETO = "/cadastro/projeto";
 
 
   constructor(
@@ -29,7 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recuperarIdUsuarioLogado();
     this.carregarUsuarioLogado();
   }
 
@@ -38,6 +36,7 @@ export class HomeComponent implements OnInit {
       this.usuarioLogado.listaProjetosId.forEach(projetoId => {
         this.projetoService.getProjeto(projetoId).subscribe((response) => {
           this.listaProjetos.push(response);
+          this.organizarListaProjetos();
         });
       })
     }
@@ -48,22 +47,15 @@ export class HomeComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  recuperarIdUsuarioLogado() {
+  carregarUsuarioLogado() {
     if(window.localStorage.getItem("usuarioLogado")){
       let usuarioLogado : string = window.localStorage.getItem("usuarioLogado") ? <string> window.localStorage.getItem("usuarioLogado") : ''
-      let usuarioLogadoObject: Usuario = JSON.parse(usuarioLogado);
-      this.idUsuarioLogado = usuarioLogadoObject.id.toString();
+      this.usuarioLogado = JSON.parse(usuarioLogado);
+      this.carregarPaginaHome();
     }
   }
 
-  carregarUsuarioLogado() {
-    this.usuarioService.getUsuario(this.idUsuarioLogado).subscribe((response) => {
-      this.usuarioLogado = response;
-      this.carregarPaginaHome();
-    })
-  }
-
   direcionarCadastroProjeto() {
-    this.router.navigate([`${this.ROTA_CADASTRO}`])
+    this.router.navigate([`${this.ROTA_CADASTRO_PROJETO}`])
   }
 }

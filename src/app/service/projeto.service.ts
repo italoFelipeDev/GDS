@@ -23,7 +23,11 @@ export class ProjetoService {
     return this.httpClient.post<Projeto>(this.baseURL,projeto);
   }
 
-  putProjeto(projeto:Projeto):Observable<void>{
-    return this.httpClient.put<void>(`${this.baseURL}/${projeto.id}`,projeto);
+  putProjeto(projeto:Projeto):Observable<Projeto>{
+    return this.httpClient.put<Projeto>(`${this.baseURL}/${projeto.id}`,projeto);
+  }
+
+  deleteProjeto(projeto:Projeto):Observable<void>{
+    return this.httpClient.delete<void>(`${this.baseURL}/${projeto.id}`);
   }
 }

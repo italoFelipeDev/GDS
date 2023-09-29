@@ -2,24 +2,52 @@
 
     <div>
         <div class="media mb-5">
-            <img class="mr-3 rounded-circle" src={{projeto.icone}} alt="Generic placeholder image"  style="width: 200px; height: 200px;">
+            <img class="mr-3 rounded-circle" src={{projeto.icone}} alt="Generic placeholder image"
+                style="width: 200px; height: 200px;">
             <div class="media-body">
-              <h5 class="mt-0">{{projeto.nome}}</h5>
-              {{projeto.descricao}}
+                <h5 class="mt-0">{{projeto.nome}}</h5>
+                {{projeto.descricao}}
             </div>
         </div>
-        
+
     </div>
-    
-    <ul class="list-group list-group-flush mb-5">
-        <li *ngFor="let participanteL of listaParticipantes">{{participanteL.nome}}</li>
-    </ul>
+
+    <div class="card mb-5" style="width: 18rem;">
+        <div class="card-header">
+            Participantes do Projeto
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let participante of listaParticipantes">
+                <img class="mr-3 rounded-circle" src={{participante.icone}} alt="Generic placeholder image"
+                    style="width: 35px; height: 35px;">
+                {{participante.nome}}
+            </li>
+        </ul>
+    </div>
+
+    <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
+
     <form [formGroup]="addParticipanteGroup" (ngSubmit)="submit()">
-        <div class="form-group">
+        <div class="form-group mt-4">
             <label for="email">Adicionar participante</label>
-            <input type="text" class="form-control" id="tempoMedioDeDaily" placeholder="Digite o email do participante." formControlName="email">
+            <input type="text" class="form-control" id="tempoMedioDeDaily" placeholder="Digite o email do participante."
+                formControlName="email">
             <small id="emailHelp" class="form-text text-muted">Digite o email do participante.</small>
         </div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
-      </form>
+    </form>
+
+    <div class="container d-inline-flex flex-column">
+        <h4>Impedimentos do Projeto</h4>
+        <div *ngFor="let impedimento of impedimentoList">
+            <app-impedimento [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
+        </div>
+        <h4>Impedimentos Solucionados do Projeto</h4>
+        <div *ngFor="let impedimento of impedimentoSolucionadoList">
+            <app-impedimento [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-danger mt-5" (click)="excluirProjeto()">Excluir projeto</button>
+
 </div>

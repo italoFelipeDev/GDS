@@ -4,19 +4,20 @@
         <app-cronometro [isLocutor]="true" [tempoExtrapoladoLocutor]="this.tempoExtrapoladoLocutor"></app-cronometro>
 
         <div class="container-impedimento bg-primary">
+                
                 <div class="titulo">
                         Impedimentos atuais
                 </div>
-                
-                <ng-container *ngFor="let impedimento of usuario.impedimentos">
-                        
-                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado">
+
+                <ng-container *ngFor="let impedimento of impedimentoList">
+
+                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado == false && usuario.id == impedimento.idParticipante">
                                 <div>
                                         {{impedimento.titulo}}:
                                 </div>
-        
+
                                 <div class="impedimento-descricao">
-                                         - {{impedimento.descricao}}
+                                        - {{impedimento.descricao}}
                                 </div>
                         </div>
 
@@ -26,15 +27,15 @@
                         Impedimentos superados
                 </div>
 
-                <ng-container *ngFor="let impedimento of usuario.impedimentos">
-                        
-                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado == false">
+                <ng-container *ngFor="let impedimento of impedimentoList">
+
+                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado && usuario.id == impedimento.idParticipante">
                                 <div>
                                         {{impedimento.titulo}}:
                                 </div>
-        
+
                                 <div class="impedimento-descricao">
-                                         - {{impedimento.descricao}}
+                                        - {{impedimento.descricao}}
                                 </div>
                         </div>
 
