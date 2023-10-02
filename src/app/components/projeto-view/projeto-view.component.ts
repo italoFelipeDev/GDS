@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Impedimento } from 'src/model/impedimento.class';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
+import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
 
 @Component({
@@ -19,6 +20,7 @@ export class ProjetoViewComponent implements OnInit {
   projeto: Projeto;
   listaParticipantes: Array<Usuario> = new Array<Usuario>;
   idProjeto: string;
+  usuarioLogado: Usuario;
 
   private readonly ID_PROJETO_PATH = 'id';
 
@@ -33,6 +35,7 @@ export class ProjetoViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.carregarUsuarioLogado();
     this.carregarProjeto();
   }
 
@@ -121,19 +124,41 @@ export class ProjetoViewComponent implements OnInit {
   private atualizarUsuariosExclusaoProjeto(): void {
     this.projeto.participantesId.forEach(idParticipante => {
       this.usuarioService.getUsuario(idParticipante).subscribe(responseUser => {
-        responseUser.listaProjetosId = this.excluirIdprojetoUsuario(responseUser.listaProjetosId, this.projeto.id.toString());
+        responseUser.listaProjetosId = this.excluirItemLista(responseUser.listaProjetosId, this.projeto.id.toString());
         this.usuarioService.putUsuario(responseUser).subscribe();
       });
     });
   }
 
-  excluirIdprojetoUsuario(idProjetoList: Array<string>, idProjetoExcluido: string): Array<string> {
-    return idProjetoList.filter(novaLista => {
-      return novaLista != idProjetoExcluido;
+  excluirItemLista(itemLista: Array<string>, itemId: string): Array<string> {
+    return itemLista.filter(novaLista => {
+      return novaLista != itemId;
     });
+  }
+
+  removerParticipante(usuario: Usuario){
+    usuario.listaProjetosId = this.excluirItemLista(usuario.listaProjetosId, this.projeto.id.toString());
+    this.projeto.participantesId = this.excluirItemLista(this.projeto.participantesId, usuario.id.toString());
+    this.usuarioService.putUsuario(usuario).subscribe(response =>{
+      this.projetoService.putProjeto(this.projeto).subscribe(response =>{
+        location.reload();
+      })
+    })
   }
 
   direcionarHome(): void {
     this.router.navigate([`${RotaUtils.rotaHome()}`])
+  }
+
+  carregarUsuarioLogado(): void{
+    this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+  }
+
+  isUsuarioScrumMaster(): boolean{
+    return this.projeto.idScrumMaster == this.usuarioLogado.id.toString();
+  }
+
+  isUsuarioDaListaScrumMaster(usuario: Usuario): boolean{
+    return this.projeto.idScrumMaster == usuario.id.toString();
   }
 }

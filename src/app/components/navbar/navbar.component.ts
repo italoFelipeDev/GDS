@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit{
   }
 
   direcionarLogin() {
-    this.router.navigate([`${this.ROTA_LOGIN}`]);
+    this.router.navigate(RotaUtils.rotaLogin());
   }
 
   direcionarHome() {

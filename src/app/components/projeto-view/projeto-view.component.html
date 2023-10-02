@@ -21,11 +21,12 @@
                 <img class="mr-3 rounded-circle" src={{participante.icone}} alt="Generic placeholder image"
                     style="width: 35px; height: 35px;">
                 {{participante.nome}}
+                <button *ngIf="isUsuarioScrumMaster() && !isUsuarioDaListaScrumMaster(participante) " type="button" class="btn btn-danger ml-5" (click)="removerParticipante(participante)">Remover</button>
             </li>
         </ul>
     </div>
 
-    <form [formGroup]="addParticipanteGroup" (ngSubmit)="submit()">
+    <form *ngIf="isUsuarioScrumMaster()" [formGroup]="addParticipanteGroup" (ngSubmit)="submit()">
         <div class="form-group mt-4">
             <label for="email">Adicionar participante</label>
             <input type="text" class="form-control" id="tempoMedioDeDaily" placeholder="Digite o email do participante."
@@ -38,17 +39,20 @@
     <div class="container d-inline-flex flex-column">
         <h4>Impedimentos do Projeto</h4>
         <div *ngFor="let impedimento of projeto.impedimentos">
-            <app-impedimento *ngIf="!impedimento.solucionado" [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
+            <app-impedimento *ngIf="!impedimento.solucionado" [projeto]="projeto"
+                [impedimento]="impedimento"></app-impedimento>
         </div>
-        
+
         <h4>Impedimentos Solucionados do Projeto</h4>
         <div *ngFor="let impedimento of projeto.impedimentos">
-            <app-impedimento *ngIf="impedimento.solucionado" [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
+            <app-impedimento *ngIf="impedimento.solucionado" [projeto]="projeto"
+                [impedimento]="impedimento"></app-impedimento>
         </div>
     </div>
 
     <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
 
-    <button type="button" class="btn btn-danger mt-5" (click)="excluirProjeto()">Excluir projeto</button>
+    <button *ngIf="isUsuarioScrumMaster()" type="button" class="btn btn-danger mt-5" (click)="excluirProjeto()">Excluir
+        projeto</button>
 
 </div>
