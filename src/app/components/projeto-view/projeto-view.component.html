@@ -53,6 +53,11 @@
     <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
 
     <button *ngIf="isUsuarioScrumMaster()" type="button" class="btn btn-danger mt-5" (click)="excluirProjeto()">Excluir
-        projeto</button>
+        Projeto
+    </button>
+
+    <button *ngIf="!isUsuarioScrumMaster()" type="button" class="btn btn-danger mt-5" (click)="removerParticipante(usuarioLogado)">
+        Sair do Projeto
+    </button>
 
 </div>

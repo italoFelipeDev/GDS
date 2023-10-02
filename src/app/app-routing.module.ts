@@ -5,13 +5,15 @@ import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.
 import { HomeComponent } from './components/home/home.component';
 import { CadastroProjetoComponent } from './components/cadastro-projeto/cadastro-projeto.component';
 import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 const routes: Routes = [
   {component:DailyDisplayComponent,path:'projeto/:id/daily'},
   {component:LoginUsuarioComponent, path:''},
   {component: HomeComponent, path:'home'},
   {component: CadastroProjetoComponent,path:'cadastro/projeto'},
-  {component: ProjetoViewComponent,path:'projeto/:id'}
+  {component: ProjetoViewComponent,path:'projeto/:id'},
+  {component: PerfilComponent,path:'perfil'}
 ];
 
 @NgModule({

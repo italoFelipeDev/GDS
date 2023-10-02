@@ -7,6 +7,7 @@ export class RotaUtils{
     private static readonly ROTA_CADASTRO_PROJETO = "/cadastro/projeto";
     private static readonly ROTA_PROJETO_VIEW = "projeto";
     private static readonly ROTA_PROJETO_DAILY = "daily";
+    private static readonly ROTA_PERFIL = "perfil";
 
     static rotaSingin(): string[]{
         return [`${this.ROTA_SINGIN}`];
@@ -30,5 +31,9 @@ export class RotaUtils{
 
     static rotaProjetoDaily(projetoId: string): string[]{ 
         return [`${this.ROTA_PROJETO_VIEW}/${projetoId}/${this.ROTA_PROJETO_DAILY}`];
+    }
+
+    static rotaPerfil(): string[]{
+        return [`${this.ROTA_PERFIL}`];
     }
 }

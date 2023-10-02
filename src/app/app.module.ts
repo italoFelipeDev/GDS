@@ -20,7 +20,8 @@ import { ProjetoComponent } from './components/projeto/projeto.component';
 import { ListaProjetosComponent } from './components/lista-projetos/lista-projetos.component';
 import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component';
 import { CadastrarImpedimentoComponent } from './components/cadastrar-impedimento/cadastrar-impedimento.component';
-import { ImpedimentoComponent } from './components/impedimento/impedimento.component'
+import { ImpedimentoComponent } from './components/impedimento/impedimento.component';
+import { PerfilComponent } from './components/perfil/perfil.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { ImpedimentoComponent } from './components/impedimento/impedimento.compo
     ProjetoViewComponent,
     CadastrarImpedimentoComponent,
     ImpedimentoComponent,
+    PerfilComponent,
     
   ],
   imports: [
