@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
+import { RotaUtils } from 'src/utils/rota.class.utils';
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NavbarComponent implements OnInit{
 
   private readonly ROTA_LOGIN = "/acesso/login";
-
-  private readonly ROTA_HOME = "/home";
   
   ngOnInit(): void {
   }
@@ -22,11 +22,8 @@ export class NavbarComponent implements OnInit{
   }
 
   logOut(){
-    if(window.localStorage.getItem("usuarioLogado")){
-      window.localStorage.removeItem('usuarioLogado');
-      this.direcionarLogin();
-    }
-    
+    LocalStorageUtil.removerUsuarioLogado();
+    this.direcionarLogin();
   }
 
   direcionarLogin() {
@@ -34,7 +31,11 @@ export class NavbarComponent implements OnInit{
   }
 
   direcionarHome() {
-    this.router.navigate([`${this.ROTA_HOME}`]);
+    this.router.navigate(RotaUtils.rotaHome());
+  }
+
+  perfil(){
+    LocalStorageUtil.recuperarUsuarioLogado();
   }
 
 }

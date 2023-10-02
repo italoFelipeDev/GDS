@@ -10,9 +10,7 @@ export class Impedimento{
     dataInicio: Date;
     dataFim: Date;
 
-    constructor(titulo: string, descricao: string){
-        this.titulo = titulo;
-        this.descricao = descricao;
+    constructor(){
         this.solucionado = false;
         this.dataInicio = new Date();
     }

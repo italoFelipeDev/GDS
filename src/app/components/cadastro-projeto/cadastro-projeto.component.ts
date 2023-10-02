@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
+import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
+import { RotaUtils } from 'src/utils/rota.class.utils';
 
 @Component({
   selector: 'app-cadastro-projeto',
@@ -27,17 +29,20 @@ export class CadastroProjetoComponent implements OnInit {
 
   private readonly TEMPO_MEDIO_FALA = 2;
 
-  private readonly ROTA_HOME = "/home";
-
   constructor(
     formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private projetoService: ProjetoService,
     private usuarioService: UsuarioService
   ) {
+    this.montarProjetoForm(formBuilder);
+  }
 
+  ngOnInit(): void {
+    this.atualizarUsuarioLogado();
+  }
 
+  private montarProjetoForm(formBuilder: FormBuilder) {
     this.projetoGroup = formBuilder.group(
       {
         nome: ['', [Validators.required]],
@@ -45,38 +50,27 @@ export class CadastroProjetoComponent implements OnInit {
         icone: [''],
         tempoMedioDeDaily: [this.TEMPO_MEDIO_DAILY, [Validators.required]],
         tempoMedioDeFala: [this.TEMPO_MEDIO_FALA, [Validators.required]],
-
       }
-    )
+    );
   }
 
-  ngOnInit(): void {
-    this.recuperarUsuarioLogado()
-  }
+  atribuirImagem(evento: Event) {
+    const target = evento.target as HTMLInputElement;
 
-  handleFileInput(event: Event) {
-    const target = event.target as HTMLInputElement;
+    const arquivos = target.files as FileList;
 
-    const files = target.files as FileList;
+    const arquivo = arquivos[0];
 
-    const file = files[0];
-
-    this.saveFile(file);
-  }
-
-  saveFile(file: File) {
     const reader = new FileReader();
     reader.onloadend = () => {
       this.imagem = reader.result as string;
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(arquivo);
   }
 
   submit() {
 
-    var projeto: Projeto = this.mapearFormProjeto();
-
-    this.projetoService.postProjeto(projeto).subscribe(response => {
+    this.projetoService.postProjeto(this.mapearFormProjeto()).subscribe(response => {
       this.projeto = response;
       this.atualizarUsuario(response.id.toString());
       this.direcionarHome();
@@ -99,20 +93,17 @@ export class CadastroProjetoComponent implements OnInit {
   atualizarUsuario(idProjeto: string) {
     this.usuarioLogado.listaProjetosId.push(idProjeto);
     this.usuarioService.putUsuario(this.usuarioLogado).subscribe(response => {
-      window.localStorage.setItem("usuarioLogado", JSON.stringify(response));
-      this.recuperarUsuarioLogado();
+      LocalStorageUtil.salvarUsuarioLogado(response);
+      this.atualizarUsuarioLogado();
       location.reload();
     });
   }
 
-  recuperarUsuarioLogado() {
-    if (window.localStorage.getItem("usuarioLogado")) {
-      let usuarioLogado: string = window.localStorage.getItem("usuarioLogado") ? <string>window.localStorage.getItem("usuarioLogado") : ''
-      this.usuarioLogado = JSON.parse(usuarioLogado);
-    }
+  atualizarUsuarioLogado() {
+    this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
   }
 
   direcionarHome() {
-    this.router.navigate([`${this.ROTA_HOME}`])
+    this.router.navigate(RotaUtils.rotaHome());
   }
 }

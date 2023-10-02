@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Usuario } from 'src/model/usuario.class';
+import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
+import { RotaUtils } from 'src/utils/rota.class.utils';
 
 @Component({
   selector: 'app-login-usuario',
@@ -13,47 +15,46 @@ export class LoginUsuarioComponent implements OnInit {
 
   usuarioGroup: FormGroup;
   imagem: string;
-  private readonly ROTA_HOME = "/home";
-  private readonly ROTA_SINGIN = "/acesso/singin";
-  private readonly ROTA_LOGIN = "/acesso/login";
-  loginToggle: string;
+  loginToggle: boolean = false;
+
+  private readonly PATH_MODALIDADE_LOGIN = 'modalidadeLogin';
 
   constructor(
-    private cd: ChangeDetectorRef,
-    formBuilder: FormBuilder, 
+    formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
     private router: Router,
     private route: ActivatedRoute,
-    ) {
-    this.usuarioGroup = formBuilder.group({
+    private cd: ChangeDetectorRef
+  ) {
+    this.usuarioGroup = this.montarFormLogin(formBuilder)
+  }
+
+  ngOnInit() {
+   }
+
+  private montarFormLogin(formBuilder: FormBuilder): FormGroup<any> {
+    return formBuilder.group({
       nome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required]],
       icone: ['']
-    })
-  }
-  ngOnInit() {
-    this.route.paramMap.subscribe(param =>{
-      this.loginToggle = param.get('modalidadeLogin') ? <string>  param.get('modalidadeLogin') : ""
-    })
-    //this.recuperarPath();
+    });
   }
 
   submit() {
-
     var usuario: Usuario = this.mapearFormUsuario();
     this.usuarioService.postUsuario(usuario).subscribe(response => {
-      window.localStorage.setItem("usuarioLogado", JSON.stringify(response));
+      LocalStorageUtil.salvarUsuarioLogado(response);
       this.direcionarHome();
-     });
+    });
   }
 
   submitLogin() {
-    this.usuarioService.getUsuarios().subscribe(response =>{
-      response.forEach(usuario =>{
-        if(usuario.email == this.usuarioGroup.get('email')?.value){
-          if(usuario.senha == this.usuarioGroup.get('senha')?.value){
-            window.localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+    this.usuarioService.getUsuarios().subscribe(response => {
+      response.forEach(usuario => {
+        if (usuario.email == this.usuarioGroup.get('email')?.value) {
+          if (usuario.senha == this.usuarioGroup.get('senha')?.value) {
+            LocalStorageUtil.salvarUsuarioLogado(usuario);
             this.direcionarHome();
           }
         }
@@ -61,7 +62,7 @@ export class LoginUsuarioComponent implements OnInit {
     })
   }
 
-  private mapearFormUsuario() {
+  mapearFormUsuario() {
     var usuario: Usuario = new Usuario();
     usuario.nome = this.usuarioGroup.get('nome')?.value;
     usuario.email = this.usuarioGroup.get('email')?.value;
@@ -70,42 +71,37 @@ export class LoginUsuarioComponent implements OnInit {
     return usuario;
   }
 
-  handleFileInput(event: Event) {
-    const target = event.target as HTMLInputElement;
+  atribuirImagem(evento: Event) {
+    const target = evento.target as HTMLInputElement;
 
-    const files = target.files as FileList;
+    const arquivos = target.files as FileList;
 
-    const file = files[0];
+    const arquivo = arquivos[0];
 
-    this.saveFile(file);
-  }
-
-  saveFile(file: File) {
     const reader = new FileReader();
     reader.onloadend = () => {
       this.imagem = reader.result as string;
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(arquivo);
   }
 
   direcionarHome() {
-    this.router.navigate([`${this.ROTA_HOME}`]);
+    this.router.navigate(RotaUtils.rotaHome());
     this.cd.detectChanges();
   }
 
   direcionarSingIn() {
-    this.router.navigate([`${this.ROTA_SINGIN}`]);
+    this.loginToggle = true;
     this.cd.detectChanges();
   }
 
   direcionarLogin() {
-    this.router.navigate([`${this.ROTA_LOGIN}`]);
+    this.loginToggle = false;
     this.cd.detectChanges();
   }
 
-  recuperarPath(){
-    this.loginToggle = this.route.snapshot.paramMap.get('modalidadeLogin') ? <string>  this.route.snapshot.paramMap.get('modalidadeLogin') : "";
-    this.recuperarPath();
-    this.cd.detectChanges();
+
+  isSingin(): boolean{
+    return this.loginToggle;
   }
 }

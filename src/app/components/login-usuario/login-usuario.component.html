@@ -2,7 +2,7 @@
     <div>
         Registrar Usuário
     </div>
-    <div *ngIf="loginToggle == 'singin'">
+    <div *ngIf="isSingin()">
         <form [formGroup]="usuarioGroup" (ngSubmit)="submit()">
             <div class="form-group input-group mb-3">
                 <label class="input-group-text" for="nome">Nome</label>
@@ -19,7 +19,7 @@
             <div class="form-group input-group mb-3">
                 <label class="input-group-text" for="icone">Icone de perfil</label>
                 <br>
-                <input type="file" class="form-control-file" id="icone" formControlName="icone" (change)="handleFileInput($event)">
+                <input type="file" class="form-control-file" id="icone" formControlName="icone" (change)="atribuirImagem($event)">
             </div>  
             <button class="btn bg-primary" type="submit">
                 Cadastrar
@@ -28,7 +28,7 @@
         <a class="card-link" (click)="direcionarLogin()">Já possuo conta.</a>
     </div>
     
-    <div *ngIf="loginToggle == 'login'">
+    <div *ngIf="!isSingin()">
         <form [formGroup]="usuarioGroup" (ngSubmit)="submitLogin()">
             <div class="form-group input-group mb-3">
                 <label class="input-group-text" for="email">Email</label>

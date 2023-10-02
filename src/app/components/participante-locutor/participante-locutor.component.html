@@ -11,7 +11,7 @@
 
                 <ng-container *ngFor="let impedimento of impedimentoList">
 
-                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado == false && usuario.id == impedimento.idParticipante">
+                        <div class="impedimento bg-dark" *ngIf="isImpedimentoUsuarioLocutor(impedimento)">
                                 <div>
                                         {{impedimento.titulo}}:
                                 </div>
@@ -29,7 +29,7 @@
 
                 <ng-container *ngFor="let impedimento of impedimentoList">
 
-                        <div class="impedimento bg-dark" *ngIf="impedimento.solucionado && usuario.id == impedimento.idParticipante">
+                        <div class="impedimento bg-dark" *ngIf=" isImpedimentoUsuarioLocutorSolucionado(impedimento)">
                                 <div>
                                         {{impedimento.titulo}}:
                                 </div>

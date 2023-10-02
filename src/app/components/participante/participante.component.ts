@@ -19,12 +19,4 @@ export class ParticipanteComponent implements OnInit{
 
   ngOnInit(): void {
   }
-
-  finalizarReport(){
-    this.reportFeito = true;
-  }
-
-  isReportFeito() : boolean{
-    return this.reportFeito;
-  }
 }

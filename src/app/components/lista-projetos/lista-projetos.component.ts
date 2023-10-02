@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Projeto } from 'src/model/projeto.class';
-import { Usuario } from 'src/model/usuario.class';
 
 @Component({
   selector: 'app-lista-projetos',

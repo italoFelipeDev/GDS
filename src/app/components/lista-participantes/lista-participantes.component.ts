@@ -6,22 +6,21 @@ import { Usuario } from 'src/model/usuario.class';
   templateUrl: './lista-participantes.component.html',
   styleUrls: ['./lista-participantes.component.scss']
 })
-export class ListaParticipantesComponent implements OnInit{
+export class ListaParticipantesComponent implements OnInit {
 
   @Input() listaParcipantes: Array<Usuario>;
 
-  mostrar: boolean;
-  
   listaReportConcluido: Array<Usuario> = new Array<Usuario>();
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(
+    private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-    this.iniciarListaParticipantes();
+    this.detectarMudancasLista();
   }
 
-  private iniciarListaParticipantes() {
-    this.mostrar = true;
+  private detectarMudancasLista() {
     this.cd.detectChanges();
   }
 
@@ -29,20 +28,25 @@ export class ListaParticipantesComponent implements OnInit{
     this.listaParcipantes = this.listaParcipantes;
   }
 
-  updateListaParticipante(){
-    if(this.listaParcipantes.length != 0){
+  atualizarListaParticipante() {
+    if (this.listaParcipantes.length != 0) {
       this.addListaReportConcluido(this.listaParcipantes[0]);
       this.listaParcipantes.shift();
       this.cd.detectChanges();
     }
-   
+
   }
-  addListaReportConcluido(usuario: Usuario){
+
+  addListaReportConcluido(usuario: Usuario) {
     this.listaReportConcluido.push(usuario);
     this.cd.detectChanges();
   }
 
-  isfinalizarDaily(): boolean{
-   return this.listaParcipantes.length == 1; 
+  isfinalizarDaily(): boolean {
+    return this.listaParcipantes.length == 1;
+  }
+
+  isParticipanteLocutor(participante: Usuario): boolean {
+    return participante == this.listaParcipantes[0];
   }
 }

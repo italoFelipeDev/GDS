@@ -8,10 +8,10 @@
         <p class="card-text">{{impedimento.descricao}}</p>
         <ul class="list-group list-group-flush mt-2">
             <li class="list-group-item">{{ 'Data Inicio: ' + getDataInicioImpedimento()}}</li>
-            <div *ngIf="this.impedimento.dataFim">
+            <div *ngIf="this.impedimento.solucionado">
                 <li  class="list-group-item">{{'Data Fim: ' + getDataFimImpedimento()}}</li>
             </div>
         </ul>
-        <a *ngIf="UsuarioLogado.id == impedimento.idParticipante && !impedimento.solucionado" class="btn btn-primary" (click)="declararSolucionado()">Declarar Solucionado</a>
+        <a *ngIf="isImpedimentoSolucionavel()" class="btn btn-primary" (click)="declararSolucionado()">Declarar Solucionado</a>
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Projeto } from 'src/model/projeto.class';
+import { RotaUtils } from 'src/utils/rota.class.utils';
 
 @Component({
   selector: 'app-projeto',
@@ -10,10 +11,6 @@ import { Projeto } from 'src/model/projeto.class';
 export class ProjetoComponent  implements OnInit{
 
   @Input() projeto: Projeto;
-
-  private readonly ROTA_PROJETO_VIEW = "projeto"
-
-  private readonly ROTA_PROJETO_DAILY = "display"
 
   constructor(
     private router: Router
@@ -25,10 +22,10 @@ export class ProjetoComponent  implements OnInit{
   }
 
   direcionarProjetoView(){
-    this.router.navigate([`${this.ROTA_PROJETO_VIEW}/${this.projeto.id}`])
+    this.router.navigate(RotaUtils.rotaProjeto(this.projeto.id.toString()));
   }
 
   direcionarProjetoDaily(){
-    this.router.navigate([`${this.ROTA_PROJETO_DAILY}/${this.projeto.id}`])
+    this.router.navigate(RotaUtils.rotaProjetoDaily(this.projeto.id.toString()));
   }
 }

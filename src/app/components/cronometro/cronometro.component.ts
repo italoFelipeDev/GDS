@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-cronometro',
@@ -24,7 +24,11 @@ export class CronometroComponent implements OnInit {
   @Input() tempoExtrapoladoDaily: number;
 
   @Input() tempoExtrapoladoLocutor: number;
-  constructor() { }
+  private readonly BRANCO = '#EDE7E3';
+
+  constructor(
+    private cd: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
   }
@@ -46,7 +50,6 @@ export class CronometroComponent implements OnInit {
     this.secondsDisplay = this.padTimer(this.seconds);
     this.minutesDisplay = this.padTimer(this.minutes);
     this.hoursDisplay = this.padTimer(this.hours);
-
   }
 
   startTimer() {
@@ -74,10 +77,14 @@ export class CronometroComponent implements OnInit {
   }
 
   istempoExtrapoladoLocutor(): string{
-    return this.minutes> this.tempoExtrapoladoLocutor ? 'red' : '$primary-color';
+    return this.minutes >= this.tempoExtrapoladoLocutor ? 'red' : this.BRANCO;
   }
 
   istempoExtrapoladoDaily(): string{
-    return this.minutes> this.tempoExtrapoladoDaily ? 'red' : '$primary-color';
+    return this.minutes >= this.tempoExtrapoladoDaily ? 'red' : this.BRANCO;
+  }
+
+  getTempoExtrapoladoLocutor(): number{
+    return this.tempoExtrapoladoLocutor;
   }
 }

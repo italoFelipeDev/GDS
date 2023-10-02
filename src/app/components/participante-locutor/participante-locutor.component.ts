@@ -8,7 +8,7 @@ import { CronometroComponent } from '../cronometro/cronometro.component';
   templateUrl: './participante-locutor.component.html',
   styleUrls: ['./participante-locutor.component.scss']
 })
-export class ParticipanteLocutorComponent implements OnInit{
+export class ParticipanteLocutorComponent implements OnInit {
 
   @Input() usuario: Usuario;
 
@@ -18,18 +18,28 @@ export class ParticipanteLocutorComponent implements OnInit{
 
   @ViewChild(CronometroComponent) cronometro: CronometroComponent;
 
-  constructor(private cd: ChangeDetectorRef) { }
-  
+  constructor(
+    private cd: ChangeDetectorRef
+  ) { }
+
   ngOnInit(): void {
   }
 
-  iniciarCronometro():void{
+  iniciarCronometro(): void {
     this.cronometro.startTimer();
     this.cd.detectChanges();
   }
 
-  reiniciarCronometro():void{
+  reiniciarCronometro(): void {
     this.cronometro.resetTimer();
     this.cd.detectChanges();
+  }
+
+  isImpedimentoUsuarioLocutor(impedimento: Impedimento): boolean{
+    return !impedimento.solucionado && this.usuario.id == impedimento.idParticipante
+  }
+
+  isImpedimentoUsuarioLocutorSolucionado(impedimento: Impedimento): boolean{
+    return impedimento.solucionado && this.usuario.id == impedimento.idParticipante
   }
 }

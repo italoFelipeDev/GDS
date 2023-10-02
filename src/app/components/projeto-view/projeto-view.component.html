@@ -25,8 +25,6 @@
         </ul>
     </div>
 
-    <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
-
     <form [formGroup]="addParticipanteGroup" (ngSubmit)="submit()">
         <div class="form-group mt-4">
             <label for="email">Adicionar participante</label>
@@ -39,14 +37,17 @@
 
     <div class="container d-inline-flex flex-column">
         <h4>Impedimentos do Projeto</h4>
-        <div *ngFor="let impedimento of impedimentoList">
-            <app-impedimento [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
+        <div *ngFor="let impedimento of projeto.impedimentos">
+            <app-impedimento *ngIf="!impedimento.solucionado" [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
         </div>
+        
         <h4>Impedimentos Solucionados do Projeto</h4>
-        <div *ngFor="let impedimento of impedimentoSolucionadoList">
-            <app-impedimento [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
+        <div *ngFor="let impedimento of projeto.impedimentos">
+            <app-impedimento *ngIf="impedimento.solucionado" [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
         </div>
     </div>
+
+    <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
 
     <button type="button" class="btn btn-danger mt-5" (click)="excluirProjeto()">Excluir projeto</button>
 

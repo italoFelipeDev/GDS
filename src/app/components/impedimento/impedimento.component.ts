@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProjetoService } from 'src/app/service/projeto.service';
-import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Impedimento } from 'src/model/impedimento.class';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
+import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 
 @Component({
   selector: 'app-impedimento',
@@ -16,7 +16,7 @@ export class ImpedimentoComponent implements OnInit {
 
   @Input() projeto: Projeto;
 
-  UsuarioLogado: Usuario;
+  usuarioLogado: Usuario;
 
   constructor(
     private projetoService: ProjetoService
@@ -43,16 +43,21 @@ export class ImpedimentoComponent implements OnInit {
         impedimento.solucionado = true;
         impedimento.dataFim = new Date();
       }
-      this.projetoService.putProjeto(this.projeto).subscribe(response =>{
-        location.reload();
-      });
+      this.atualizarImpedimento();
     })
   }
 
+  private atualizarImpedimento() {
+    this.projetoService.putProjeto(this.projeto).subscribe(response => {
+      location.reload();
+    });
+  }
+
   recuperarUsuarioLogado() {
-    if (window.localStorage.getItem("usuarioLogado")) {
-      let usuarioLogado: string = window.localStorage.getItem("usuarioLogado") ? <string>window.localStorage.getItem("usuarioLogado") : ''
-      this.UsuarioLogado = JSON.parse(usuarioLogado);
-    }
+      this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+  }
+
+  isImpedimentoSolucionavel(): boolean{
+   return (this.usuarioLogado.id == this.impedimento.idParticipante && !this.impedimento.solucionado);
   }
 }

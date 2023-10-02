@@ -7,4 +7,8 @@ export class DailyLog {
     data: Date;
     impedimentosDoDiaList: Array<Impedimento>;
     tempoDecorrido: number;
+
+    constructor(){
+        this.data = new Date();
+    }
 }

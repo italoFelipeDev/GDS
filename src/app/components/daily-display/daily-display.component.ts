@@ -23,7 +23,7 @@ export class DailyDisplayComponent implements OnInit{
 
   @ViewChild(ListaParticipantesComponent) listaParticipantesComponent: ListaParticipantesComponent;
 
-  dailyLog: DailyLog;
+  dailyLog: DailyLog = new DailyLog();
 
   projeto: Projeto;
 
@@ -44,10 +44,11 @@ export class DailyDisplayComponent implements OnInit{
   fimDaily: number;
 
   dailyFinalizada: boolean = false;
+
+  private readonly ID_PROJETO_PATH = 'id';
   
   ngOnInit(): void {
-    this.iniciarComponente();
-    this.loadDailyDisplay();
+    this.carregarDailyDisplay();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -64,26 +65,37 @@ export class DailyDisplayComponent implements OnInit{
 
   }
 
-  private iniciarComponente() {
+  carregarDailyDisplay(){
     this.recuperarIdProjeto();
-    this.dailyLog = new DailyLog();
-    this.dailyLog.data = new Date();
+    this.carregarProjeto();
   }
 
-  loadDailyDisplay(){
-    this.projetoService.getProjeto(this.idProjeto).subscribe(response =>{
+  private carregarProjeto() {
+    this.projetoService.getProjeto(this.idProjeto).subscribe(response => {
       this.projeto = response;
-      this.projeto.participantesId.forEach(idParticipante =>{
-        this.usuarioService.getUsuario(idParticipante).subscribe(responseUser =>{
-          this.listaParcipantes.push(responseUser);
-          this.organizarListaParticipantes();
-        })
-      })
-    })
+      this.carregarParticipantes();
+    });
+  }
+
+  private carregarParticipantes() {
+    this.projeto.participantesId.forEach(idParticipante => {
+      this.carregarUsuario(idParticipante);
+    });
+  }
+
+  private carregarUsuario(idParticipante: string) {
+    this.usuarioService.getUsuario(idParticipante).subscribe(responseUser => {
+      this.listaParcipantes.push(responseUser);
+      this.organizarListaParticipantes();
+    });
   }
 
   private organizarListaParticipantes() {
     this.listaParcipantes.sort((a, b) => a.nome.localeCompare(b.nome));
+    this.definirOrdemParticipantes();
+  }
+
+  private definirOrdemParticipantes() {
     this.listaParcipantes.forEach((participante) => {
       participante.ordem = this.listaParcipantes.indexOf(participante);
     });
@@ -91,27 +103,35 @@ export class DailyDisplayComponent implements OnInit{
 
   iniciarDaily():void{
     this.dailyIniciada = true;
+    //Inicia Cronometros
     this.cronometro.startTimer();
     this.participanteLocutorComponent.iniciarCronometro();
 
+    //Registra tempo de inicio da daily e primeiro participante
     this.inicioDaily = new Date().getTime();
-
     this.inicioReport = new Date().getTime();
 
     this.cd.detectChanges();
   }
 
   finalizarReport():void{
-      this.listaParticipantesComponent.updateListaParticipante();
+      this.listaParticipantesComponent.atualizarListaParticipante();
       this.participanteLocutorComponent.reiniciarCronometro();
 
+      //Registra o tempo decorrido do report do usuário
       this.fimReport = new Date().getTime() - this.inicioReport;
+
+      //Reinicia o registro para o proximo usuário
       this.inicioReport = new Date().getTime();
 
-     if(this.listaParticipantesComponent.isfinalizarDaily()){
-      this.dailyFinalizada = true;
-     }
+     this.definirDailyFinalizada();
       this.cd.detectChanges();
+  }
+
+  private definirDailyFinalizada() {
+    if (this.listaParticipantesComponent.isfinalizarDaily()) {
+      this.dailyFinalizada = true;
+    }
   }
 
   prosseguirDaily(){
@@ -129,8 +149,12 @@ export class DailyDisplayComponent implements OnInit{
 
   recuperarIdProjeto() {
     if (this.route.snapshot.paramMap.get('id')) {
-      this.idProjeto = this.route.snapshot.paramMap.get('id') ? <string>this.route.snapshot.paramMap.get('id') : "";
+      this.idProjeto = this.conversaoIdProjetoPath();
     }
+  }
+
+  private conversaoIdProjetoPath(): string {
+    return this.route.snapshot.paramMap.get(this.ID_PROJETO_PATH) ? <string>this.route.snapshot.paramMap.get(this.ID_PROJETO_PATH) : "";
   }
 
   recuperarParticipanteLocutor(){
@@ -138,6 +162,7 @@ export class DailyDisplayComponent implements OnInit{
   }
 
   finalizarDaily(){
+    //Registra Tempo decorrido da Daily
     this.fimDaily = new Date().getTime() - this.inicioDaily;
     this.dailyLog.tempoDecorrido = this.fimDaily/1000;
   }
