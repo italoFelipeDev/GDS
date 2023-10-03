@@ -1,4 +1,5 @@
 import { DailyLog } from "./dailyLog.class";
+import { Falta } from "./falta.class";
 import { Impedimento } from "./impedimento.class";
 import { Usuario } from "./usuario.class";
 
@@ -14,4 +15,6 @@ export class Projeto{
     participantes: Array<Usuario>;
     tempoMedioDeDaily: number;
     tempoMedioDeFala: number;
+    faltasDoDia: Array<Falta> = new Array<Falta>();
+    faltasDoMês: Array<Falta> = new Array<Falta>();
 }

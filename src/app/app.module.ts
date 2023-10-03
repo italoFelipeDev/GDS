@@ -21,7 +21,9 @@ import { ListaProjetosComponent } from './components/lista-projetos/lista-projet
 import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component';
 import { CadastrarImpedimentoComponent } from './components/cadastrar-impedimento/cadastrar-impedimento.component';
 import { ImpedimentoComponent } from './components/impedimento/impedimento.component';
-import { PerfilComponent } from './components/perfil/perfil.component'
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { CadastroFaltaComponent } from './components/cadastro-falta/cadastro-falta.component';
+import { ListaFaltaComponent } from './components/lista-falta/lista-falta.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,8 @@ import { PerfilComponent } from './components/perfil/perfil.component'
     CadastrarImpedimentoComponent,
     ImpedimentoComponent,
     PerfilComponent,
+    CadastroFaltaComponent,
+    ListaFaltaComponent,
     
   ],
   imports: [

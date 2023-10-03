@@ -28,4 +28,8 @@ export class ProjetoComponent  implements OnInit{
   direcionarProjetoDaily(){
     this.router.navigate(RotaUtils.rotaProjetoDaily(this.projeto.id.toString()));
   }
+
+  getNumeroDeImpedimentos(): string{
+    return this.projeto.impedimentos.length.toString();
+  }
 }

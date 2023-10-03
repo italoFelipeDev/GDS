@@ -1,8 +1,9 @@
 <div class="container d-flex justify-content-center">
-    <div>
-        Registrar Usuário
-    </div>
-    <div *ngIf="isSingin()">
+    
+    <div *ngIf="isSingin() && !isPerfil()">
+        <div>
+            Registrar Usuário
+        </div>
         <form [formGroup]="usuarioGroup" (ngSubmit)="submit()">
             <div class="form-group input-group mb-3">
                 <label class="input-group-text" for="nome">Nome</label>
@@ -28,7 +29,10 @@
         <a class="card-link" (click)="direcionarLogin()">Já possuo conta.</a>
     </div>
     
-    <div *ngIf="!isSingin()">
+    <div *ngIf="!isSingin() && !isPerfil()">
+        <div>
+            Login
+        </div>
         <form [formGroup]="usuarioGroup" (ngSubmit)="submitLogin()">
             <div class="form-group input-group mb-3">
                 <label class="input-group-text" for="email">Email</label>
@@ -44,5 +48,27 @@
         </form>
         <a class="card-link" (click)="direcionarSingIn()">Não possui conta? Cadastre-se aqui.</a>
     </div>
-    
+
+    <div *ngIf="isPerfil()">
+        <form [formGroup]="usuarioGroup" (ngSubmit)="submit()" class=" d-flex flex-column align-items-center">
+            <img class="mr-3  mb-5 rounded-circle" src={{usuario.icone}} alt="Generic placeholder image"
+            style="width: 200px; height: 200px;">
+            <div class="form-group input-group mb-3">
+                <label class="input-group-text " for="nome">Nome</label>
+                <input readonly type="text" formControlName="nome" class="form-control" id="disabledTextInput">
+            </div>
+            <div class="form-group input-group mb-3">
+                <label class="input-group-text" for="email">Email</label>
+                <input readonly type="text" formControlName="email" class="form-control">
+            </div>
+            <div class="form-group input-group mb-3">
+                <label class="input-group-text" for="senha">Senha</label>
+                <input readonly type="password"  formControlName="senha" class="form-control">
+            </div>
+            <button class="btn bg-primary" type="submit">
+                Editar
+            </button>
+        </form>
+    </div>
+
 </div>

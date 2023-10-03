@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
@@ -13,10 +13,12 @@ export class NavbarComponent implements OnInit{
   usuarioLogado: Usuario;
   ngOnInit(): void {
     this.carregarUsuarioLogado();
+    this.cd.detectChanges();
   }
 
   constructor(
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
     ){
 
   }
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit{
   logOut(){
     LocalStorageUtil.removerUsuarioLogado();
     this.direcionarLogin();
+    
   }
 
   direcionarLogin() {
@@ -40,6 +43,10 @@ export class NavbarComponent implements OnInit{
 
   carregarUsuarioLogado(){
     this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+  }
+
+  isUsuarioLogado(): boolean{
+    return this.usuarioLogado? true: false;
   }
 
 }

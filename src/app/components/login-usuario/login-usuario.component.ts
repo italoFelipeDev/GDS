@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
@@ -15,7 +15,13 @@ export class LoginUsuarioComponent implements OnInit {
 
   usuarioGroup: FormGroup;
   imagem: string;
-  loginToggle: boolean = false;
+  singinToggle: boolean = false;
+
+  usuario: Usuario = new Usuario();
+
+  @Input() perfilToggle: boolean = false;
+  
+  isEditar: boolean = false;
 
   private readonly PATH_MODALIDADE_LOGIN = 'modalidadeLogin';
 
@@ -23,9 +29,9 @@ export class LoginUsuarioComponent implements OnInit {
     formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
     private router: Router,
-    private route: ActivatedRoute,
     private cd: ChangeDetectorRef
   ) {
+    this.carregarUsuarioLogado();
     this.usuarioGroup = this.montarFormLogin(formBuilder)
   }
 
@@ -34,10 +40,10 @@ export class LoginUsuarioComponent implements OnInit {
 
   private montarFormLogin(formBuilder: FormBuilder): FormGroup<any> {
     return formBuilder.group({
-      nome: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required]],
-      icone: ['']
+      nome: [this.usuario.nome, [Validators.required]],
+      email: [this.usuario.email, [Validators.required, Validators.email]],
+      senha: [this.usuario.senha, [Validators.required]],
+      icone: [this.usuario.icone]
     });
   }
 
@@ -91,17 +97,31 @@ export class LoginUsuarioComponent implements OnInit {
   }
 
   direcionarSingIn() {
-    this.loginToggle = true;
+    this.singinToggle = true;
     this.cd.detectChanges();
   }
 
   direcionarLogin() {
-    this.loginToggle = false;
+    this.singinToggle = false;
     this.cd.detectChanges();
   }
 
 
   isSingin(): boolean{
-    return this.loginToggle;
+    return this.singinToggle;
+  }
+
+  isPerfil(): boolean{
+    return this.perfilToggle;
+  }
+
+  carregarUsuarioLogado(): void{
+    if(LocalStorageUtil.recuperarUsuarioLogado()){
+      this.usuario = LocalStorageUtil.recuperarUsuarioLogado();
+    }
+  }
+
+  isDesativado(): string{
+    return this.isEditar ? '' : 'readonly'
   }
 }

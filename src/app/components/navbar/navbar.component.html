@@ -4,7 +4,7 @@
     <a class="nav-item nav-link" (click)="direcionarHome()">Home</a>
     <a class="nav-item nav-link" (click)="direcionarPerfil()">Perfil</a>
     <a class="nav-item nav-link" (click)="logOut()">Logout</a>
-    <img class="mr-3 rounded-circle" src={{usuarioLogado.icone}} alt="Generic placeholder image"
+    <img class="mr-3 rounded-circle"*ngIf="isUsuarioLogado()" src={{usuarioLogado.icone}} alt="Generic placeholder image"
                     style="width: 35px; height: 35px;">
   </div>
 </nav>
