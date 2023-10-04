@@ -23,7 +23,8 @@ import { CadastrarImpedimentoComponent } from './components/cadastrar-impediment
 import { ImpedimentoComponent } from './components/impedimento/impedimento.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { CadastroFaltaComponent } from './components/cadastro-falta/cadastro-falta.component';
-import { ListaFaltaComponent } from './components/lista-falta/lista-falta.component'
+import { ListaFaltaComponent } from './components/lista-falta/lista-falta.component';
+import { FaltaComponent } from './components/falta/falta.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { ListaFaltaComponent } from './components/lista-falta/lista-falta.compon
     PerfilComponent,
     CadastroFaltaComponent,
     ListaFaltaComponent,
+    FaltaComponent,
     
   ],
   imports: [

@@ -28,4 +28,8 @@ export class LocalStorageUtil {
             window.localStorage.removeItem(LocalStorageUtil.LOCATION_USUARIO_LOGADO);
         }
     }
+
+    static isUsuarioLogado(): boolean{
+        return JSON.parse(LocalStorageUtil.recuperarStringUsuarioLogado());
+    }
 }

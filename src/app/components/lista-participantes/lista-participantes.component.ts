@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Falta } from 'src/model/falta.class';
 import { Usuario } from 'src/model/usuario.class';
 
 @Component({
@@ -10,6 +11,8 @@ export class ListaParticipantesComponent implements OnInit {
 
   @Input() listaParcipantes: Array<Usuario>;
 
+  @Input() listaFaltas: Array<Falta>;
+  
   listaReportConcluido: Array<Usuario> = new Array<Usuario>();
 
   constructor(

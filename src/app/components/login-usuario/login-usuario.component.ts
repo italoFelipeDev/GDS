@@ -23,19 +23,17 @@ export class LoginUsuarioComponent implements OnInit {
   
   isEditar: boolean = false;
 
-  private readonly PATH_MODALIDADE_LOGIN = 'modalidadeLogin';
-
   constructor(
     formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
     private router: Router,
     private cd: ChangeDetectorRef
   ) {
-    this.carregarUsuarioLogado();
     this.usuarioGroup = this.montarFormLogin(formBuilder)
   }
 
   ngOnInit() {
+    this.carregarUsuarioLogado();
    }
 
   private montarFormLogin(formBuilder: FormBuilder): FormGroup<any> {
@@ -118,7 +116,18 @@ export class LoginUsuarioComponent implements OnInit {
   carregarUsuarioLogado(): void{
     if(LocalStorageUtil.recuperarUsuarioLogado()){
       this.usuario = LocalStorageUtil.recuperarUsuarioLogado();
+
+      this.atualizarDadosUsuarioForm();
     }
+  }
+
+  private atualizarDadosUsuarioForm() {
+    this.usuarioGroup.patchValue({
+      nome: this.usuario.nome,
+      email: this.usuario.email,
+      senha: this.usuario.senha,
+      icone: this.usuario.icone
+    });
   }
 
   isDesativado(): string{

@@ -1,1 +1,7 @@
-<p>lista-falta works!</p>
+
+<div class="container d-inline-flex flex-column">
+    <h4>Faltas do Dia</h4>
+    <div *ngFor="let falta of projeto.faltasDoDia">
+        <app-falta [falta]="falta" [projeto]="projeto"></app-falta>
+    </div>
+</div>

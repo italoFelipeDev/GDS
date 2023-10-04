@@ -61,8 +61,7 @@ export class DailyDisplayComponent implements OnInit{
     private usuarioService: UsuarioService,
     private projetoService: ProjetoService,
     private route: ActivatedRoute,
-    private router: Router) { 
-
+    ) { 
   }
 
   carregarDailyDisplay(){
@@ -85,9 +84,22 @@ export class DailyDisplayComponent implements OnInit{
 
   private carregarUsuario(idParticipante: string) {
     this.usuarioService.getUsuario(idParticipante).subscribe(responseUser => {
-      this.listaParcipantes.push(responseUser);
-      this.organizarListaParticipantes();
+
+      this.configurarParticipantesFaltantes(responseUser);
     });
+  }
+
+  private configurarParticipantesFaltantes(responseUser: Usuario) {
+    let isParticipanteFaltante: boolean = false;
+    this.projeto.faltasDoDia.forEach(falta => {
+      if (falta.idUsuario == responseUser.id.toString()) {
+        isParticipanteFaltante = true;
+      }
+    });
+    if (!isParticipanteFaltante) {
+      this.listaParcipantes.push(responseUser);
+    }
+    this.organizarListaParticipantes();
   }
 
   private organizarListaParticipantes() {

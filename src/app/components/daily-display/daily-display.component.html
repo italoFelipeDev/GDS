@@ -23,7 +23,8 @@
         </div>  
         <div class="lista">
             <app-cronometro class="cronometro container" [tempoExtrapoladoDaily]="this.projeto.tempoMedioDeDaily"></app-cronometro>
-            <app-lista-participantes [listaParcipantes]="listaParcipantes"></app-lista-participantes>
+            <app-lista-participantes [listaParcipantes]="listaParcipantes" [listaFaltas]="projeto.faltasDoDia"></app-lista-participantes>
+            <app-lista-falta [projeto]="projeto"></app-lista-falta>
         </div>
         
     </div>

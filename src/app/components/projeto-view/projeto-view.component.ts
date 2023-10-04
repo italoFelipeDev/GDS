@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
+import { Falta } from 'src/model/falta.class';
 import { Impedimento } from 'src/model/impedimento.class';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
@@ -61,6 +62,14 @@ export class ProjetoViewComponent implements OnInit {
     this.recuperarIdProjeto();
     this.projetoService.getProjeto(this.idProjeto).subscribe(response => {
       this.projeto = response;
+      this. atualizaRotinaFaltasProjeto();
+      
+    })
+  }
+
+  atualizaRotinaFaltasProjeto(){
+    this.atualizarFaltas(this.projeto);
+    this.projetoService.putProjeto(this.projeto).subscribe(response =>{
       this.carregarParticipantesProjeto(response);
     })
   }
@@ -124,21 +133,28 @@ export class ProjetoViewComponent implements OnInit {
   private atualizarUsuariosExclusaoProjeto(): void {
     this.projeto.participantesId.forEach(idParticipante => {
       this.usuarioService.getUsuario(idParticipante).subscribe(responseUser => {
-        responseUser.listaProjetosId = this.excluirItemLista(responseUser.listaProjetosId, this.projeto.id.toString());
+        responseUser.listaProjetosId = this.excluirItemListaPorId(responseUser.listaProjetosId, this.projeto.id.toString());
         this.usuarioService.putUsuario(responseUser).subscribe();
       });
     });
   }
 
-  excluirItemLista(itemLista: Array<string>, itemId: string): Array<string> {
+  excluirItemListaPorId(itemLista: Array<string>, itemId: string): Array<string> {
     return itemLista.filter(novaLista => {
       return novaLista != itemId;
     });
   }
 
+  excluirItemListaFalta(itemLista: Array<Falta>, item: Falta): Array<Falta> {
+    return itemLista.filter(novaLista => {
+      return novaLista != item;
+    });
+  }
+  
+
   removerParticipante(usuario: Usuario){
-    usuario.listaProjetosId = this.excluirItemLista(usuario.listaProjetosId, this.projeto.id.toString());
-    this.projeto.participantesId = this.excluirItemLista(this.projeto.participantesId, usuario.id.toString());
+    usuario.listaProjetosId = this.excluirItemListaPorId(usuario.listaProjetosId, this.projeto.id.toString());
+    this.projeto.participantesId = this.excluirItemListaPorId(this.projeto.participantesId, usuario.id.toString());
     this.usuarioService.putUsuario(usuario).subscribe(response =>{
       this.projetoService.putProjeto(this.projeto).subscribe(response =>{
         location.reload();
@@ -160,5 +176,16 @@ export class ProjetoViewComponent implements OnInit {
 
   isUsuarioDaListaScrumMaster(usuario: Usuario): boolean{
     return this.projeto.idScrumMaster == usuario.id.toString();
+  }
+
+  atualizarFaltas(projeto: Projeto){
+    let hoje = new Date();
+    projeto.faltasDoDia.forEach(falta =>{
+      let diaFalta = new Date(falta.diaFalta)
+      if(diaFalta.getDate() < hoje.getDate()){
+        projeto.faltasDoMês.push(falta);
+        projeto.faltasDoDia = this.excluirItemListaFalta(projeto.faltasDoDia, falta);
+      }
+    })
   }
 }

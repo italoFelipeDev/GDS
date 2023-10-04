@@ -15,7 +15,7 @@ export class CadastrarImpedimentoComponent implements OnInit {
 
   impedimentoGroup: FormGroup;
 
-  UsuarioLogado: Usuario;
+  usuarioLogado: Usuario;
 
   idProjeto: string;
 
@@ -57,13 +57,13 @@ export class CadastrarImpedimentoComponent implements OnInit {
     let impedimento: Impedimento = new Impedimento();
     impedimento.titulo = this.impedimentoGroup.get('titulo')?.value;
     impedimento.descricao = this.impedimentoGroup.get('descricao')?.value;
-    impedimento.idParticipante = this.UsuarioLogado.id;
+    impedimento.idParticipante = this.usuarioLogado.id;
     impedimento.idProjeto = this.projeto.id.toString();
-    impedimento.nomeUsuario = this.UsuarioLogado.nome;
+    impedimento.nomeUsuario = this.usuarioLogado.nome;
     return impedimento;
   }
 
   recuperarUsuarioLogado() {
-      this.UsuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+      this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
   }
 }

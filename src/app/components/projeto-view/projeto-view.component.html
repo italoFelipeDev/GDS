@@ -35,6 +35,8 @@
         </div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
+    
+    <app-lista-falta [projeto]="projeto"></app-lista-falta>
 
     <div class="container d-inline-flex flex-column">
         <h4>Impedimentos do Projeto</h4>
@@ -51,6 +53,8 @@
     </div>
 
     <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
+
+    <app-cadastro-falta [projeto]="projeto"></app-cadastro-falta>
 
     <button *ngIf="isUsuarioScrumMaster()" type="button" class="btn btn-danger mt-5" (click)="excluirProjeto()">Excluir
         Projeto
