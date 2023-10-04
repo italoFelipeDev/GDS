@@ -185,5 +185,7 @@ $btn-close-hover-opacity:    1 !default;
 
 $pre-color:                         inherit !default;
 
+$accordion-bg:                            var(--#{$primary}$primary);
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';

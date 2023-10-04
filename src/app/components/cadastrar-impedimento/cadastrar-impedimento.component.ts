@@ -60,6 +60,7 @@ export class CadastrarImpedimentoComponent implements OnInit {
     impedimento.idParticipante = this.usuarioLogado.id;
     impedimento.idProjeto = this.projeto.id.toString();
     impedimento.nomeUsuario = this.usuarioLogado.nome;
+    impedimento.iconeUsuario = this.usuarioLogado.icone;
     return impedimento;
   }
 

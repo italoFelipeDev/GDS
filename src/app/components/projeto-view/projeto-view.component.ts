@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjetoService } from 'src/app/service/projeto.service';
@@ -9,6 +9,8 @@ import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
+import { CadastrarImpedimentoComponent } from '../cadastrar-impedimento/cadastrar-impedimento.component';
+import { CadastroFaltaComponent } from '../cadastro-falta/cadastro-falta.component';
 
 @Component({
   selector: 'app-projeto-view',
@@ -17,11 +19,18 @@ import { RotaUtils } from 'src/utils/rota.class.utils';
 })
 export class ProjetoViewComponent implements OnInit {
 
+  @ViewChild(CadastrarImpedimentoComponent) cadastrarImpedimentoComponent: CadastrarImpedimentoComponent;
+
+  @ViewChild(CadastroFaltaComponent) cadastroFaltaComponent: CadastroFaltaComponent;
+
   addParticipanteGroup: FormGroup;
   projeto: Projeto;
   listaParticipantes: Array<Usuario> = new Array<Usuario>;
   idProjeto: string;
   usuarioLogado: Usuario;
+
+  myModal = document.getElementById('myModal')
+  myInput = document.getElementById('myInput')
 
   private readonly ID_PROJETO_PATH = 'id';
 
@@ -187,5 +196,13 @@ export class ProjetoViewComponent implements OnInit {
         projeto.faltasDoDia = this.excluirItemListaFalta(projeto.faltasDoDia, falta);
       }
     })
+  }
+
+  cadastrarImpedimento(){
+    this.cadastrarImpedimentoComponent.submit();
+  }
+
+  cadastrarFalta(){
+    this.cadastroFaltaComponent.submit();
   }
 }

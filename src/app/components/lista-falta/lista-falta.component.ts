@@ -17,4 +17,8 @@ export class ListaFaltaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  temFalta():boolean{
+    return this.projeto.faltasDoDia.length > 0;
+  }
+
 }

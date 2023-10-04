@@ -1,7 +1,30 @@
+<div class="card">
+    <div class="card-header bg-primary" style="text-align: center; font-size: large;">
+        Faltas do Dia
+    </div>
+    <div class="card-body bg-secondary">
+        <div *ngIf="temFalta()" class="accordion" id="accordionFalta">
+            <div *ngFor="let falta of projeto.faltasDoDia" class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    style="font-size: large; text-decoration: solid;"    
+                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseFalta">
 
-<div class="container d-inline-flex flex-column">
-    <h4>Faltas do Dia</h4>
-    <div *ngFor="let falta of projeto.faltasDoDia">
-        <app-falta [falta]="falta" [projeto]="projeto"></app-falta>
+                        <img class="rounded-circle align-self-center img-fluid" src={{falta.iconeParticipante}}
+                        alt="Icone do Participante" style="width: 35px; height: 35px; object-fit:cover; margin-right: 0.9rem;">
+                        {{falta.nomeParticipante}}
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFalta">
+                    <div class="accordion-body">
+                        <app-falta [falta]="falta" [projeto]="projeto"></app-falta>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!temFalta()"  class="alert alert-info" role="alert">
+            Sem faltas por hoje!
+        </div>
     </div>
 </div>

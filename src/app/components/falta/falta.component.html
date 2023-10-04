@@ -1,12 +1,9 @@
 <div class="card">
     <div class="card-header">
-        <img class="mr-3 rounded-circle" src={{falta.iconePartticipante}} alt="Generic placeholder image"
-                    style="width: 35px; height: 35px;">
-        {{falta.nomeParticipante}}
+        {{falta.justificativa}}
     </div>
     <div class="card-body">
         <h5 class="card-title">{{'Falta no dia: ' + getDataFalta()}}</h5>
-        <p class="card-text">{{falta.justificativa}}</p>
 
         <a *ngIf="podeRemoverFalta()" class="btn btn-primary" (click)="removerFaltaProjeto()">Remover Falta</a>
     </div>

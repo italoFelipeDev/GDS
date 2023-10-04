@@ -24,7 +24,8 @@ import { ImpedimentoComponent } from './components/impedimento/impedimento.compo
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { CadastroFaltaComponent } from './components/cadastro-falta/cadastro-falta.component';
 import { ListaFaltaComponent } from './components/lista-falta/lista-falta.component';
-import { FaltaComponent } from './components/falta/falta.component'
+import { FaltaComponent } from './components/falta/falta.component';
+import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-impedimento.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { FaltaComponent } from './components/falta/falta.component'
     CadastroFaltaComponent,
     ListaFaltaComponent,
     FaltaComponent,
+    ListaImpedimentoComponent,
     
   ],
   imports: [
