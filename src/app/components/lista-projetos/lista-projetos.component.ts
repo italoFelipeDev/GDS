@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Projeto } from 'src/model/projeto.class';
+import { RotaUtils } from 'src/utils/rota.class.utils';
 
 @Component({
   selector: 'app-lista-projetos',
@@ -7,10 +9,17 @@ import { Projeto } from 'src/model/projeto.class';
   styleUrls: ['./lista-projetos.component.scss']
 })
 export class ListaProjetosComponent implements OnInit {
+  
   @Input() listaProjetos: Array<Projeto>;
 
-  constructor(private cd: ChangeDetectorRef) { }
+  direcionarCadastroProjeto() {
+    this.router.navigate(RotaUtils.rotaCadastroProjeto());
+  }
 
+  constructor(
+    private cd: ChangeDetectorRef,
+    private router: Router
+    ) { }
   
   ngOnInit(): void {
     this.organizarListaProjetos();

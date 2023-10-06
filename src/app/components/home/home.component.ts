@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Usuario } from 'src/model/usuario.class';
 import { RotaUtils } from 'src/utils/rota.class.utils';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
+import { Toast } from 'bootstrap';
 
 
 @Component({
@@ -19,6 +20,12 @@ export class HomeComponent implements OnInit {
 
   listaProjetos: Array<Projeto> = new Array<Projeto>;
   usuarioLogado: Usuario;
+
+  toastLiveExample = document.getElementById('liveToast')
+
+  toastTrigger = document.getElementById('liveToastBtn')
+
+  toast: any;
 
   constructor(
     private projetoService: ProjetoService,

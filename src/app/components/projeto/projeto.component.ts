@@ -32,4 +32,12 @@ export class ProjetoComponent  implements OnInit{
   getNumeroDeImpedimentos(): string{
     return this.projeto.impedimentos.length.toString();
   }
+
+  getNumeroDeParticipantes(): string{
+    return this.projeto.participantesId.length.toString();
+  }
+
+  getNumeroDeFaltas(): string{
+    return this.projeto.faltasDoDia.length.toString();
+  }
 }

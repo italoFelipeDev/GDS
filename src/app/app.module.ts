@@ -12,7 +12,7 @@ import { DailyDisplayComponent } from './components/daily-display/daily-display.
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CadastroProjetoComponent } from './components/cadastro-projeto/cadastro-projeto.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
@@ -25,7 +25,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { CadastroFaltaComponent } from './components/cadastro-falta/cadastro-falta.component';
 import { ListaFaltaComponent } from './components/lista-falta/lista-falta.component';
 import { FaltaComponent } from './components/falta/falta.component';
-import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-impedimento.component'
+import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-impedimento.component';
+import { ToastComponent } from './components/toast/toast.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-
     ListaFaltaComponent,
     FaltaComponent,
     ListaImpedimentoComponent,
+    ToastComponent,
     
   ],
   imports: [
@@ -57,7 +59,7 @@ import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

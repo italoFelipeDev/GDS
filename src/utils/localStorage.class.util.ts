@@ -30,6 +30,12 @@ export class LocalStorageUtil {
     }
 
     static isUsuarioLogado(): boolean{
-        return JSON.parse(LocalStorageUtil.recuperarStringUsuarioLogado());
+        try{
+            JSON.parse(LocalStorageUtil.recuperarStringUsuarioLogado());
+            return true;
+        }catch{
+            return false;
+        }
+         
     }
 }

@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router, RouterEvent } from '@angular/router';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
@@ -9,11 +9,37 @@ import { RotaUtils } from 'src/utils/rota.class.utils';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit{
-  usuarioLogado: Usuario;
+export class NavbarComponent implements OnInit, OnChanges{
+  @Input()usuarioLogado: Usuario;
+
+  isUsuarioLogado: boolean;
+  
   ngOnInit(): void {
-    this.carregarUsuarioLogado();
+    this.monitorarUsuarioLogado();
+  }
+
+  private monitorarUsuarioLogado() {
+    this.router.events.subscribe(e => {
+      if (e instanceof RouterEvent) {
+        console.log(LocalStorageUtil.isUsuarioLogado());
+
+        if (LocalStorageUtil.isUsuarioLogado()) {
+          this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+          this.atualizarStatusUsuarioLogado();
+        } else {
+          this.atualizarStatusUsuarioLogado();
+        }
+      }
+    });
+  }
+
+  private atualizarStatusUsuarioLogado() {
+    this.isUsuarioLogado = LocalStorageUtil.isUsuarioLogado();
     this.cd.detectChanges();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.usuarioLogado = this.usuarioLogado;
   }
 
   constructor(
@@ -44,9 +70,4 @@ export class NavbarComponent implements OnInit{
   carregarUsuarioLogado(){
     this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
   }
-
-  isUsuarioLogado(): boolean{
-    return this.usuarioLogado? true: false;
-  }
-
 }
