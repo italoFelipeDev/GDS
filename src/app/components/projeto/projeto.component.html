@@ -1,33 +1,32 @@
-
-  <div class="card">
-    <div class="card-body">
-      <div class="d-flex flex-column justify-content-center" style="align-items: center;">
-        <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{projeto.icone}} alt="Icone projeto"
-                style="width: 200px; height: 200px; object-fit:cover;">
-        <h5 class="card-title d-flex mb-3">{{projeto.nome}}</h5>
-        <p class="card-text d-flex">{{projeto.descricao}}</p>
-      </div>
-      
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <button type="button" class="btn btn-primary">
-            Nº de Faltas <span class="badge text-bg-secondary">{{getNumeroDeFaltas()}}</span>
-            </button>
-        </li>
-        <li class="list-group-item">
-          <button type="button" class="btn btn-primary">
-          Nº de Impedimentos <span class="badge text-bg-secondary">{{getNumeroDeImpedimentos()}}</span>
-          </button>
-        </li>
-        <li class="list-group-item">
-          <button type="button" class="btn btn-primary">
-          Nº de Participantes <span class="badge text-bg-secondary">{{getNumeroDeParticipantes()}}</span>
-          </button>
-        </li>
-        <a class="btn btn-primary mt-4" (click)="direcionarProjetoView()">Detalhes</a>
-        <a class="btn btn-primary mt-2" (click)="direcionarProjetoDaily()">Iniciar Daily</a>
-      </ul>
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex flex-column justify-content-center" style="align-items: center;">
+      <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{projeto.icone}} alt="Icone projeto"
+        style="width: 200px; height: 200px; object-fit:cover;">
+      <h5 class="card-title d-flex mb-3">{{projeto.nome}}</h5>
+      <p class="card-text d-flex">{{projeto.descricao}}</p>
     </div>
-  </div>
 
-  <app-toast [idToast]="'toastProjeto'"></app-toast>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <button type="button" class="btn btn-primary">
+          Nº de Faltas <span class="badge text-bg-secondary">{{getNumeroDeFaltas()}}</span>
+        </button>
+      </li>
+      <li class="list-group-item">
+        <button type="button" class="btn btn-primary">
+          Nº de Impedimentos <span class="badge text-bg-secondary">{{getNumeroDeImpedimentos()}}</span>
+        </button>
+      </li>
+      <li class="list-group-item">
+        <button type="button" class="btn btn-primary">
+          Nº de Participantes <span class="badge text-bg-secondary">{{getNumeroDeParticipantes()}}</span>
+        </button>
+      </li>
+      <a class="btn btn-primary mt-4" (click)="direcionarProjetoView()">Detalhes</a>
+      <a class="btn btn-primary mt-2" (click)="direcionarProjetoDaily()">Iniciar Daily</a>
+    </ul>
+  </div>
+</div>
+
+<app-toast [idToast]="'toastProjeto'"></app-toast>

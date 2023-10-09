@@ -27,7 +27,8 @@ import { ListaFaltaComponent } from './components/lista-falta/lista-falta.compon
 import { FaltaComponent } from './components/falta/falta.component';
 import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-impedimento.component';
 import { ToastComponent } from './components/toast/toast.component';
-import { AnotacaoComponent } from './components/anotacao/anotacao.component'
+import { AnotacaoComponent } from './components/anotacao/anotacao.component';
+import { DailyReviewComponent } from './components/daily-review/daily-review.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +54,7 @@ import { AnotacaoComponent } from './components/anotacao/anotacao.component'
     ListaImpedimentoComponent,
     ToastComponent,
     AnotacaoComponent,
+    DailyReviewComponent,
     
   ],
   imports: [

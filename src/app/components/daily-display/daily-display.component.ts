@@ -10,6 +10,8 @@ import { ProjetoService } from 'src/app/service/projeto.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Projeto } from 'src/model/projeto.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
+import { DailyReviewComponent } from '../daily-review/daily-review.component';
+import { ReportUsuarioLog } from 'src/model/reportUsuarioLog.class';
 
 @Component({
   selector: 'app-daily-display',
@@ -23,6 +25,8 @@ export class DailyDisplayComponent implements OnInit{
   @ViewChild(ParticipanteLocutorComponent) participanteLocutorComponent: ParticipanteLocutorComponent;
 
   @ViewChild(ListaParticipantesComponent) listaParticipantesComponent: ListaParticipantesComponent;
+
+  @ViewChild(DailyReviewComponent) dailyReviewComponent: DailyReviewComponent;
 
   dailyLog: DailyLog = new DailyLog();
 
@@ -45,6 +49,8 @@ export class DailyDisplayComponent implements OnInit{
   fimDaily: number;
 
   dailyFinalizada: boolean = false;
+
+  relatorioGerado: boolean = false;
 
   private readonly ID_PROJETO_PATH = 'id';
   
@@ -124,15 +130,20 @@ export class DailyDisplayComponent implements OnInit{
     this.inicioDaily = new Date().getTime();
     this.inicioReport = new Date().getTime();
 
+
+
     this.cd.detectChanges();
   }
 
   finalizarReport():void{
-      this.listaParticipantesComponent.atualizarListaParticipante();
+
+      let usuarioDailyLog: Usuario = this.listaParticipantesComponent.atualizarListaParticipante();
+
       this.participanteLocutorComponent.reiniciarCronometro();
 
       //Registra o tempo decorrido do report do usuário
       this.fimReport = new Date().getTime() - this.inicioReport;
+      this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/1000));
 
       //Reinicia o registro para o proximo usuário
       this.inicioReport = new Date().getTime();
@@ -176,8 +187,22 @@ export class DailyDisplayComponent implements OnInit{
 
   finalizarDaily(){
     //Registra Tempo decorrido da Daily
+    this.cronometro.stopTimer();
+    this.participanteLocutorComponent.cronometro.stopTimer();
+
+    let usuarioDailyLog: Usuario = this.listaParticipantesComponent.atualizarListaParticipante();
+
+    //Registra o tempo decorrido do report do usuário
+    this.fimReport = new Date().getTime() - this.inicioReport;
+    this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/1000));
+
     this.fimDaily = new Date().getTime() - this.inicioDaily;
     this.dailyLog.tempoDecorrido = this.fimDaily/1000;
+    this.projeto.logReunioes.push(this.dailyLog);
+    this.projetoService.putProjeto(this.projeto).subscribe(response =>{
+      this.projeto = response;
+      this.dailyReviewComponent.abrirModal();
+    })
   }
 
   isUsuarioAutorizadoAcesso(): boolean{

@@ -31,11 +31,12 @@ export class ListaParticipantesComponent implements OnInit {
     this.listaParcipantes = this.listaParcipantes;
   }
 
-  atualizarListaParticipante() {
+  atualizarListaParticipante(): any {
     if (this.listaParcipantes.length != 0) {
       this.addListaReportConcluido(this.listaParcipantes[0]);
-      this.listaParcipantes.shift();
+      let usuarioReportConcluido = this.listaParcipantes.shift();
       this.cd.detectChanges();
+      return usuarioReportConcluido!
     }
 
   }
