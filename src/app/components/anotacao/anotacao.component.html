@@ -1,0 +1,19 @@
+<form *ngIf="!isDailyDisplay" [formGroup]="anotacaoGroup" (ngSubmit)="submit()">
+    <div class="input-group">
+        <span class="input-group-text">Suas Anotações</span>
+        <textarea class="form-control" formControlName="textoAnotacao" aria-label="With textarea"></textarea>
+      </div>
+
+      <button class="btn bg-primary mt-3" type="submit">
+        Salvar Alterações
+    </button>
+</form>
+
+
+<form *ngIf="isDailyDisplay" class="d-flex flex-column justify-content-center align-items-center" [formGroup]="anotacaoGroup" (ngSubmit)="submit()">
+    <h3>Sua Anotações:</h3>
+    <div class="input-group">
+        <textarea class="form-control" formControlName="textoAnotacao" readonly aria-label="With textarea"></textarea>
+      </div>
+</form>
+

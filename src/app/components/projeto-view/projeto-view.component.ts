@@ -4,13 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Falta } from 'src/model/falta.class';
-import { Impedimento } from 'src/model/impedimento.class';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
-import { CadastrarImpedimentoComponent } from '../cadastrar-impedimento/cadastrar-impedimento.component';
-import { CadastroFaltaComponent } from '../cadastro-falta/cadastro-falta.component';
+import { ToastComponent } from '../toast/toast.component';
+import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
+import { Anotacao } from 'src/model/anotacao.class';
 
 @Component({
   selector: 'app-projeto-view',
@@ -19,9 +19,7 @@ import { CadastroFaltaComponent } from '../cadastro-falta/cadastro-falta.compone
 })
 export class ProjetoViewComponent implements OnInit {
 
-  @ViewChild(CadastrarImpedimentoComponent) cadastrarImpedimentoComponent: CadastrarImpedimentoComponent;
-
-  @ViewChild(CadastroFaltaComponent) cadastroFaltaComponent: CadastroFaltaComponent;
+  @ViewChild(ToastComponent) toast: ToastComponent;
 
   addParticipanteGroup: FormGroup;
   projeto: Projeto;
@@ -97,7 +95,11 @@ export class ProjetoViewComponent implements OnInit {
   }
 
   submit(): void {
-    this.inscreverUsuarioProjeto();
+    if(this.addParticipanteGroup.valid && this.isEmailParticipanteCadastradoValido()){
+      this.inscreverUsuarioProjeto();
+    }else{
+      this.toast.mostrarToast(ToastMensagemUtil.ERRO_ADICIONAR_PARTICIPANTE_TITULO, ToastMensagemUtil.ERRO_ADICIONAR_PARTICIPANTE_DESCRICAO);
+    }
   }
 
   private inscreverUsuarioProjeto(): void {
@@ -111,8 +113,16 @@ export class ProjetoViewComponent implements OnInit {
   private atualizaProjetoUsuario(usuario: Usuario): void {
     if (this.compararEmailUsuario(usuario)) {
       this.projeto.participantesId.push(usuario.id.toString());
+      this.adicionarAnotacaoNovoUsuario(usuario);
       this.atualizaProjetoListaParticipantes(usuario);
     }
+  }
+
+  private adicionarAnotacaoNovoUsuario(usuario: Usuario) {
+    let anotacaoUsuarioNovo: Anotacao = new Anotacao();
+    anotacaoUsuarioNovo.idProjeto = this.projeto.id.toString();
+    anotacaoUsuarioNovo.idUsuario = usuario.id.toString();
+    this.projeto.anotacoesUsuario.push(anotacaoUsuarioNovo);
   }
 
   private compararEmailUsuario(usuario: Usuario): boolean {
@@ -159,16 +169,35 @@ export class ProjetoViewComponent implements OnInit {
       return novaLista != item;
     });
   }
+
+  excluirItemListaAnotacaoPorId(itemLista: Array<Anotacao>, idParticipante: string): Array<Anotacao> {
+    return itemLista.filter(novaLista => {
+      return novaLista.idUsuario != idParticipante;
+    });
+  }
+
+  excluirItemListaFaltaPorId(itemLista: Array<Falta>, idParticipante: string): Array<Falta> {
+    return itemLista.filter(novaLista => {
+      return novaLista.idUsuario != idParticipante;
+    });
+  }
   
 
   removerParticipante(usuario: Usuario){
     usuario.listaProjetosId = this.excluirItemListaPorId(usuario.listaProjetosId, this.projeto.id.toString());
     this.projeto.participantesId = this.excluirItemListaPorId(this.projeto.participantesId, usuario.id.toString());
+    this.limparListasRemocaoUsuario(usuario);
     this.usuarioService.putUsuario(usuario).subscribe(response =>{
+      LocalStorageUtil.salvarUsuarioLogado(response);
       this.projetoService.putProjeto(this.projeto).subscribe(response =>{
         location.reload();
       })
     })
+  }
+
+  private limparListasRemocaoUsuario(usuario: Usuario) {
+    this.projeto.anotacoesUsuario = this.excluirItemListaAnotacaoPorId(this.projeto.anotacoesUsuario, usuario.id.toString());
+    this.projeto.faltasDoDia = this.excluirItemListaFaltaPorId(this.projeto.faltasDoDia, usuario.id.toString());
   }
 
   direcionarHome(): void {
@@ -198,11 +227,23 @@ export class ProjetoViewComponent implements OnInit {
     })
   }
 
-  cadastrarImpedimento(){
-    this.cadastrarImpedimentoComponent.submit();
+  isEmailParticipanteCadastradoValido(): boolean{
+    let valido = true;
+    this.listaParticipantes.forEach(participante => {
+      if(participante.email == this.addParticipanteGroup.get('email')?.value){
+        valido = false;
+      }
+    })
+    return valido
   }
 
-  cadastrarFalta(){
-    this.cadastroFaltaComponent.submit();
+  isUsuarioAutorizadoAcesso(): boolean{
+    let isAutorizado: boolean = false
+    this.projeto.participantesId.forEach(idParticipante =>{
+      if(idParticipante == this.usuarioLogado.id.toString()){
+        isAutorizado = true;
+      }
+    });
+    return isAutorizado;
   }
 }

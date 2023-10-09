@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { Impedimento } from 'src/model/impedimento.class';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
+import { ToastComponent } from '../toast/toast.component';
+import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 
 @Component({
   selector: 'app-cadastrar-impedimento',
@@ -21,6 +23,8 @@ export class CadastrarImpedimentoComponent implements OnInit {
 
   @Input() projeto: Projeto;
 
+  @ViewChild(ToastComponent) toast: ToastComponent;
+  
   constructor(
     formBuilder: FormBuilder,
     private projetoService: ProjetoService,
@@ -42,7 +46,12 @@ export class CadastrarImpedimentoComponent implements OnInit {
   }
 
   submit() {
-    this.cadastrarImpedimento();
+    if(this.impedimentoGroup.valid && this.isImpedimentoCadastroValido()){
+      this.cadastrarImpedimento();
+    }else{
+      this.toast.mostrarToast(ToastMensagemUtil.ERRO_CADASTRAR_IMPEDIMENTO_TITULO, ToastMensagemUtil.ERRO_CADASTRAR_IMPEDIMENTO_DESCRICAO);
+    }
+    
   }
 
   private cadastrarImpedimento() {
@@ -66,5 +75,15 @@ export class CadastrarImpedimentoComponent implements OnInit {
 
   recuperarUsuarioLogado() {
       this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+  }
+
+  isImpedimentoCadastroValido(): boolean{
+    let impedimentoValido: boolean = true;
+    this.projeto.impedimentos.forEach(impedimento =>{
+      if(impedimento.titulo == this.impedimentoGroup.get('titulo')?.value){
+        impedimentoValido = false;
+      }
+    })
+    return impedimentoValido;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProjetoService } from 'src/app/service/projeto.service';
@@ -7,6 +7,9 @@ import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
+import { ToastComponent } from '../toast/toast.component';
+import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
+import { Anotacao } from 'src/model/anotacao.class';
 
 @Component({
   selector: 'app-cadastro-projeto',
@@ -15,11 +18,15 @@ import { RotaUtils } from 'src/utils/rota.class.utils';
 })
 export class CadastroProjetoComponent implements OnInit {
 
+  @ViewChild(ToastComponent) toast: ToastComponent;
+
   projetoGroup: FormGroup;
 
   imagem: string;
 
-  projeto: Projeto;
+  projeto: Projeto = new Projeto();
+
+  @Input() projetoEditar: Projeto;
 
   idUsuarioLogado: string;
 
@@ -40,16 +47,29 @@ export class CadastroProjetoComponent implements OnInit {
 
   ngOnInit(): void {
     this.atualizarUsuarioLogado();
+    this.atualizarFormEditarProjeto();
+  }
+
+  private atualizarFormEditarProjeto() {
+    if (this.isEditar()) {
+      this.projeto = this.projetoEditar
+      this.projetoGroup.patchValue({
+        nome: this.projetoEditar.nome,
+        descricao: this.projetoEditar.descricao,
+        tempoMedioDeDaily: this.projetoEditar.tempoMedioDeDaily,
+        tempoMedioDeFala: this.projetoEditar.tempoMedioDeFala
+      });
+    }
   }
 
   private montarProjetoForm(formBuilder: FormBuilder) {
     this.projetoGroup = formBuilder.group(
       {
-        nome: ['', [Validators.required]],
-        descricao: ['', [Validators.required]],
+        nome: [this.projeto.nome, [Validators.required]],
+        descricao: [this.projeto.descricao, [Validators.required]],
         icone: [''],
-        tempoMedioDeDaily: [this.TEMPO_MEDIO_DAILY, [Validators.required]],
-        tempoMedioDeFala: [this.TEMPO_MEDIO_FALA, [Validators.required]],
+        tempoMedioDeDaily: [this.projeto.tempoMedioDeDaily ? this.projeto.tempoMedioDeDaily : this.TEMPO_MEDIO_DAILY, [Validators.required]],
+        tempoMedioDeFala: [this.projeto.tempoMedioDeFala ? this.projeto.tempoMedioDeFala : this.TEMPO_MEDIO_FALA, [Validators.required]],
       }
     );
   }
@@ -69,12 +89,27 @@ export class CadastroProjetoComponent implements OnInit {
   }
 
   submit() {
+    if(this.projetoGroup.valid){
+      this.projetoService.postProjeto(this.mapearFormProjeto()).subscribe(response => {
+        this.projeto = response;
+        this.atualizarUsuario(response.id.toString());
+        this.direcionarHome();
+      });
+    }else{
+      this.toast.mostrarToast(ToastMensagemUtil.ERRO_CADASTRAR_PROJETO_TITULO, ToastMensagemUtil.ERRO_CADASTRAR_PROJETO_DESCRICAO);
+    }
+  }
 
-    this.projetoService.postProjeto(this.mapearFormProjeto()).subscribe(response => {
-      this.projeto = response;
-      this.atualizarUsuario(response.id.toString());
-      this.direcionarHome();
-    });
+  submitEditar(){
+    if(this.projetoGroup.valid && this.isAltercaoEditarValida()){
+      this.aplicarAlteracaoEditarProjeto();
+      this.projetoService.putProjeto(this.projeto).subscribe(response =>{
+        this.projeto = response;
+        location.reload();
+      })
+    }else{
+      this.toast.mostrarToast(ToastMensagemUtil.ERRO_EDITAR_PROJETO_TITULO, ToastMensagemUtil.ERRO_EDITAR_PROJETO_DESCRICAO);
+    }
   }
 
   private mapearFormProjeto() {
@@ -87,6 +122,9 @@ export class CadastroProjetoComponent implements OnInit {
     projeto.icone = this.imagem;
     projeto.idScrumMaster = this.usuarioLogado.id.toString();
     projeto.participantesId.push(this.usuarioLogado.id.toString());
+    let anotacaoScrumMaster: Anotacao = new Anotacao();
+    anotacaoScrumMaster.idUsuario = this.usuarioLogado.id.toString();
+    projeto.anotacoesUsuario.push(anotacaoScrumMaster);
     return projeto;
   }
 
@@ -105,5 +143,35 @@ export class CadastroProjetoComponent implements OnInit {
 
   direcionarHome() {
     this.router.navigate(RotaUtils.rotaHome());
+  }
+
+  isEditar(): boolean{
+    return this.projetoEditar ? true: false;
+  }
+
+  aplicarAlteracaoEditarProjeto(){
+    this.projeto.nome = this.projetoGroup.get('nome')?.value;
+    this.projeto.descricao = this.projetoGroup.get('descricao')?.value;
+    this.projeto.tempoMedioDeDaily = this.projetoGroup.get('tempoMedioDeDaily')?.value;
+    this.projeto.tempoMedioDeFala = this.projetoGroup.get('tempoMedioDeFala')?.value;
+  }
+
+  isAltercaoEditarValida(): boolean{
+
+    let projetoAtual: Projeto = new Projeto();
+
+    projetoAtual.nome = this.projetoEditar.nome;
+    projetoAtual.descricao = this.projetoEditar.descricao;
+    projetoAtual.tempoMedioDeDaily = this.projetoEditar.tempoMedioDeDaily;
+    projetoAtual.tempoMedioDeFala = this.projetoEditar.tempoMedioDeFala;
+
+    let projetoEditado: Projeto = new Projeto();
+
+    projetoEditado.nome = this.projetoGroup.get('nome')?.value;
+    projetoEditado.descricao = this.projetoGroup.get('descricao')?.value;
+    projetoEditado.tempoMedioDeDaily = this.projetoGroup.get('tempoMedioDeDaily')?.value;
+    projetoEditado.tempoMedioDeFala = this.projetoGroup.get('tempoMedioDeFala')?.value;
+
+    return JSON.stringify(projetoAtual) != JSON.stringify(projetoEditado);
   }
 }

@@ -1,4 +1,4 @@
-<form class="container d-flex justify-content-center flex-column mt-5" [formGroup]="projetoGroup" (ngSubmit)="submit()">
+<form *ngIf="!isEditar()" class="container d-flex justify-content-center flex-column mt-5" [formGroup]="projetoGroup" (ngSubmit)="submit()">
 
   <h3 class="align-self-center mb-3">Cadastre seu Projeto</h3>
 
@@ -37,3 +37,41 @@
 
   <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
+
+
+<form *ngIf="isEditar()" class="container d-flex justify-content-center flex-column mt-5" [formGroup]="projetoGroup" (ngSubmit)="submitEditar()">
+
+  <h3 class="align-self-center mb-3">Edite seu Projeto</h3>
+
+  <div class="input-group flex-nowrap mb-4">
+    <span class="input-group-text" id="nome">Nome do Projeto</span>
+    <input type="text" class="form-control" placeholder="Nome do Projeto" aria-label="Nome"
+      aria-describedby="addon-wrapping" formControlName="nome">
+  </div>
+
+  <div class="input-group flex-nowrap mb-4">
+    <span class="input-group-text" id="descricao">Descrição do Projeto</span>
+    <textarea class="form-control" id="descricao" rows="3" formControlName="descricao"
+      placeholder="Descrição do Projeto" aria-label="Projeto"></textarea>
+  </div>
+
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="tempoMedioDeDaily">Tempo Médio da Reunião</span>
+    <input type="number" class="form-control" placeholder="Digite o tempo medio de sua reunião em minutos."
+      aria-label="TempoMedioDeDaily" aria-describedby="addon-wrapping" formControlName="tempoMedioDeDaily">
+  </div>
+  <small id="tempoMedioDeDailyHelp" class="form-text text-muted mb-4">É recomendado que sua reunião tenha em média 15
+    minutos, sendo ajustado pelo o tamanho de sua equipe.</small>
+
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="tempoMedioDeFala">Tempo Médio de Fala</span>
+    <input type="number" class="form-control" placeholder="Digite o tempo medio de sua reunião em minutos."
+      aria-label="TempoMedioDeFala" aria-describedby="addon-wrapping" formControlName="tempoMedioDeFala">
+  </div>
+  <small id="tempoMedioDeDailyHelp" class="form-text text-muted mb-4">É recomendado que sua cada participante tenha 2
+    minutos para realizar seu report, sendo ajustado pelo o tamanho de sua equipe.</small>
+
+  <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+
+<app-toast [idToast]="'toastCadastroProjeto'"></app-toast>

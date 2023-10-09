@@ -14,7 +14,7 @@ export class ParticipanteComponent implements OnInit{
   @Input() icone: string;
   @Input() usuario: Usuario;
   reportFeito: boolean = false;
-
+  
   constructor() { }
 
   ngOnInit(): void {

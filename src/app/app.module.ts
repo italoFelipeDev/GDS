@@ -26,7 +26,8 @@ import { CadastroFaltaComponent } from './components/cadastro-falta/cadastro-fal
 import { ListaFaltaComponent } from './components/lista-falta/lista-falta.component';
 import { FaltaComponent } from './components/falta/falta.component';
 import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-impedimento.component';
-import { ToastComponent } from './components/toast/toast.component'
+import { ToastComponent } from './components/toast/toast.component';
+import { AnotacaoComponent } from './components/anotacao/anotacao.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import { ToastComponent } from './components/toast/toast.component'
     FaltaComponent,
     ListaImpedimentoComponent,
     ToastComponent,
+    AnotacaoComponent,
     
   ],
   imports: [

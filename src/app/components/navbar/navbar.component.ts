@@ -21,8 +21,6 @@ export class NavbarComponent implements OnInit, OnChanges{
   private monitorarUsuarioLogado() {
     this.router.events.subscribe(e => {
       if (e instanceof RouterEvent) {
-        console.log(LocalStorageUtil.isUsuarioLogado());
-
         if (LocalStorageUtil.isUsuarioLogado()) {
           this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
           this.atualizarStatusUsuarioLogado();

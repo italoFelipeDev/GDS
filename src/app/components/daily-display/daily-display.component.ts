@@ -9,6 +9,7 @@ import { DailyLog } from 'src/model/dailyLog.class';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Projeto } from 'src/model/projeto.class';
+import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 
 @Component({
   selector: 'app-daily-display',
@@ -177,5 +178,15 @@ export class DailyDisplayComponent implements OnInit{
     //Registra Tempo decorrido da Daily
     this.fimDaily = new Date().getTime() - this.inicioDaily;
     this.dailyLog.tempoDecorrido = this.fimDaily/1000;
+  }
+
+  isUsuarioAutorizadoAcesso(): boolean{
+    let isAutorizado: boolean = false
+    this.projeto.participantesId.forEach(idParticipante =>{
+      if(idParticipante == LocalStorageUtil.recuperarUsuarioLogado().id.toString()){
+        isAutorizado = true;
+      }
+    });
+    return isAutorizado;
   }
 }

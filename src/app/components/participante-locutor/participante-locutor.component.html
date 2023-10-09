@@ -1,44 +1,41 @@
-<div class="container bg-primary">
-        <img clas="imagem" src={{usuario.icone}} alt="">
+<div class="container bg-primary" style="width: 530px;">
+        <div class="bg-secondary d-flex justify-content-center align-items-center" style="height: 380px;">
+                <img class="rounded-circle d-flex align-self-center" src={{usuario.icone}} alt="Icone projeto"
+                style="width: 200px; height: 200px; object-fit:cover;">
+        </div>
         <div class="nome bg-primary">{{usuario.nome}}</div>
         <app-cronometro [isLocutor]="true" [tempoExtrapoladoLocutor]="this.tempoExtrapoladoLocutor"></app-cronometro>
 
         <div class="container-impedimento bg-primary">
-                
+
                 <div class="titulo">
                         Impedimentos atuais
                 </div>
 
                 <ng-container *ngFor="let impedimento of impedimentoList">
-
-                        <div class="impedimento bg-dark" *ngIf="isImpedimentoUsuarioLocutor(impedimento)">
-                                <div>
-                                        {{impedimento.titulo}}:
-                                </div>
-
-                                <div class="impedimento-descricao">
-                                        - {{impedimento.descricao}}
-                                </div>
-                        </div>
-
+                        <app-impedimento *ngIf=" isImpedimentoUsuarioLocutor(impedimento)" [isDailyDisplay]="true" [impedimento]="impedimento"></app-impedimento>
                 </ng-container>
+                
+                <div *ngIf="checarListaImpedimento()" class="alert alert-primary" role="alert">
+                        Sem nenhum impedimento.
+                </div>
+
+
 
                 <div class="titulo">
                         Impedimentos superados
                 </div>
 
                 <ng-container *ngFor="let impedimento of impedimentoList">
-
-                        <div class="impedimento bg-dark" *ngIf=" isImpedimentoUsuarioLocutorSolucionado(impedimento)">
-                                <div>
-                                        {{impedimento.titulo}}:
-                                </div>
-
-                                <div class="impedimento-descricao">
-                                        - {{impedimento.descricao}}
-                                </div>
-                        </div>
+                        
+                        <app-impedimento *ngIf="isImpedimentoUsuarioLocutorSolucionado(impedimento)" [isDailyDisplay]="true" [impedimento]="impedimento"></app-impedimento>
 
                 </ng-container>
+
+                <div *ngIf="checarListaImpedimentoSuperado()" class="alert alert-primary" role="alert">
+                        Sem nenhum impedimento superado.
+                </div>
+
+
         </div>
 </div>

@@ -18,11 +18,17 @@ export class ParticipanteLocutorComponent implements OnInit {
 
   @ViewChild(CronometroComponent) cronometro: CronometroComponent;
 
+  isNenhumImpedmiento: boolean = true;
+
+  isNenhumImpedimentoSuperado: boolean = true;
+
   constructor(
     private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
+
+    this.checarListaImpedimento();
   }
 
   iniciarCronometro(): void {
@@ -41,5 +47,36 @@ export class ParticipanteLocutorComponent implements OnInit {
 
   isImpedimentoUsuarioLocutorSolucionado(impedimento: Impedimento): boolean{
     return impedimento.solucionado && this.usuario.id == impedimento.idParticipante
+  }
+
+  checarListaImpedimento(): boolean{
+    let semImpedimentoAtual: boolean = true;
+    this.impedimentoList.forEach(impedimento =>{
+      
+      if(impedimento.solucionado && this.usuario.id == impedimento.idParticipante){
+        semImpedimentoAtual = false;
+      }
+    })
+
+   return semImpedimentoAtual;
+  }
+
+  checarListaImpedimentoSuperado(): boolean{
+
+    let semImpedimentoSuperado: boolean = true;
+
+    this.impedimentoList.forEach(impedimento =>{
+      let dataFimImpedimento: Date = new Date(impedimento.dataFim);
+
+      let diaAtual: Date = new Date();
+
+      let diaAnterior = diaAtual.getDate() - 1;
+
+      if(this.isImpedimentoUsuarioLocutorSolucionado(impedimento) && dataFimImpedimento.getDate() >= diaAnterior){
+        semImpedimentoSuperado = false;
+      }
+    })
+
+   return semImpedimentoSuperado;
   }
 }

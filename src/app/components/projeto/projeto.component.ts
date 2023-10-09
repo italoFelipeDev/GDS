@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Projeto } from 'src/model/projeto.class';
 import { RotaUtils } from 'src/utils/rota.class.utils';
+import { ToastComponent } from '../toast/toast.component';
+import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 
 @Component({
   selector: 'app-projeto',
@@ -11,6 +13,10 @@ import { RotaUtils } from 'src/utils/rota.class.utils';
 export class ProjetoComponent  implements OnInit{
 
   @Input() projeto: Projeto;
+
+  @ViewChild(ToastComponent) toastProjeto: ToastComponent;
+
+  private readonly NUMERO_MINIMO_PARTICIPANTES_DAILY = 2;
 
   constructor(
     private router: Router
@@ -26,7 +32,12 @@ export class ProjetoComponent  implements OnInit{
   }
 
   direcionarProjetoDaily(){
-    this.router.navigate(RotaUtils.rotaProjetoDaily(this.projeto.id.toString()));
+    if(this.isDailyViavel()){
+      this.router.navigate(RotaUtils.rotaProjetoDaily(this.projeto.id.toString()));
+    }else{
+      this.toastProjeto.mostrarToast(ToastMensagemUtil.ERRO_INCIAR_DAILY_TITULO, ToastMensagemUtil.ERRO_INCIAR_DAILY_DESCRICAO);
+    }
+    
   }
 
   getNumeroDeImpedimentos(): string{
@@ -39,5 +50,9 @@ export class ProjetoComponent  implements OnInit{
 
   getNumeroDeFaltas(): string{
     return this.projeto.faltasDoDia.length.toString();
+  }
+
+  isDailyViavel(): boolean{
+    return (this.projeto.participantesId.length - this.projeto.faltasDoDia.length) >= this.NUMERO_MINIMO_PARTICIPANTES_DAILY;
   }
 }

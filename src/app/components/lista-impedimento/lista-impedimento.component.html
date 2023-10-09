@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-5">
     <div class="card-header bg-primary" style="text-align: center; font-size: large;">
         Impedimentos do Projeto
     </div>
@@ -14,7 +14,8 @@
                             style="margin-left: 0.9rem;">SOLUCIONADO</span>
                     </button>
                 </h2>
-                <div id="collapseImpedimento" class="accordion-collapse collapse show" data-bs-parent="#accordionImpedimento">
+                <div id="collapseImpedimento" class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionImpedimento">
                     <div class="accordion-body">
                         <app-impedimento [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
                     </div>
@@ -24,6 +25,32 @@
 
         <div *ngIf="!temImpedimento()" class="alert alert-info" role="alert">
             O projeto não possui impedimentos!
+        </div>
+    </div>
+    <!-- Botão Cadastrar Impedimento -->
+    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+        data-bs-target="#cadastrarImpedimentoModal">
+        Registrar Impedimento
+    </button>
+</div>
+
+
+<!-- Modal Cadastar Impedimento -->
+<div class="modal fade" id="cadastrarImpedimentoModal" tabindex="-1" aria-labelledby="cadastrarImpedimentoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="cadastrarImpedimentoModalLabel">Registrar Impedimento</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" (click)="cadastrarImpedimento()">Registrar</button>
+            </div>
         </div>
     </div>
 </div>

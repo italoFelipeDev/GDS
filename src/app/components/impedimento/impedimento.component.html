@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="!isDailyDisplay" class="card">
     <div class="card-header bg-primary d-flex flex-row">
         <img class="rounded-circle d-flex align-self-center img-fluid" src={{impedimento.iconeUsuario}}
         alt="Icone do Participante" style="width: 35px; height: 35px; object-fit:cover;">
@@ -16,3 +16,20 @@
         <a *ngIf="isImpedimentoSolucionavel()" class="btn btn-primary mt-4" (click)="declararSolucionado()">Declarar Solucionado</a>
     </div>
 </div>
+
+<div *ngIf="isDailyDisplay" class="card">
+    <div class="card-header bg-secondary d-flex flex-row">
+        <div class="d-flex align-self-center" style="margin-left: 0.9rem; text-decoration: solid; font-size: large;">
+            {{impedimento.titulo}}
+        </div>
+    </div>
+    <div class="card-body d-flex flex-column justify-content-start">
+        <p class="card-text">{{impedimento.descricao}}</p>
+        <ul class="list-group mt-2">
+            <li class="list-group-item bg-secondary m-1">{{ 'Data Inicio: ' + getDataInicioImpedimento()}}</li>
+
+            <li *ngIf="impedimento.solucionado" class="list-group-item bg-secondary m-1">{{'Data Fim: ' + getDataFimImpedimento()}}</li>
+        </ul>
+    </div>
+</div>
+

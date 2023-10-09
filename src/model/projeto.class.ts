@@ -1,3 +1,4 @@
+import { Anotacao } from "./anotacao.class";
 import { DailyLog } from "./dailyLog.class";
 import { Falta } from "./falta.class";
 import { Impedimento } from "./impedimento.class";
@@ -15,6 +16,7 @@ export class Projeto{
     participantes: Array<Usuario>;
     tempoMedioDeDaily: number;
     tempoMedioDeFala: number;
+    anotacoesUsuario: Array<Anotacao> = new Array<Anotacao>;
     faltasDoDia: Array<Falta> = new Array<Falta>();
     faltasDoMês: Array<Falta> = new Array<Falta>();
 }

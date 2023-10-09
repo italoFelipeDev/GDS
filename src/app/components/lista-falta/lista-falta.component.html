@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card  mb-5 ">
     <div class="card-header bg-primary" style="text-align: center; font-size: large;">
         Faltas do Dia
     </div>
@@ -6,12 +6,12 @@
         <div *ngIf="temFalta()" class="accordion" id="accordionFalta">
             <div *ngFor="let falta of projeto.faltasDoDia" class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button"
-                    style="font-size: large; text-decoration: solid;"    
-                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseFalta">
+                    <button class="accordion-button" type="button" style="font-size: large; text-decoration: solid;"
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseFalta">
 
                         <img class="rounded-circle align-self-center img-fluid" src={{falta.iconeParticipante}}
-                        alt="Icone do Participante" style="width: 35px; height: 35px; object-fit:cover; margin-right: 0.9rem;">
+                            alt="Icone do Participante"
+                            style="width: 35px; height: 35px; object-fit:cover; margin-right: 0.9rem;">
                         {{falta.nomeParticipante}}
                     </button>
                 </h2>
@@ -23,8 +23,35 @@
             </div>
         </div>
 
-        <div *ngIf="!temFalta()"  class="alert alert-info" role="alert">
+        <div *ngIf="!temFalta()" class="alert alert-info" role="alert">
             Sem faltas por hoje!
+        </div>
+    </div>
+    <!-- Botão Modal Cadastrar Falta -->
+    <button *ngIf="registroFaltaValido && !isDailyDisplay" type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+        data-bs-target="#cadastrarFaltaModal">
+        Registrar Falta
+    </button>
+</div>
+
+
+
+<!-- Modal Cadastrar Falta -->
+<div class="modal fade" id="cadastrarFaltaModal" tabindex="-1" aria-labelledby="cadastrarFaltaModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="cadastrarFaltaModalLabel">Registrar Falta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-cadastro-falta [projeto]="projeto"></app-cadastro-falta>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" (click)="cadastrarFalta()">Registrar</button>
+            </div>
         </div>
     </div>
 </div>

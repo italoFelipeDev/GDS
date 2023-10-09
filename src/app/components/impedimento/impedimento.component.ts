@@ -16,6 +16,8 @@ export class ImpedimentoComponent implements OnInit {
 
   @Input() projeto: Projeto;
 
+  @Input() isDailyDisplay: boolean = false;
+
   usuarioLogado: Usuario;
 
   constructor(
@@ -43,8 +45,8 @@ export class ImpedimentoComponent implements OnInit {
         impedimento.solucionado = true;
         impedimento.dataFim = new Date();
       }
-      this.atualizarImpedimento();
     })
+    this.atualizarImpedimento();
   }
 
   private atualizarImpedimento() {

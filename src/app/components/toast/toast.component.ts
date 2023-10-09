@@ -8,7 +8,7 @@ import { Toast } from 'bootstrap';
 })
 export class ToastComponent implements OnInit {
 
-
+  @Input() idToast: string;
   toast: any;
 
   tituloToast: string;
@@ -23,7 +23,7 @@ export class ToastComponent implements OnInit {
   mostrarToast(tituloToast: string, descricaoToast: string): void {
     this.tituloToast = tituloToast;
     this.descricaoToast = descricaoToast;
-    this.toast = new Toast('#toastComponent');
+    this.toast = new Toast('#' + this.idToast);
     this.toast.show();
   }
 }
