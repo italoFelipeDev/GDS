@@ -116,7 +116,7 @@ export class DailyDisplayComponent implements OnInit{
 
   private definirOrdemParticipantes() {
     this.listaParcipantes.forEach((participante) => {
-      participante.ordem = this.listaParcipantes.indexOf(participante);
+      participante.ordem = this.listaParcipantes.indexOf(participante) + 1;
     });
   }
 
@@ -143,7 +143,7 @@ export class DailyDisplayComponent implements OnInit{
 
       //Registra o tempo decorrido do report do usuário
       this.fimReport = new Date().getTime() - this.inicioReport;
-      this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/1000));
+      this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/10000));
 
       //Reinicia o registro para o proximo usuário
       this.inicioReport = new Date().getTime();
@@ -194,15 +194,35 @@ export class DailyDisplayComponent implements OnInit{
 
     //Registra o tempo decorrido do report do usuário
     this.fimReport = new Date().getTime() - this.inicioReport;
-    this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/1000));
+    this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/10000));
 
     this.fimDaily = new Date().getTime() - this.inicioDaily;
-    this.dailyLog.tempoDecorrido = this.fimDaily/1000;
+    this.dailyLog.tempoDecorrido = this.fimDaily/10000;
+    this.calcularMediaTempoReport();
+    this.dailyLog.impedimentosDoDiaList.concat(this.getNumeroReportPendente());
     this.projeto.logReunioes.push(this.dailyLog);
     this.projetoService.putProjeto(this.projeto).subscribe(response =>{
       this.projeto = response;
       this.dailyReviewComponent.abrirModal();
     })
+  }
+
+  calcularMediaTempoReport(){
+    let somaTotalTempo: number = 0;
+
+    this.dailyLog.tempoDecorridoReports.forEach(report =>{
+      somaTotalTempo += report.tempoDecorrido;
+    })
+
+    this.dailyLog.tempoMedioReports = somaTotalTempo/ this.dailyLog.tempoDecorridoReports.length;
+  }
+
+  getNumeroReportPendente(): Array<Impedimento>{
+    let impedimentoPendenteList = this.projeto.impedimentos.filter(impedimento => {
+      return impedimento.solucionado != true;
+    });
+
+    return impedimentoPendenteList;
   }
 
   isUsuarioAutorizadoAcesso(): boolean{
@@ -214,4 +234,6 @@ export class DailyDisplayComponent implements OnInit{
     });
     return isAutorizado;
   }
+
+  
 }

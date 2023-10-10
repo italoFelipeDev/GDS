@@ -1,6 +1,6 @@
+import { Falta } from "./falta.class";
 import { Impedimento } from "./impedimento.class";
 import { ReportUsuarioLog } from "./reportUsuarioLog.class";
-import { Usuario } from "./usuario.class";
 
 export class DailyLog {
 
@@ -11,6 +11,8 @@ export class DailyLog {
     tempoDecorrido: number;
     tempoDecorridoReports: Array<ReportUsuarioLog> = new Array<ReportUsuarioLog>
     notaDaily: number;
+    tempoMedioReports: number;
+    faltas: Array<Falta> = new Array<Falta>;
 
     constructor(){
         this.data = new Date();

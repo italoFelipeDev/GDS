@@ -26,7 +26,7 @@ export class ToastMensagemUtil{
 
     static readonly ERRO_INCIAR_DAILY_TITULO = "Impossível iniciar daily!";
 
-    static readonly ERRO_INCIAR_DAILY_DESCRICAO = "Necessário ao menos 2 participantes presentes para se inciar a daily.";
+    static readonly ERRO_INCIAR_DAILY_DESCRICAO = "Necessário ao menos 2 participantes presentes para se inciar a daily ou já foi realizada.";
     
     static readonly ERRO_ADICIONAR_PARTICIPANTE_TITULO = "Impossível adicionar participante!";
 

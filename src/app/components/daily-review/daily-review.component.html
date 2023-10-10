@@ -8,53 +8,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column justify-content-center" style="align-items: center;">
-                        <h3>
-                            Review da Daily: {{dailyLog.data}}
-                        </h3>
-                            <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{projeto.icone}}
-                                alt="Icone projeto" style="width: 200px; height: 200px; object-fit:cover;">
-                            <h5 class="card-title d-flex mb-3">{{projeto.nome}}</h5>
-                        </div>
-
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <button type="button" class="btn btn-primary">
-                                    Tempo total da Daily <span class="badge text-bg-secondary">{{dailyLog.tempoDecorrido}}</span>
-                                </button>
-                            </li>
-                            <li class="list-group-item">
-                                <button type="button" class="btn btn-primary">
-                                    Nº de Impedimentos solucionados <span
-                                        class="badge text-bg-secondary">{{dailyLog.impedimentosDoDiaList.length}}</span>
-                                </button>
-                            </li>
-                            <li class="list-group-item">
-                                <button type="button" class="btn btn-primary">
-                                    Nº de Participantes Faltantes <span
-                                        class="badge text-bg-secondary">{{projeto.faltasDoDia.length}}</span>
-                                </button>
-                            </li>
-
-                            <li class="list-group-item">
-                                <button type="button" class="btn btn-primary">
-                                    Nota <span
-                                        class="badge text-bg-secondary">{{dailyLog.notaDaily}}</span>
-                                </button>
-                            </li>
-
-                            <li *ngFor="let registro of dailyLog.tempoDecorridoReports" class="list-group-item">
-                                <button type="button" class="btn btn-primary">
-                                    Tempo de {{registro.usuario.nome}} <span
-                                        class="badge text-bg-secondary">{{registro.tempoDecorrido}}</span>
-                                </button>
-                            </li>
-                            <a class="btn btn-primary mt-4" (click)="fecharModal()">Fechar</a>
-                        </ul>
-                    </div>
-                </div>
+               <app-registro-daily [projeto]="projeto" [dailyLog]="dailyLog"></app-registro-daily>
+               
+               <button class="botao bg-primary" (click)="fecharModal()">
+                Fechar
+             </button>
             </div>
         </div>
     </div>

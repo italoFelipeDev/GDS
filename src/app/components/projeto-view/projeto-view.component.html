@@ -73,8 +73,6 @@
         </div>
 
 
-        <app-daily-review></app-daily-review>
-
         <!-- Modal Adicionar Participante -->
         <div class="modal fade" id="adicionarParticipanteModal" tabindex="-1"
             aria-labelledby="adicionarParticipanteModalLabel" aria-hidden="true">
@@ -127,50 +125,8 @@
     </div>
 </div>
 
-
-<div *ngFor="let dailyLog of projeto.logReunioes" class="card">
-    <div class="card-body">
-        <div class="d-flex flex-column justify-content-center" style="align-items: center;">
-        <h3>
-            Review da Daily: {{dailyLog.data}}
-        </h3>
-            <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{projeto.icone}}
-                alt="Icone projeto" style="width: 200px; height: 200px; object-fit:cover;">
-            <h5 class="card-title d-flex mb-3">{{projeto.nome}}</h5>
-        </div>
-
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <button type="button" class="btn btn-primary">
-                    Tempo total da Daily <span class="badge text-bg-secondary">{{dailyLog.tempoDecorrido}}</span>
-                </button>
-            </li>
-            <li class="list-group-item">
-                <button type="button" class="btn btn-primary">
-                    Nº de Impedimentos solucionados <span
-                        class="badge text-bg-secondary">{{dailyLog.impedimentosDoDiaList.length}}</span>
-                </button>
-            </li>
-            <li class="list-group-item">
-                <button type="button" class="btn btn-primary">
-                    Nº de Participantes Faltantes <span
-                        class="badge text-bg-secondary">{{projeto.faltasDoDia.length}}</span>
-                </button>
-            </li>
-
-            <li class="list-group-item">
-                <button type="button" class="btn btn-primary">
-                    Nota <span
-                        class="badge text-bg-secondary">{{dailyLog.notaDaily}}</span>
-                </button>
-            </li>
-
-            <li *ngFor="let registro of dailyLog.tempoDecorridoReports" class="list-group-item">
-                <button type="button" class="btn btn-primary">
-                    Tempo de {{registro.usuario.nome}} <span
-                        class="badge text-bg-secondary">{{registro.tempoDecorrido}}</span>
-                </button>
-            </li>
-        </ul>
-    </div>
+<div class="container d-inline-flex flex-column mt-5" style="min-width: 300px; max-width: 900px;">
+    <app-lista-registro-daily [projeto]="projeto"></app-lista-registro-daily>
 </div>
+
+

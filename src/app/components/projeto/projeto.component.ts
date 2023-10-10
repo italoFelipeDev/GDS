@@ -53,6 +53,22 @@ export class ProjetoComponent  implements OnInit{
   }
 
   isDailyViavel(): boolean{
+    return (this.isNumeroParticipantesSuficiente() && !this.isDailyRealizada())
+  }
+
+  private isNumeroParticipantesSuficiente(): boolean {
     return (this.projeto.participantesId.length - this.projeto.faltasDoDia.length) >= this.NUMERO_MINIMO_PARTICIPANTES_DAILY;
+  }
+
+  isDailyRealizada(): boolean{
+    let dailyRealizada = false;
+    this.projeto.logReunioes.forEach( log =>{
+      let diaLog: Date = new Date(log.data);
+      let hoje : Date = new Date();
+      if(diaLog.getDate() == hoje.getDate()){
+        dailyRealizada = true;
+      }
+    })
+    return dailyRealizada;
   }
 }

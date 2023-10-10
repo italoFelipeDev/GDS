@@ -1,0 +1,17 @@
+<div class="card  mb-5 ">
+    <div class="card-header bg-primary" style="text-align: center; font-size: large;">
+        Registros de Reuniões do Projeto
+    </div>
+    <div *ngIf="temRegistro()" class="card-body bg-secondary">
+        <div *ngFor="let dailyLog of projeto.logReunioes">
+            <app-registro-daily [dailyLog]="dailyLog" [projeto]="projeto"></app-registro-daily>
+        </div>
+    </div>
+
+    <div *ngIf="!temRegistro()" class="container mt-3">
+        <div class="alert alert-info" role="alert">
+            O projeto não possui registros.
+        </div>
+    </div>
+    
+</div>

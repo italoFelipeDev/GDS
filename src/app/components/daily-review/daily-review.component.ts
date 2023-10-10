@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { Projeto } from 'src/model/projeto.class';
+import { RotaUtils } from 'src/utils/rota.class.utils';
 
 @Component({
   selector: 'app-daily-review',
@@ -16,7 +18,10 @@ export class DailyReviewComponent implements OnInit {
 
   modal: any;
   
-  constructor(){
+  constructor(
+    private router: Router,
+    private cd: ChangeDetectorRef
+    ){
 
   }
 
@@ -24,11 +29,13 @@ export class DailyReviewComponent implements OnInit {
   }
 
   abrirModal(){
+    this.cd.detectChanges();
     this.modal = new Modal('#dailyReviewModal');
     this.modal.show();
   }
 
   fecharModal(){
     this.modal.hide();
+    this.router.navigate(RotaUtils.rotaHome());
   }
 }
