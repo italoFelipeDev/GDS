@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges, ViewChi
 import { Router, RouterEvent } from '@angular/router';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from './components/util/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',

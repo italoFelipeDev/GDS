@@ -3,34 +3,36 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CronometroComponent } from './components/cronometro/cronometro.component';
+import { CronometroComponent } from './components/reuniao-componentes/cronometro/cronometro.component';
 import { HeaderComponent } from './components/header/header.component';
-import { ParticipanteComponent } from './components/participante/participante.component';
-import { ListaParticipantesComponent } from './components/lista-participantes/lista-participantes.component';
-import { ParticipanteLocutorComponent } from './components/participante-locutor/participante-locutor.component';
-import { DailyDisplayComponent } from './components/daily-display/daily-display.component';
+import { ParticipanteComponent } from './components/reuniao-componentes/daily-review/participante/participante.component';
+import { ListaParticipantesComponent } from './components/reuniao-componentes/daily-review/lista-participantes/lista-participantes.component';
+import { ParticipanteLocutorComponent } from './components/reuniao-componentes/daily-review/participante-locutor/participante-locutor.component';
+import { DailyDisplayComponent } from './components/reuniao-componentes/daily-display/daily-display.component';
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroProjetoComponent } from './components/cadastro-projeto/cadastro-projeto.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './components/home/home.component';
-import { ProjetoComponent } from './components/projeto/projeto.component';
-import { ListaProjetosComponent } from './components/lista-projetos/lista-projetos.component';
-import { ProjetoViewComponent } from './components/projeto-view/projeto-view.component';
-import { CadastrarImpedimentoComponent } from './components/cadastrar-impedimento/cadastrar-impedimento.component';
-import { ImpedimentoComponent } from './components/impedimento/impedimento.component';
+import { CadastroProjetoComponent } from './components/projeto-componentes/cadastro-projeto/cadastro-projeto.component';
+import { NavbarComponent } from './components/util/navbar/navbar.component';
+import { HomeComponent } from './components/home-componentes/home/home.component';
+import { ProjetoComponent } from './components/home-componentes/projeto/projeto.component';
+import { ListaProjetosComponent } from './components/home-componentes/lista-projetos/lista-projetos.component';
+import { ProjetoViewComponent } from './components/projeto-componentes/projeto-view/projeto-view.component';
+import { CadastrarImpedimentoComponent } from './components/projeto-componentes/cadastrar-impedimento/cadastrar-impedimento.component';
+import { ImpedimentoComponent } from './components/util/impedimento/impedimento.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
-import { CadastroFaltaComponent } from './components/cadastro-falta/cadastro-falta.component';
-import { ListaFaltaComponent } from './components/lista-falta/lista-falta.component';
-import { FaltaComponent } from './components/falta/falta.component';
-import { ListaImpedimentoComponent } from './components/lista-impedimento/lista-impedimento.component';
-import { ToastComponent } from './components/toast/toast.component';
-import { AnotacaoComponent } from './components/anotacao/anotacao.component';
-import { DailyReviewComponent } from './components/daily-review/daily-review.component';
+import { CadastroFaltaComponent } from './components/projeto-componentes/cadastro-falta/cadastro-falta.component';
+import { ListaFaltaComponent } from './components/util/lista-falta/lista-falta.component';
+import { FaltaComponent } from './components/util/falta/falta.component';
+import { ListaImpedimentoComponent } from './components/util/lista-impedimento/lista-impedimento.component';
+import { ToastComponent } from './components/util/toast/toast.component';
+import { AnotacaoComponent } from './components/util/anotacao/anotacao.component';
+import { DailyReviewComponent } from './components/reuniao-componentes/daily-review/daily-review.component';
 import { RegistroDailyComponent } from './components/registro-daily/registro-daily.component';
-import { ListaRegistroDailyComponent } from './components/lista-registro-daily/lista-registro-daily.component'
+import { ListaRegistroDailyComponent } from './components/relatorio-componentes/lista-registro-daily/lista-registro-daily.component';
+import { RelatorioComponent } from './components/relatorio-componentes/relatorio/relatorio.component';
+import { RelatorioViewComponent } from './components/relatorio-componentes/relatorio-view/relatorio-view.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +61,8 @@ import { ListaRegistroDailyComponent } from './components/lista-registro-daily/l
     DailyReviewComponent,
     RegistroDailyComponent,
     ListaRegistroDailyComponent,
+    RelatorioComponent,
+    RelatorioViewComponent,
     
   ],
   imports: [

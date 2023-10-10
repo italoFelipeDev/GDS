@@ -7,7 +7,7 @@ import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
-import { ToastComponent } from '../toast/toast.component';
+import { ToastComponent } from '../../util/toast/toast.component';
 import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 import { Anotacao } from 'src/model/anotacao.class';
 

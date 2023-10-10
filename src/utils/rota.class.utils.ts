@@ -8,6 +8,7 @@ export class RotaUtils{
     private static readonly ROTA_PROJETO_VIEW = "projeto";
     private static readonly ROTA_PROJETO_DAILY = "daily";
     private static readonly ROTA_PERFIL = "perfil";
+    private static readonly ROTA_RELATORIO = "projeto/relatorio";
 
     static rotaSingin(): string[]{
         return [`${this.ROTA_SINGIN}`];
@@ -35,5 +36,9 @@ export class RotaUtils{
 
     static rotaPerfil(): string[]{
         return [`${this.ROTA_PERFIL}`];
+    }
+
+    static rotaRelatorio(id: string): string[]{
+        return [`${this.ROTA_RELATORIO}/${id}`];
     }
 }

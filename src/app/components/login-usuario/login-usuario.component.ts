@@ -1,13 +1,12 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Toast } from 'bootstrap';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
 import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
-import { ToastComponent } from '../toast/toast.component';
+import { ToastComponent } from '../util/toast/toast.component';
 
 @Component({
   selector: 'app-login-usuario',
@@ -57,7 +56,6 @@ export class LoginUsuarioComponent implements OnInit {
   carregarUsuarioLogado(): void {
     if (LocalStorageUtil.recuperarUsuarioLogado()) {
       this.usuario = LocalStorageUtil.recuperarUsuarioLogado();
-
       this.atualizarDadosUsuarioForm();
     }
   }
@@ -74,6 +72,7 @@ export class LoginUsuarioComponent implements OnInit {
   submit() {
     if (this.usuarioGroup.valid) {
       var usuario: Usuario = this.mapearFormUsuario();
+      
       this.usuarioService.postUsuario(usuario).subscribe(response => {
         LocalStorageUtil.salvarUsuarioLogado(response);
         this.direcionarHome();

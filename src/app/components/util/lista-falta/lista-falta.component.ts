@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Projeto } from 'src/model/projeto.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
-import { CadastroFaltaComponent } from '../cadastro-falta/cadastro-falta.component';
+import { CadastroFaltaComponent } from '../../projeto-componentes/cadastro-falta/cadastro-falta.component';
 
 @Component({
   selector: 'app-lista-falta',

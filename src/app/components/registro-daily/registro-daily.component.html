@@ -38,7 +38,7 @@
             </ul>
 
             <ul class="list-group list-group-flush justify-content-center align-self-center mt-3">
-                <li *ngFor="let registro of dailyLog.tempoDecorridoReports" class="d-flex flex-column list-group-item justify-content-center">
+                <li *ngFor="let registro of reportsUsuarioConvertido" class="d-flex flex-column list-group-item justify-content-center">
                     <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{registro.usuario.icone}}
                         alt="Icone usuario" style="width: 70px; height: 70px; object-fit:cover;">
                     <button type="button" class="btn {{avaliarTempoReportUsuario(registro.tempoDecorrido)}}">

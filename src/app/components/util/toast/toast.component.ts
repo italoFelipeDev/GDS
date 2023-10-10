@@ -9,6 +9,7 @@ import { Toast } from 'bootstrap';
 export class ToastComponent implements OnInit {
 
   @Input() idToast: string;
+
   toast: any;
 
   tituloToast: string;
@@ -16,14 +17,16 @@ export class ToastComponent implements OnInit {
   descricaoToast: string;
 
   ngOnInit(): void {
-
   }
 
-
   mostrarToast(tituloToast: string, descricaoToast: string): void {
+    this.criarToast(tituloToast, descricaoToast);
+    this.toast.show();
+  }
+
+  private criarToast(tituloToast: string, descricaoToast: string): void {
     this.tituloToast = tituloToast;
     this.descricaoToast = descricaoToast;
     this.toast = new Toast('#' + this.idToast);
-    this.toast.show();
   }
 }

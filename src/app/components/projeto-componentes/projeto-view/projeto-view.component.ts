@@ -8,14 +8,14 @@ import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.utils';
-import { ToastComponent } from '../toast/toast.component';
+import { ToastComponent } from '../../util/toast/toast.component';
 import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 import { Anotacao } from 'src/model/anotacao.class';
 
 @Component({
   selector: 'app-projeto-view',
-  templateUrl: './projeto-view.component.html',
-  styleUrls: ['./projeto-view.component.scss']
+  templateUrl: 'projeto-view.component.html',
+  styleUrls: ['projeto-view.component.scss']
 })
 export class ProjetoViewComponent implements OnInit {
 
@@ -201,7 +201,11 @@ export class ProjetoViewComponent implements OnInit {
   }
 
   direcionarHome(): void {
-    this.router.navigate([`${RotaUtils.rotaHome()}`])
+    this.router.navigate(RotaUtils.rotaHome())
+  }
+
+  direcionarRelatorio(): void{
+    this.router.navigate(RotaUtils.rotaRelatorio(this.idProjeto));
   }
 
   carregarUsuarioLogado(): void{

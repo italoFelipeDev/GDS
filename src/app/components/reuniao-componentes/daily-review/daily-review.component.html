@@ -1,6 +1,5 @@
 <!-- Modal Editar Projeto -->
-<div class="modal fade" id="dailyReviewModal" tabindex="-1" aria-labelledby="dailyReviewModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="dailyReviewModal" tabindex="-1" aria-labelledby="dailyReviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,11 +7,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               <app-registro-daily [projeto]="projeto" [dailyLog]="dailyLog"></app-registro-daily>
-               
-               <button class="botao bg-primary" (click)="fecharModal()">
-                Fechar
-             </button>
+                <div>
+                    <app-registro-daily [projeto]="projeto" [dailyLog]="dailyLog"></app-registro-daily>
+
+                    <button class="btn btn-primary" (click)="fecharModal()">
+                        Fechar
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>

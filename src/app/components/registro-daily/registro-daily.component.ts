@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { Projeto } from 'src/model/projeto.class';
+import { ReportUsuarioLogConvertido } from 'src/model/reportUsuarioLogConvertido.class';
+import { Usuario } from 'src/model/usuario.class';
 
 @Component({
   selector: 'app-registro-daily',
@@ -13,12 +16,19 @@ export class RegistroDailyComponent implements  OnInit{
 
   @Input() projeto: Projeto;
 
-  constructor(){
+  @Input() listaParticipante: Array<Usuario> = new Array<Usuario>();
+
+  reportsUsuarioConvertido: Array<ReportUsuarioLogConvertido> = new Array<ReportUsuarioLogConvertido>();
+
+  constructor(
+    private cd: ChangeDetectorRef,
+    private usuarioService: UsuarioService
+    ){
 
   }
 
   ngOnInit(): void {
-   
+   this.carregarParticipantesProjeto();
   }
 
   getDataDailyLog(): string{
@@ -38,5 +48,15 @@ export class RegistroDailyComponent implements  OnInit{
 
   avaliarNumeroReportPendente(): string{
     return this.dailyLog.impedimentosDoDiaList.length < 5 ? 'btn-success' : this.dailyLog.impedimentosDoDiaList.length < 10 ? 'btn-warning' : 'btn-danger'
+  }
+
+  carregarParticipantesProjeto(){
+    this.dailyLog.tempoDecorridoReports.forEach(report => {
+      this.usuarioService.getUsuario(report.usuarioId).subscribe(response =>{
+        this.reportsUsuarioConvertido.push(new ReportUsuarioLogConvertido(response, report.tempoDecorrido));
+        this.cd.detectChanges();
+      })
+    })
+    
   }
 }

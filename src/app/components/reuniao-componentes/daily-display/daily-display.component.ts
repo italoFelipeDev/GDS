@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CronometroComponent } from '../cronometro/cronometro.component';
-import { ParticipanteLocutorComponent } from '../participante-locutor/participante-locutor.component';
+import { ParticipanteLocutorComponent } from '../daily-review/participante-locutor/participante-locutor.component';
 import { Usuario } from 'src/model/usuario.class';
 import { Impedimento } from 'src/model/impedimento.class';
-import { ListaParticipantesComponent } from '../lista-participantes/lista-participantes.component';
+import { ListaParticipantesComponent } from '../daily-review/lista-participantes/lista-participantes.component';
 import { UsuarioService} from 'src/app/service/usuario-service.service';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { ProjetoService } from 'src/app/service/projeto.service';
@@ -143,7 +143,7 @@ export class DailyDisplayComponent implements OnInit{
 
       //Registra o tempo decorrido do report do usuário
       this.fimReport = new Date().getTime() - this.inicioReport;
-      this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/10000));
+      this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog.id.toString(), this.fimReport/10000));
 
       //Reinicia o registro para o proximo usuário
       this.inicioReport = new Date().getTime();
@@ -194,7 +194,7 @@ export class DailyDisplayComponent implements OnInit{
 
     //Registra o tempo decorrido do report do usuário
     this.fimReport = new Date().getTime() - this.inicioReport;
-    this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog, this.fimReport/10000));
+    this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog.id.toString(), this.fimReport/10000));
 
     this.fimDaily = new Date().getTime() - this.inicioDaily;
     this.dailyLog.tempoDecorrido = this.fimDaily/10000;

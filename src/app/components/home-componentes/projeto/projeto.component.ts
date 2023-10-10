@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Projeto } from 'src/model/projeto.class';
 import { RotaUtils } from 'src/utils/rota.class.utils';
-import { ToastComponent } from '../toast/toast.component';
+import { ToastComponent } from '../../util/toast/toast.component';
 import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 
 @Component({

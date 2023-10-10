@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Collapse } from 'bootstrap';
 import { Projeto } from 'src/model/projeto.class';
 import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CadastrarImpedimentoComponent } from '../cadastrar-impedimento/cadastrar-impedimento.component';
+import { CadastrarImpedimentoComponent } from '../../projeto-componentes/cadastrar-impedimento/cadastrar-impedimento.component';
 import { Impedimento } from 'src/model/impedimento.class';
 
 @Component({

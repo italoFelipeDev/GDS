@@ -1,9 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { Projeto } from 'src/model/projeto.class';
 import { RotaUtils } from 'src/utils/rota.class.utils';
+import { RegistroDailyComponent } from '../../registro-daily/registro-daily.component';
+import { ReportUsuarioLogConvertido } from 'src/model/reportUsuarioLogConvertido.class';
 
 @Component({
   selector: 'app-daily-review',
@@ -15,6 +17,8 @@ export class DailyReviewComponent implements OnInit {
   @Input() dailyLog: DailyLog = new DailyLog();
 
   @Input() projeto: Projeto = new Projeto();
+
+  @ViewChild(RegistroDailyComponent) registroDaily: RegistroDailyComponent;
 
   modal: any;
   
@@ -30,6 +34,7 @@ export class DailyReviewComponent implements OnInit {
 
   abrirModal(){
     this.cd.detectChanges();
+    this.registroDaily.carregarParticipantesProjeto();
     this.modal = new Modal('#dailyReviewModal');
     this.modal.show();
   }
