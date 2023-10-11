@@ -18,39 +18,7 @@
                 </button>
             </div>
 
-            <div class="card mb-3" style="width: 18rem;">
-                <div class="card-header bg-primary d-flex flex-row justify-content-between">
-                    <div class="d-flex  align-self-center">
-                        Participantes do Projeto
-                    </div>
-                    <!-- Botão Modal Adicionar Usuario -->
-                    <button type="button" class="btn btn-outline-light align-self-center d-flex" data-bs-toggle="modal"
-                        data-bs-target="#adicionarParticipanteModal" style="height: 30px; align-items: center;">
-                        +
-                    </button>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex flex-row justify-content-between bg-secondary border border-dark"
-                        *ngFor="let participante of listaParticipantes">
-
-                        <img class="rounded-circle align-self-center img-fluid" src={{participante.icone}}
-                            alt="Icone do Participante"
-                            style="width: 35px; height: 35px; min-width: 35px; min-height: 35px; max-width: 35px; min-height: 35px; object-fit:cover;">
-
-                        <div class="d-flex align-self-center" style="margin-right: auto; margin-left: 0.7rem;">
-                            {{participante.nome}}</div>
-
-                        <span *ngIf="isUsuarioDaListaScrumMaster(participante)"
-                            class="badge badge-secondary bg-primary d-flex align-self-center"
-                            style="height: fit-content; padding: 5px ;">Scrumaster</span>
-
-                        <button *ngIf="isUsuarioScrumMaster() && !isUsuarioDaListaScrumMaster(participante) "
-                            type="button" class="btn btn-danger btn-sm ml-auto align-self-center"
-                            style="min-height: 30px; max-height: 30px;"
-                            (click)="removerParticipante(participante)">Remover</button>
-                    </li>
-                </ul>
-            </div>
+            <app-lista-participante-projeto [projeto]="projeto"></app-lista-participante-projeto>
 
             <button type="button" class="btn btn-primary" (click)="direcionarRelatorio()">
                 Relatorios do Projeto
@@ -74,35 +42,6 @@
                 (click)="removerParticipante(usuarioLogado)">
                 Sair do Projeto
             </button>
-        </div>
-
-
-        <!-- Modal Adicionar Participante -->
-        <div class="modal fade" id="adicionarParticipanteModal" tabindex="-1"
-            aria-labelledby="adicionarParticipanteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="adicionarParticipanteModalLabel">Adicionar Participante</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form *ngIf="isUsuarioScrumMaster()" [formGroup]="addParticipanteGroup" (ngSubmit)="submit()">
-                            <div class="form-group mt-4">
-                                <input type="text" class="form-control" id="tempoMedioDeDaily"
-                                    placeholder="Digite o email do participante." formControlName="email">
-                                <small id="emailHelp" class="form-text text-muted">Digite o e-mail do
-                                    participante.</small>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <app-toast [idToast]="'toastAddParticipante'"></app-toast>
         </div>
 
         <!-- Modal Editar Projeto -->

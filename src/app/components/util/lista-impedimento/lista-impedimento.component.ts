@@ -11,14 +11,10 @@ import { Impedimento } from 'src/model/impedimento.class';
   styleUrls: ['./lista-impedimento.component.scss']
 })
 export class ListaImpedimentoComponent implements OnInit {
-  
+
   @Input() projeto: Projeto;
 
   @ViewChild(CadastrarImpedimentoComponent) cadastrarImpedimentoComponent: CadastrarImpedimentoComponent;
-
-  itemCollapse: Collapse;
-
-  botaoCollapse: Collapse; 
 
   listaImpedimento: Array<Impedimento>;
 
@@ -26,22 +22,27 @@ export class ListaImpedimentoComponent implements OnInit {
     this.organizarListaImpedimento();
   }
 
-  temImpedimento(): boolean{
+  temImpedimento(): boolean {
     return this.projeto.impedimentos.length > 0
   }
 
-  toggleColapse(){
-    this.itemCollapse = new Collapse('#collapseImpedimento');
-    this.itemCollapse.toggle();
-  }
-
-  cadastrarImpedimento(){
+  cadastrarImpedimento(): void {
     this.cadastrarImpedimentoComponent.submit();
   }
 
-  organizarListaImpedimento(){
+  organizarListaImpedimento(): void {
     this.listaImpedimento = this.projeto.impedimentos;
 
-    this.listaImpedimento.sort((a,b) => (a.dataInicio > b.dataInicio) ? 1 : (b.dataInicio > a.dataInicio) ? -1 : 0);
+    //Organizar por data
+    this.listaImpedimento.sort((a, b) => (a.dataInicio > b.dataInicio) ? 1 : (b.dataInicio > a.dataInicio) ? -1 : 0);
+  }
+
+  abrirModalCadastrarImpedimento(): void {
+    this.cadastrarImpedimentoComponent.abrirModal();
+  }
+
+  collapse(index: number): void{
+    let collapse = new Collapse('#collapseImpedimento' + index );
+    collapse.hide();
   }
 }

@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
-import { RotaUtils } from 'src/utils/rota.class.utils';
+import { RotaUtils } from 'src/utils/rota.class.util';
 import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
-import { ToastComponent } from '../util/toast/toast.component';
+import { ToastComponent } from '../../util/toast/toast.component';
 
 @Component({
   selector: 'app-login-usuario',
@@ -29,7 +29,7 @@ export class LoginUsuarioComponent implements OnInit {
 
   isEditar: boolean = false;
 
-  private readonly ICONE_PADRAO = "../../../assets/icone-padrao-usuario.png";
+  private readonly ICONE_PADRAO = "../../../assets/img/icone-padrao-usuario.png";
 
   constructor(
     formBuilder: FormBuilder,
@@ -60,7 +60,7 @@ export class LoginUsuarioComponent implements OnInit {
     }
   }
 
-  private atualizarDadosUsuarioForm() {
+  private atualizarDadosUsuarioForm(): void {
     this.usuarioGroup.patchValue({
       nome: this.usuario.nome,
       email: this.usuario.email,
@@ -69,10 +69,10 @@ export class LoginUsuarioComponent implements OnInit {
     });
   }
 
-  submit() {
+  submit(): void {
     if (this.usuarioGroup.valid) {
       var usuario: Usuario = this.mapearFormUsuario();
-      
+
       this.usuarioService.postUsuario(usuario).subscribe(response => {
         LocalStorageUtil.salvarUsuarioLogado(response);
         this.direcionarHome();
@@ -82,24 +82,24 @@ export class LoginUsuarioComponent implements OnInit {
     }
   }
 
-  mapearFormUsuario() {
+  mapearFormUsuario(): Usuario {
     var usuario: Usuario = new Usuario();
     usuario.nome = this.usuarioGroup.get('nome')?.value;
     usuario.email = this.usuarioGroup.get('email')?.value;
     usuario.senha = this.usuarioGroup.get('senha')?.value;
     if (!this.imagem) {
       usuario.icone = this.ICONE_PADRAO;
-    }else{
+    } else {
       usuario.icone = this.imagem;
     }
     return usuario;
   }
 
-  submitLogin() {
+  submitLogin(): void {
     if (this.isLoginValido()) {
       this.usuarioService.getUsuarios().subscribe(response => {
         response.forEach(usuario => {
-          this.compararEmailFormLogin(usuario);
+          this.validarDadosLogin(usuario);
         })
         this.toast.mostrarToast(ToastMensagemUtil.ERRO_LOGIN_TITULO, ToastMensagemUtil.ERRO_LOGIN_DESCRICAO);
       })
@@ -108,11 +108,11 @@ export class LoginUsuarioComponent implements OnInit {
     }
   }
 
-  private isLoginValido() {
-    return this.usuarioGroup.get('email')?.valid && this.usuarioGroup.get('senha')?.valid;
+  private isLoginValido(): boolean {
+    return this.usuarioGroup.get('email')?.valid! && this.usuarioGroup.get('senha')?.valid!;
   }
 
-  private compararEmailFormLogin(usuario: Usuario) {
+  private validarDadosLogin(usuario: Usuario): void {
     if (usuario.email == this.usuarioGroup.get('email')?.value) {
       if (usuario.senha == this.usuarioGroup.get('senha')?.value) {
         LocalStorageUtil.salvarUsuarioLogado(usuario);
@@ -121,7 +121,7 @@ export class LoginUsuarioComponent implements OnInit {
     }
   }
 
-  submitEditar() {
+  submitEditar(): void {
     if (this.isFormEditarValido()) {
       this.atualizarUsuarioEditado();
     } else {
@@ -129,24 +129,7 @@ export class LoginUsuarioComponent implements OnInit {
     }
   }
 
-  submitAlterarIconeUsuario(){
-    this.atualizarIconeUsuario();
-  }
-
-  private atualizarIconeUsuario() {
-    if (this.imagem) {
-      this.usuario.icone = this.imagem;
-      this.usuarioService.putUsuario(this.usuario).subscribe(response => {
-        this.usuario = response;
-        LocalStorageUtil.salvarUsuarioLogado(this.usuario);
-        location.reload();
-      });
-    }else{
-      this.toast.mostrarToast(ToastMensagemUtil.ERRO_EDITAR_ICONE_USUARIO_TITULO, ToastMensagemUtil.ERRO_EDITAR_ICONE_USUARIO_DESCRICAO);
-    }
-  }
-
-  private atualizarUsuarioEditado():void {
+  private atualizarUsuarioEditado(): void {
     this.aplicarAlteracoesEditar();
     this.usuarioService.putUsuario(this.usuario).subscribe(response => {
       this.usuario = response;
@@ -155,11 +138,17 @@ export class LoginUsuarioComponent implements OnInit {
     });
   }
 
-  private isFormEditarValido():boolean {
+  private isFormEditarValido(): boolean {
     return this.usuarioGroup.valid && this.isAlteracoesEditarValida();
   }
 
   isAlteracoesEditarValida(): boolean {
+    let { usuarioAtual, usarioEditado }: { usuarioAtual: Usuario; usarioEditado: Usuario; } = this.montarObjetoParaComparacao();
+
+    return JSON.stringify(usuarioAtual) != JSON.stringify(usarioEditado);
+  }
+
+  private montarObjetoParaComparacao() {
     let usuarioAtual: Usuario = new Usuario();
     let usarioEditado: Usuario = this.mapearFormUsuarioEditar();
 
@@ -169,8 +158,7 @@ export class LoginUsuarioComponent implements OnInit {
 
     usuarioAtual.icone = "";
     usarioEditado.icone = "";
-
-    return JSON.stringify(usuarioAtual) != JSON.stringify(usarioEditado);
+    return { usuarioAtual, usarioEditado };
   }
 
   aplicarAlteracoesEditar(): void {
@@ -186,6 +174,23 @@ export class LoginUsuarioComponent implements OnInit {
     usuario.email = this.usuarioGroup.get('email')?.value;
     usuario.senha = this.usuarioGroup.get('senha')?.value;
     return usuario;
+  }
+
+  submitAlterarIconeUsuario(): void {
+    this.atualizarIconeUsuario();
+  }
+
+  private atualizarIconeUsuario(): void {
+    if (this.imagem) {
+      this.usuario.icone = this.imagem;
+      this.usuarioService.putUsuario(this.usuario).subscribe(response => {
+        this.usuario = response;
+        LocalStorageUtil.salvarUsuarioLogado(this.usuario);
+        location.reload();
+      });
+    } else {
+      this.toast.mostrarToast(ToastMensagemUtil.ERRO_EDITAR_ICONE_USUARIO_TITULO, ToastMensagemUtil.ERRO_EDITAR_ICONE_USUARIO_DESCRICAO);
+    }
   }
 
   atribuirImagem(evento: Event): void {

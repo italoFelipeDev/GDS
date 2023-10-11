@@ -1,0 +1,35 @@
+<div class="card mb-3" style="width: 18rem;">
+    <div class="card-header bg-primary d-flex flex-row justify-content-between">
+        <div class="d-flex  align-self-center">
+            Participantes do Projeto
+        </div>
+        <!-- Botão Modal Adicionar Usuario -->
+        <button type="button" class="btn btn-outline-light align-self-center d-flex"
+            style="height: 30px; align-items: center;" (click)="abrirModalCadastroParticipante()">
+            +
+        </button>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex flex-row justify-content-between bg-secondary border border-dark"
+            *ngFor="let participante of listaParticipantes">
+
+            <img class="rounded-circle align-self-center img-fluid" src={{participante.icone}}
+                alt="Icone do Participante"
+                style="width: 35px; height: 35px; min-width: 35px; min-height: 35px; max-width: 35px; min-height: 35px; object-fit:cover;">
+
+            <div class="d-flex align-self-center" style="margin-right: auto; margin-left: 0.7rem;">
+                {{participante.nome}}</div>
+
+            <span *ngIf="isUsuarioDaListaScrumMaster(participante)"
+                class="badge badge-secondary bg-primary d-flex align-self-center"
+                style="height: fit-content; padding: 5px ;">Scrumaster</span>
+
+            <button *ngIf="isUsuarioScrumMaster() && !isUsuarioDaListaScrumMaster(participante) " type="button"
+                class="btn btn-danger btn-sm ml-auto align-self-center" style="min-height: 30px; max-height: 30px;"
+                (click)="removerParticipante(participante)">Remover</button>
+        </li>
+    </ul>
+    <!-- Modal Adicionar Usuario -->
+    <app-cadastro-participante-projeto [listaParticipantes]="listaParticipantes"
+        [projeto]="projeto"></app-cadastro-participante-projeto>
+</div>

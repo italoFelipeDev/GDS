@@ -4,16 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CronometroComponent } from './components/reuniao-componentes/cronometro/cronometro.component';
-import { HeaderComponent } from './components/header/header.component';
-import { ParticipanteComponent } from './components/reuniao-componentes/daily-review/participante/participante.component';
-import { ListaParticipantesComponent } from './components/reuniao-componentes/daily-review/lista-participantes/lista-participantes.component';
-import { ParticipanteLocutorComponent } from './components/reuniao-componentes/daily-review/participante-locutor/participante-locutor.component';
+import { ParticipanteComponent } from './components/reuniao-componentes/participante/participante.component';
+import { ListaParticipantesComponent } from './components/reuniao-componentes/lista-participantes/lista-participantes.component';
+import { ParticipanteLocutorComponent } from './components/reuniao-componentes/participante-locutor/participante-locutor.component';
 import { DailyDisplayComponent } from './components/reuniao-componentes/daily-display/daily-display.component';
-import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
+import { LoginUsuarioComponent } from './components/usuario-componentes/login-usuario/login-usuario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CadastroProjetoComponent } from './components/projeto-componentes/cadastro-projeto/cadastro-projeto.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CadastroProjetoComponent } from './components/home-componentes/cadastro-projeto/cadastro-projeto.component';
 import { NavbarComponent } from './components/util/navbar/navbar.component';
 import { HomeComponent } from './components/home-componentes/home/home.component';
 import { ProjetoComponent } from './components/home-componentes/projeto/projeto.component';
@@ -21,7 +20,7 @@ import { ListaProjetosComponent } from './components/home-componentes/lista-proj
 import { ProjetoViewComponent } from './components/projeto-componentes/projeto-view/projeto-view.component';
 import { CadastrarImpedimentoComponent } from './components/projeto-componentes/cadastrar-impedimento/cadastrar-impedimento.component';
 import { ImpedimentoComponent } from './components/util/impedimento/impedimento.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './components/usuario-componentes/perfil/perfil.component';
 import { CadastroFaltaComponent } from './components/projeto-componentes/cadastro-falta/cadastro-falta.component';
 import { ListaFaltaComponent } from './components/util/lista-falta/lista-falta.component';
 import { FaltaComponent } from './components/util/falta/falta.component';
@@ -32,12 +31,13 @@ import { DailyReviewComponent } from './components/reuniao-componentes/daily-rev
 import { RegistroDailyComponent } from './components/registro-daily/registro-daily.component';
 import { ListaRegistroDailyComponent } from './components/relatorio-componentes/lista-registro-daily/lista-registro-daily.component';
 import { RelatorioComponent } from './components/relatorio-componentes/relatorio/relatorio.component';
-import { RelatorioViewComponent } from './components/relatorio-componentes/relatorio-view/relatorio-view.component'
+import { RelatorioViewComponent } from './components/relatorio-componentes/relatorio-view/relatorio-view.component';
+import { ListaParticipanteProjetoComponent } from './components/projeto-componentes/lista-participante-projeto/lista-participante-projeto.component';
+import { CadastroParticipanteProjetoComponent } from './components/projeto-componentes/cadastro-participante-projeto/cadastro-participante-projeto.component';
 @NgModule({
   declarations: [
     AppComponent,
     CronometroComponent,
-    HeaderComponent,
     ParticipanteComponent,
     ListaParticipantesComponent,
     ParticipanteLocutorComponent,
@@ -63,7 +63,8 @@ import { RelatorioViewComponent } from './components/relatorio-componentes/relat
     ListaRegistroDailyComponent,
     RelatorioComponent,
     RelatorioViewComponent,
-    
+    ListaParticipanteProjetoComponent,
+    CadastroParticipanteProjetoComponent
   ],
   imports: [
     BrowserModule,

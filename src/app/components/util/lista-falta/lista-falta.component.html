@@ -7,7 +7,7 @@
             <div *ngFor="let falta of projeto.faltasDoDia" class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" style="font-size: large; text-decoration: solid;"
-                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseFalta">
+                        data-bs-target="#collapseFalta" aria-expanded="false" aria-controls="collapseFalta" (click)="collapse(falta.idUsuario)">
 
                         <img class="rounded-circle align-self-center img-fluid" src={{falta.iconeParticipante}}
                             alt="Icone do Participante"
@@ -15,7 +15,7 @@
                         {{falta.nomeParticipante}}
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFalta">
+                <div id="collapseFalta{{falta.idUsuario}}" class="accordion-collapse collapse show" data-bs-parent="#accordionFalta">
                     <div class="accordion-body">
                         <app-falta [falta]="falta" [projeto]="projeto"></app-falta>
                     </div>
@@ -28,30 +28,9 @@
         </div>
     </div>
     <!-- Botão Modal Cadastrar Falta -->
-    <button *ngIf="registroFaltaValido && !isDailyDisplay" type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
-        data-bs-target="#cadastrarFaltaModal">
+    <button *ngIf="registroFaltaValido && !isDailyDisplay" type="button" class="btn btn-primary mt-2" (click)="abrirModalCadastroFalta()">
         Registrar Falta
     </button>
 </div>
 
-
-
-<!-- Modal Cadastrar Falta -->
-<div class="modal fade" id="cadastrarFaltaModal" tabindex="-1" aria-labelledby="cadastrarFaltaModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="cadastrarFaltaModalLabel">Registrar Falta</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <app-cadastro-falta [projeto]="projeto"></app-cadastro-falta>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" (click)="cadastrarFalta()">Registrar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<app-cadastro-falta [projeto]="projeto"></app-cadastro-falta>

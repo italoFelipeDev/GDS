@@ -4,10 +4,8 @@ import { Projeto } from 'src/model/projeto.class';
 import { ListaProjetosComponent } from '../lista-projetos/lista-projetos.component';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/model/usuario.class';
-import { RotaUtils } from 'src/utils/rota.class.utils';
+import { RotaUtils } from 'src/utils/rota.class.util';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
-import { Toast } from 'bootstrap';
-
 
 @Component({
   selector: 'app-home',
@@ -19,13 +17,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(ListaProjetosComponent) listaProjetosComponent: ListaProjetosComponent;
 
   listaProjetos: Array<Projeto> = new Array<Projeto>;
+
   usuarioLogado: Usuario;
-
-  toastLiveExample = document.getElementById('liveToast')
-
-  toastTrigger = document.getElementById('liveToastBtn')
-
-  toast: any;
 
   constructor(
     private projetoService: ProjetoService,
@@ -37,7 +30,7 @@ export class HomeComponent implements OnInit {
     this.carregarUsuarioLogado();
   }
 
-  carregarPaginaHome() {
+  carregarPaginaHome(): void {
     if (this.usuarioLogado.listaProjetosId) {
       this.usuarioLogado.listaProjetosId.forEach(projetoId => {
         this.projetoService.getProjeto(projetoId).subscribe((response) => {
@@ -48,17 +41,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  private organizarListaProjetos() {
+  private organizarListaProjetos(): void {
     this.listaProjetos.sort((a, b) => a.nome.localeCompare(b.nome));
     this.cd.detectChanges();
   }
 
-  carregarUsuarioLogado() {
+  carregarUsuarioLogado(): void {
     this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
     this.carregarPaginaHome();
   }
 
-  direcionarCadastroProjeto() {
+  direcionarCadastroProjeto(): void {
     this.router.navigate(RotaUtils.rotaCadastroProjeto());
   }
 }

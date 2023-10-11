@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Collapse } from 'bootstrap';
 import { Projeto } from 'src/model/projeto.class';
-import { RotaUtils } from 'src/utils/rota.class.utils';
+import { RotaUtils } from 'src/utils/rota.class.util';
 
 @Component({
   selector: 'app-lista-projetos',
@@ -9,7 +10,7 @@ import { RotaUtils } from 'src/utils/rota.class.utils';
   styleUrls: ['./lista-projetos.component.scss']
 })
 export class ListaProjetosComponent implements OnInit {
-  
+
   @Input() listaProjetos: Array<Projeto>;
 
   direcionarCadastroProjeto() {
@@ -19,15 +20,19 @@ export class ListaProjetosComponent implements OnInit {
   constructor(
     private cd: ChangeDetectorRef,
     private router: Router
-    ) { }
-  
+  ) { }
+
   ngOnInit(): void {
     this.organizarListaProjetos();
   }
 
-
-  private organizarListaProjetos() {
+  private organizarListaProjetos(): void {
     this.listaProjetos.sort((a, b) => a.nome.localeCompare(b.nome));
     this.cd.detectChanges();
+  }
+
+  collapse(idProjeto: string): void{
+    let collapse = new Collapse('#collapseProjeto' + idProjeto );
+    collapse.hide();
   }
 }

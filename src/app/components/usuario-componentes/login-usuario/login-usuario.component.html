@@ -1,5 +1,5 @@
 <div class="container d-flex justify-content-center flex-column">
-
+    <!-- Cadastro de Usuario -->
     <div *ngIf="isSingin() && !isPerfil()">
         <div>
             Registrar Usuário
@@ -17,7 +17,8 @@
                 <label class="input-group-text" for="senha">Senha</label>
                 <input type="password" formControlName="senha" class="form-control">
             </div>
-            <small id="tempoMedioDeDailyHelp" class="d-flex text-muted mb-3"> Sua senha precisa ter no mínimo 8 digitos.</small>
+            <small id="tempoMedioDeDailyHelp" class="d-flex text-muted mb-3"> Sua senha precisa ter no mínimo 8
+                digitos.</small>
 
             <div class="mb-3">
                 <label for="formFile" class="form-label">Icone de Perfil:</label>
@@ -32,6 +33,7 @@
         <a class="card-link" (click)="direcionarLogin()">Já possuo conta.</a>
     </div>
 
+    <!-- Login de Usuario -->
     <div *ngIf="!isSingin() && !isPerfil()" class="d-flex flex-column justify-content-center">
         <div class="d-flex justify-content-center mb-3 mt-5">
             <h4>Login</h4>
@@ -45,7 +47,7 @@
                 <label class="input-group-text" for="senha">Senha</label>
                 <input type="password" formControlName="senha" class="form-control">
             </div>
-            
+
             <button class="btn bg-primary mb-3 mt-1" type="submit">
                 Entrar
             </button>
@@ -53,16 +55,20 @@
         <a class="card-link" (click)="direcionarSingIn()">Não possui conta? Cadastre-se aqui.</a>
     </div>
 
+    <!-- View Perfil Usuario -->
     <div *ngIf="isPerfil()" class="d-flex flex-column align-items-center">
         <form [formGroup]="usuarioGroup" (ngSubmit)="submit()" class=" d-flex flex-column align-items-center">
             <img class="mr-3 mb-3 rounded-circle" src={{usuario.icone}} alt="Generic placeholder image"
                 style="width: 200px; height: 200px; object-fit:cover;">
-                <div class="btn bg-primary mb-3" style="font-size: smaller;" data-bs-toggle="modal"  data-bs-target="#alterarUsuarioPerfilModal">
-                    Alterar icone
-                </div>
+
+            <!-- Botão Modal Editar Icone Usuario -->
+            <div class="btn bg-primary mb-3" style="font-size: smaller;" data-bs-toggle="modal"
+                data-bs-target="#alterarUsuarioIconelModal">
+                Alterar icone
+            </div>
 
             <h5 class="card-title d-flex mb-4">{{usuario.nome}}</h5>
-            
+
             <div class="form-group input-group mb-3">
                 <label class="input-group-text" for="email">Email</label>
                 <input readonly type="text" formControlName="email" class="form-control">
@@ -72,12 +78,14 @@
                 <input readonly type="password" formControlName="senha" class="form-control">
             </div>
         </form>
-        <button class="btn bg-primary align-self-center" data-bs-toggle="modal"  data-bs-target="#editarUsuarioModal">
+        <!-- Botão Modal Editar Usuario -->
+        <button class="btn bg-primary align-self-center" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
             Editar
         </button>
     </div>
 </div>
 
+<!--Modal Editar Usuario -->
 <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -87,9 +95,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div>
-                    Editar Usuário
-                </div>
                 <form [formGroup]="usuarioGroup" (ngSubmit)="submitEditar()">
                     <div class="form-group input-group mb-3">
                         <label class="input-group-text" for="nome">Nome</label>
@@ -112,27 +117,26 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="alterarUsuarioPerfilModal" tabindex="-1" aria-labelledby="alterarUsuarioPerfilModalLabel"
+<!-- Modal Editar Icone Usuario -->
+<div class="modal fade" id="alterarUsuarioIconelModal" tabindex="-1" aria-labelledby="alterarUsuarioIconelModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="alterarUsuarioPerfilModalLabel">Adicionar Participante</h1>
+                <h1 class="modal-title fs-5" id="alterarUsuarioIconelModalLabel">Adicionar Participante</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Icone de Perfil:</label>
-                        <input class="form-control" type="file" id="icone"
-                            (change)="atribuirImagem($event)">
+                        <input class="form-control" type="file" id="icone" (change)="atribuirImagem($event)">
                     </div>
                     <button class="btn bg-primary" (click)="submitAlterarIconeUsuario()">
                         Alterar
                     </button>
                 </form>
-                
+
             </div>
         </div>
     </div>

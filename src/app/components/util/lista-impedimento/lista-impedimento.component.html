@@ -4,17 +4,16 @@
     </div>
     <div class="card-body bg-secondary">
         <div *ngIf="temImpedimento()" class="accordion" id="accordionImpedimento">
-            <div *ngFor="let impedimento of projeto.impedimentos" class="accordion-item">
+            <div *ngFor="let impedimento of projeto.impedimentos; index as i " class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        style="font-size: large; text-decoration: solid;" data-bs-target="#collapseImpedimento"
-                        aria-expanded="false" aria-controls="collapseImpedimento" (click)="toggleColapse()">
+                    <button class="accordion-button" type="button" style="font-size: large; text-decoration: solid;"
+                        data-bs-target="#collapseImpedimento" aria-expanded="false" aria-controls="collapseImpedimento" (click)="collapse(i)">
                         {{impedimento.titulo}}
                         <span *ngIf="impedimento.solucionado" class="badge badge-pill bg-primary"
                             style="margin-left: 0.9rem;">SOLUCIONADO</span>
                     </button>
                 </h2>
-                <div id="collapseImpedimento" class="accordion-collapse collapse show"
+                <div id="collapseImpedimento{{i}}" class="accordion-collapse collapse show"
                     data-bs-parent="#accordionImpedimento">
                     <div class="accordion-body">
                         <app-impedimento [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
@@ -28,29 +27,11 @@
         </div>
     </div>
     <!-- Botão Cadastrar Impedimento -->
-    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
-        data-bs-target="#cadastrarImpedimentoModal">
+    <button type="button" class="btn btn-primary mt-2" (click)="abrirModalCadastrarImpedimento()">
         Registrar Impedimento
     </button>
 </div>
 
 
 <!-- Modal Cadastar Impedimento -->
-<div class="modal fade" id="cadastrarImpedimentoModal" tabindex="-1" aria-labelledby="cadastrarImpedimentoModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="cadastrarImpedimentoModalLabel">Registrar Impedimento</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" (click)="cadastrarImpedimento()">Registrar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>

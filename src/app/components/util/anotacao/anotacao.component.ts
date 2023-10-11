@@ -12,34 +12,34 @@ import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 })
 export class AnotacaoComponent implements OnInit {
   
-  anotacaoGroup: FormGroup;
-
   @Input() projeto: Projeto;
-
+  
   @Input() isDailyDisplay: boolean = false;
+
+  anotacaoGroup: FormGroup;
 
   anotacaoUsuario: Anotacao = new Anotacao();
 
   constructor(
     private projetoService: ProjetoService,
     formBuilder: FormBuilder,
-  ){
+  ) {
     this.anotacaoGroup = this.montarFormAnotacao(formBuilder);
   }
-  
+
   ngOnInit(): void {
     this.recuperarAnotacaoUsuario();
   }
 
   private montarFormAnotacao(formBuilder: FormBuilder): FormGroup<any> {
     return formBuilder.group({
-      textoAnotacao: [this.anotacaoUsuario.textoAnotacao],
+      textoAnotacao: [this.anotacaoUsuario.textoAnotacao]
     });
   }
 
-  recuperarAnotacaoUsuario(){
-    this.projeto.anotacoesUsuario.forEach(anotacao =>{
-      if(anotacao.idUsuario == LocalStorageUtil.recuperarUsuarioLogado().id.toString()){
+  recuperarAnotacaoUsuario(): void {
+    this.projeto.anotacoesUsuario.forEach(anotacao => {
+      if (anotacao.idUsuario == LocalStorageUtil.recuperarUsuarioLogado().id.toString()) {
         this.anotacaoUsuario = anotacao;
         this.anotacaoGroup.patchValue({
           textoAnotacao: anotacao.textoAnotacao
@@ -48,20 +48,15 @@ export class AnotacaoComponent implements OnInit {
     })
   }
 
-  submit(){
+  submit(): void {
     this.anotacaoUsuario.textoAnotacao = this.anotacaoGroup.get('textoAnotacao')?.value;
-    this.projeto.anotacoesUsuario.forEach(anotacao =>{
-      if(anotacao.idUsuario == this.anotacaoUsuario.idUsuario){
-        anotacao = this.anotacaoUsuario;
+    this.projeto.anotacoesUsuario.forEach(anotacao => {
+      if (anotacao.idUsuario == this.anotacaoUsuario.idUsuario) {
+        anotacao.textoAnotacao = this.anotacaoUsuario.textoAnotacao;
+        this.projetoService.putProjeto(this.projeto).subscribe(response => {
+          this.projeto = response;
+        })
       }
     })
-    this.projetoService.putProjeto(this.projeto).subscribe(response =>{
-      this.projeto = response;
-      location.reload();
-    })
   }
-
-  
-
- 
 }

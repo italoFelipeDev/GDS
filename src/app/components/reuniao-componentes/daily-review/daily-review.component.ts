@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { Projeto } from 'src/model/projeto.class';
-import { RotaUtils } from 'src/utils/rota.class.utils';
+import { RotaUtils } from 'src/utils/rota.class.util';
 import { RegistroDailyComponent } from '../../registro-daily/registro-daily.component';
 import { ReportUsuarioLogConvertido } from 'src/model/reportUsuarioLogConvertido.class';
 

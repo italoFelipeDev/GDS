@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CronometroComponent } from '../cronometro/cronometro.component';
-import { ParticipanteLocutorComponent } from '../daily-review/participante-locutor/participante-locutor.component';
+import { ParticipanteLocutorComponent } from '../participante-locutor/participante-locutor.component';
 import { Usuario } from 'src/model/usuario.class';
 import { Impedimento } from 'src/model/impedimento.class';
-import { ListaParticipantesComponent } from '../daily-review/lista-participantes/lista-participantes.component';
+import { ListaParticipantesComponent } from '../lista-participantes/lista-participantes.component';
 import { UsuarioService} from 'src/app/service/usuario-service.service';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { ProjetoService } from 'src/app/service/projeto.service';

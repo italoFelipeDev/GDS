@@ -1,5 +1,6 @@
 <div class="d-flex flex-row justify-content-between justify-content-center">
-    <h3 class="label-container align-self-center d-flex">Meus projetos:</h3>
+    <h3 class="label-container align-self-center d-flex" style="text-decoration: solid; font-weight: 300;">Meus projetos:</h3>
+    <!-- Botão Modal Cadastrar Projeto -->
     <button type="button" class="btn btn-outline-light align-self-center d-flex" data-bs-toggle="modal"
         data-bs-target="#adicionarProjetoModal" style="height: 30px; align-items: center;">+</button>
 </div>
@@ -7,13 +8,14 @@
 
 <div class="accordion" id="accordionProjeto">
     <div *ngFor="let projeto of listaProjetos" class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header d-flex align-items-center">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProjeto"
-                aria-expanded="false" aria-controls="collapseProjeto">
+                aria-expanded="false" aria-controls="collapseProjeto" (click)="collapse(projeto.id.toString())" style="font-size: large; text-decoration: solid; font-weight: 300;">
                 {{projeto.nome}}
             </button>
         </h2>
-        <div id="collapseProjeto" class="accordion-collapse collapse show" data-bs-parent="#accordionProjeto">
+        <div id="collapseProjeto{{projeto.id}}" class="accordion-collapse collapse show"
+            data-bs-parent="#accordionProjeto">
             <div class="accordion-body">
                 <app-projeto [projeto]="projeto"></app-projeto>
             </div>
@@ -21,7 +23,7 @@
     </div>
 </div>
 
-
+<!-- Modal Cadastrar Projeto -->
 <div class="modal fade" id="adicionarProjetoModal" tabindex="-1" aria-labelledby="adicionarProjetoModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">

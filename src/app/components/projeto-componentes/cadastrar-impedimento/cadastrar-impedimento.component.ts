@@ -7,6 +7,7 @@ import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { ToastComponent } from '../../util/toast/toast.component';
 import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-cadastrar-impedimento',
@@ -15,16 +16,16 @@ import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 })
 export class CadastrarImpedimentoComponent implements OnInit {
 
+  @Input() projeto: Projeto;
+
+  @ViewChild(ToastComponent) toast: ToastComponent;
+
   impedimentoGroup: FormGroup;
 
   usuarioLogado: Usuario;
 
-  idProjeto: string;
+  cadastrarImpedimentoModal: any
 
-  @Input() projeto: Projeto;
-
-  @ViewChild(ToastComponent) toast: ToastComponent;
-  
   constructor(
     formBuilder: FormBuilder,
     private projetoService: ProjetoService,
@@ -36,7 +37,7 @@ export class CadastrarImpedimentoComponent implements OnInit {
     this.recuperarUsuarioLogado();
   }
 
-  private montarImpedimentoForm(formBuilder: FormBuilder) {
+  private montarImpedimentoForm(formBuilder: FormBuilder): void {
     this.impedimentoGroup = formBuilder.group(
       {
         titulo: ['', [Validators.required]],
@@ -45,16 +46,25 @@ export class CadastrarImpedimentoComponent implements OnInit {
     );
   }
 
-  submit() {
-    if(this.impedimentoGroup.valid && this.isImpedimentoCadastroValido()){
+  submit(): void {
+    if (this.impedimentoGroup.valid && this.isImpedimentoCadastroValido()) {
       this.cadastrarImpedimento();
-    }else{
+    } else {
       this.toast.mostrarToast(ToastMensagemUtil.ERRO_CADASTRAR_IMPEDIMENTO_TITULO, ToastMensagemUtil.ERRO_CADASTRAR_IMPEDIMENTO_DESCRICAO);
     }
-    
   }
 
-  private cadastrarImpedimento() {
+  isImpedimentoCadastroValido(): boolean {
+    let impedimentoValido: boolean = true;
+    this.projeto.impedimentos.forEach(impedimento => {
+      if (impedimento.titulo == this.impedimentoGroup.get('titulo')?.value) {
+        impedimentoValido = false;
+      }
+    })
+    return impedimentoValido;
+  }
+
+  private cadastrarImpedimento(): void {
     this.projeto.impedimentos.push(this.mapearImpedimentoForm());
     this.projetoService.putProjeto(this.projeto).subscribe(response => {
       this.projeto = response;
@@ -62,7 +72,7 @@ export class CadastrarImpedimentoComponent implements OnInit {
     });
   }
 
-  private mapearImpedimentoForm() {
+  private mapearImpedimentoForm(): Impedimento {
     let impedimento: Impedimento = new Impedimento();
     impedimento.titulo = this.impedimentoGroup.get('titulo')?.value;
     impedimento.descricao = this.impedimentoGroup.get('descricao')?.value;
@@ -73,17 +83,18 @@ export class CadastrarImpedimentoComponent implements OnInit {
     return impedimento;
   }
 
-  recuperarUsuarioLogado() {
-      this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+  abrirModal(): void {
+    this.cadastrarImpedimentoModal = new Modal('#cadastrarImpedimentoModal');
+    this.cadastrarImpedimentoModal.show();
   }
 
-  isImpedimentoCadastroValido(): boolean{
-    let impedimentoValido: boolean = true;
-    this.projeto.impedimentos.forEach(impedimento =>{
-      if(impedimento.titulo == this.impedimentoGroup.get('titulo')?.value){
-        impedimentoValido = false;
-      }
-    })
-    return impedimentoValido;
+  fecharModal(): void {
+    this.cadastrarImpedimentoModal.hide();
   }
+
+  recuperarUsuarioLogado(): void {
+    this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
+  }
+
+
 }

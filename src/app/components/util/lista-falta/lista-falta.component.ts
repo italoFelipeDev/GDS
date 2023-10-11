@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Projeto } from 'src/model/projeto.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { CadastroFaltaComponent } from '../../projeto-componentes/cadastro-falta/cadastro-falta.component';
+import { Collapse } from 'bootstrap';
 
 @Component({
   selector: 'app-lista-falta',
@@ -40,7 +41,12 @@ export class ListaFaltaComponent implements OnInit {
     this.registroFaltaValido = registroFaltaValido;
   }
 
-  cadastrarFalta(){
-    this.cadastroFaltaComponent.submit();
+  abrirModalCadastroFalta(){
+    this.cadastroFaltaComponent.abrirModal();
+  }
+
+  collapse(idUsuario: string): void{
+    let collapse = new Collapse('#collapseFalta' + idUsuario );
+    collapse.hide();
   }
 }

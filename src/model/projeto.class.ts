@@ -9,6 +9,8 @@ export class Projeto{
     idScrumMaster: string;
     nome: string;
     descricao: string;
+    horarioReuniaoHoras: number;
+    horarioReuniaoMinutos: number;
     icone: string;
     impedimentos: Array<Impedimento> = new Array<Impedimento>;
     logReunioes: Array<DailyLog> = new Array<DailyLog>;

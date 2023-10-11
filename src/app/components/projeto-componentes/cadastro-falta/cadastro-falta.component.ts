@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Modal } from 'bootstrap';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { Falta } from 'src/model/falta.class';
 import { Projeto } from 'src/model/projeto.class';
@@ -13,11 +14,13 @@ import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 })
 export class CadastroFaltaComponent implements OnInit {
   
+  @Input() projeto: Projeto;
+  
   faltaGroup: FormGroup;
 
   usuarioLogado: Usuario;
 
-  @Input() projeto: Projeto;
+  cadastrarFaltaModal: any;
 
   constructor(
     formBuilder: FormBuilder,
@@ -59,6 +62,15 @@ export class CadastroFaltaComponent implements OnInit {
     falta.justificativa = this.faltaGroup.get('justificativa')?.value;
 
     return falta;
+  }
+
+  abrirModal(){
+    this.cadastrarFaltaModal = new Modal('#cadastrarFaltaModal');
+    this.cadastrarFaltaModal.show();
+  }
+
+  fecharModal(){
+    this.cadastrarFaltaModal.hide();
   }
 
   recuperarUsuarioLogado() {

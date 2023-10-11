@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Impedimento } from 'src/model/impedimento.class';
 import { Usuario } from 'src/model/usuario.class';
-import { CronometroComponent } from '../../cronometro/cronometro.component';
+import { CronometroComponent } from '../cronometro/cronometro.component';
 
 @Component({
   selector: 'app-participante-locutor',

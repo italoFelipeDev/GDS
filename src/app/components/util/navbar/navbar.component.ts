@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges }
 import { Router, RouterEvent } from '@angular/router';
 import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
-import { RotaUtils } from 'src/utils/rota.class.utils';
+import { RotaUtils } from 'src/utils/rota.class.util';
 
 @Component({
   selector: 'app-navbar',

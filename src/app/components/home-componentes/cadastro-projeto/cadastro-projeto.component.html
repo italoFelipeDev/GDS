@@ -14,6 +14,13 @@
       placeholder="Descrição do Projeto" aria-label="Projeto"></textarea>
   </div>
 
+  <div class="input-group flex-nowrap mb-4">
+    <span class="input-group-text">Hora da Reunião (Horas e Minutos)</span>
+    <input type="number" min="0" max="23" aria-label="Horas" class="form-control" formControlName="horarioReuniaoHoras">
+    <h3 style="margin-left: 3px; margin-right: 3px;">:</h3>
+    <input type="number" min="0" max="59" aria-label="Minutos" class="form-control" formControlName="horarioReuniaoMinutos">
+  </div>
+
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="tempoMedioDeDaily">Tempo Médio da Reunião</span>
     <input type="number" class="form-control" placeholder="Digite o tempo medio de sua reunião em minutos."
@@ -53,6 +60,13 @@
     <span class="input-group-text" id="descricao">Descrição do Projeto</span>
     <textarea class="form-control" id="descricao" rows="3" formControlName="descricao"
       placeholder="Descrição do Projeto" aria-label="Projeto"></textarea>
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-text">Hora da Reunião (Horas e Minutos)</span>
+    <input type="number" aria-label="Horas" class="form-control" formControlName="horarioReuniaoHoras">
+    <h3 style="margin-left: 3px; margin-right: 3px;">:</h3>
+    <input type="number" aria-label="Minutos" class="form-control" formControlName="horarioReuniaoMinutos">
   </div>
 
   <div class="input-group flex-nowrap">
