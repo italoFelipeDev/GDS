@@ -3,7 +3,8 @@ import { Falta } from "./falta.class";
 
 export class RelatorioMensal{
 
-    dailyLogMensal: Array<DailyLog> = new Array<DailyLog>
-    faltasDoMês: Array<Falta> = new Array<Falta>();
+    dataRelatorio: Date = new Date();
+    dailyLogMensal: Array<DailyLog> = new Array<DailyLog>;
+    faltasDoMes: Array<Falta> = new Array<Falta>;
     mediaTempoDailyMensal: number;
 }

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Collapse } from 'bootstrap';
+import { DailyLog } from 'src/model/dailyLog.class';
 import { Projeto } from 'src/model/projeto.class';
 
 @Component({
@@ -21,4 +23,20 @@ export class ListaRegistroDailyComponent implements OnInit{
     return this.projeto.logReunioes.length > 0;
   }
 
+  getDataDailyLog(dailyLog: DailyLog): string{
+    let dataDailyLog: Date = new Date(dailyLog.data);
+
+    return dataDailyLog.toLocaleDateString();
+  }
+
+  getDataDailyLogMili(dailyLog: DailyLog){
+    let dataDailyLog: Date = new Date(dailyLog.data);
+
+    return dataDailyLog.getMilliseconds().toString();
+  }
+
+  collapse(data: string): void{
+    let collapse = new Collapse('#collapseRegistroDaily' + data);
+    collapse.hide();
+  }
 }

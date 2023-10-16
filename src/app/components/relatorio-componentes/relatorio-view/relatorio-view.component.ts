@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Projeto } from 'src/model/projeto.class';
+import { RelatorioMensal } from 'src/model/relatorioMensal.class';
 import { Usuario } from 'src/model/usuario.class';
+import { DateUtils } from 'src/utils/date.class.util';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 
 @Component({
@@ -75,5 +77,16 @@ export class RelatorioViewComponent implements OnInit {
       }
     });
     return isAutorizado;
+  }
+
+  getRelatorioMensalAtual(){
+    let hoje = new Date();
+    let relatorioAtual: RelatorioMensal = new RelatorioMensal();
+    this.projeto.relatorioMensalList.forEach(relatorio =>{
+      if(DateUtils.converterDataObjeto(relatorio.dataRelatorio).getMonth() == hoje.getMonth()){
+        relatorioAtual = relatorio;
+      }
+    })
+    return relatorioAtual;
   }
 }

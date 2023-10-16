@@ -54,7 +54,58 @@
           "dataFim": "2023-10-11T17:47:43.794Z"
         }
       ],
-      "logReunioes": [],
+      "logReunioes": [
+        {
+          "impedimentosDoDiaList": [],
+          "tempoDecorridoReports": [
+            {
+              "usuarioId": "2",
+              "tempoDecorrido": 0.3424
+            },
+            {
+              "usuarioId": "1",
+              "tempoDecorrido": 0.3977
+            },
+            {
+              "usuarioId": "4",
+              "tempoDecorrido": 0.4384
+            }
+          ],
+          "faltas": [],
+          "data": "2023-10-16T15:55:14.137Z",
+          "tempoDecorrido": 1.1785,
+          "tempoMedioReports": 0.39283333333333337
+        }
+      ],
+      "relatorioMensalList": [
+        {
+          "dataRelatorio": "2023-10-16T15:50:55.128Z",
+          "dailyLogMensal": [
+            {
+              "impedimentosDoDiaList": [],
+              "tempoDecorridoReports": [
+                {
+                  "usuarioId": "2",
+                  "tempoDecorrido": 0.3424
+                },
+                {
+                  "usuarioId": "1",
+                  "tempoDecorrido": 0.3977
+                },
+                {
+                  "usuarioId": "4",
+                  "tempoDecorrido": 0.4384
+                }
+              ],
+              "faltas": [],
+              "data": "2023-10-16T15:55:14.137Z",
+              "tempoDecorrido": 1.1785,
+              "tempoMedioReports": 0.39283333333333337
+            }
+          ],
+          "faltasDoMes": []
+        }
+      ],
       "participantesId": [
         "1",
         "2",

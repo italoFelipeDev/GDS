@@ -11,6 +11,7 @@ import { RotaUtils } from 'src/utils/rota.class.util';
 import { ToastComponent } from '../../util/toast/toast.component';
 import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 import { Anotacao } from 'src/model/anotacao.class';
+import { RelatorioMensal } from 'src/model/relatorioMensal.class';
 
 @Component({
   selector: 'app-projeto-view',
@@ -61,16 +62,31 @@ export class ProjetoViewComponent implements OnInit {
 
   atualizaRotinaFaltasProjeto(): void {
     this.atualizarFaltas(this.projeto);
+    this.atualizarRotinaRelatorio(this.projeto);
     this.projetoService.putProjeto(this.projeto).subscribe(response => {
       this.projeto = response;
       
     })
   }
 
+  atualizarRotinaRelatorio(projeto: Projeto): void{
+    let hoje = new Date();
+    if(projeto.relatorioMensalList.length <= 0){
+      let relatorioNovo = new RelatorioMensal();
+      projeto.relatorioMensalList.push(relatorioNovo);
+    }
+    projeto.relatorioMensalList.forEach(relatorio =>{
+      if(this.converterDataObjeto(relatorio.dataRelatorio).getMonth() < hoje.getMonth() && this.converterDataObjeto(relatorio.dataRelatorio).getMonth() + 1 == hoje.getMonth()){
+        let relatorioNovo = new RelatorioMensal();
+        projeto.relatorioMensalList.push(relatorioNovo);
+      }
+    })
+  }
+
   atualizarFaltas(projeto: Projeto): void {
     let hoje = new Date();
     projeto.faltasDoDia.forEach(falta => {
-      let diaFalta = this.converterData(falta)
+      let diaFalta = this.converterDataFalta(falta)
       if (diaFalta.getDate() < hoje.getDate()) {
         projeto.faltasDoMês.push(falta);
         projeto.faltasDoDia = this.excluirItemListaFalta(projeto.faltasDoDia, falta);
@@ -136,7 +152,7 @@ export class ProjetoViewComponent implements OnInit {
     return this.projeto.idScrumMaster == usuario.id.toString();
   }
 
-  private converterData(falta: Falta): Date {
+  private converterDataFalta(falta: Falta): Date {
     return new Date(falta.diaFalta);
   }
 
@@ -173,4 +189,10 @@ export class ProjetoViewComponent implements OnInit {
     });
     return isAutorizado;
   }
+
+  converterDataObjeto(data: any): Date{
+
+    return new Date(data);
+  }
+
 }

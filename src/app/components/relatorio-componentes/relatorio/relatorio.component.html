@@ -1,13 +1,51 @@
 <div class="card text-center">
-    <div class="card-header">
-      Featured
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-    <div class="card-footer text-body-secondary">
-      2 days ago
-    </div>
+  <div class="card-header">
+    <h4>
+      Relatório Mensal das Reuniões
+    </h4>
   </div>
+  <div class="card-body">
+
+    <div class="d-flex flex-column">
+      <ul class="list-group list-group-flush">
+        <div class="d-flex flex-column justify-content-center mb-3" style="align-items: center;">
+          <img class="mr-3 rounded-circle d-flex align-self-center mb-3 mt-3" src={{projeto.icone}} alt="Icone projeto"
+            style="width: 200px; height: 200px; object-fit:cover;">
+          <h4 class="card-title d-flex mb-3">{{projeto.nome}}</h4>
+        </div>
+        <li class="list-group-item">
+          <button type="button" class="btn btn-primary">
+            Total de Dailys <span class="badge text-bg-secondary"
+              style="margin-left: 7px;">{{getTotalDeDailys()}}</span>
+          </button>
+        </li>
+        <li class="list-group-item">
+          <button type="button" class="btn {{avaliarTempoDaily()}}">
+            Tempo Médio de Reunião <span class="badge text-bg-secondary"
+              style="margin-left: 7px;">{{getMediaTempoDecorridoDailyMensal().toFixed(2)}}</span>
+          </button>
+        </li>
+        <li class="list-group-item">
+          <button type="button" class="btn {{avaliarTempoDaily()}}">
+            Tempo Médio de Report <span class="badge text-bg-secondary"
+              style="margin-left: 7px;">{{getMediaTempoDecorridoReportMensal().toFixed(2)}}</span>
+          </button>
+        </li>
+
+        <li class="list-group-item">
+          <button type="button" class="btn {{avaliarTempoDaily()}}">
+           Tempo de Reunião Mais Longo <span class="badge text-bg-secondary"
+              style="margin-left: 7px;">{{getDailyMaisLonga().toFixed(2)}}</span>
+          </button>
+        </li>
+      </ul>
+
+    </div>
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a class="btn btn-primary">Go somewhere</a>
+  </div>
+  <div class="card-footer text-body-secondary">
+    2 days ago
+  </div>
+</div>

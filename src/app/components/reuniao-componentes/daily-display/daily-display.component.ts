@@ -12,6 +12,7 @@ import { Projeto } from 'src/model/projeto.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { DailyReviewComponent } from '../daily-review/daily-review.component';
 import { ReportUsuarioLog } from 'src/model/reportUsuarioLog.class';
+import { DateUtils } from 'src/utils/date.class.util';
 
 @Component({
   selector: 'app-daily-display',
@@ -201,6 +202,11 @@ export class DailyDisplayComponent implements OnInit{
     this.calcularMediaTempoReport();
     this.dailyLog.impedimentosDoDiaList.concat(this.getNumeroReportPendente());
     this.projeto.logReunioes.push(this.dailyLog);
+    this.projeto.relatorioMensalList.forEach(relatorio =>{
+      if(DateUtils.converterDataObjeto(this.dailyLog.data).getMonth() == DateUtils.converterDataObjeto(relatorio.dataRelatorio).getMonth()){
+        relatorio.dailyLogMensal.push(this.dailyLog);
+      }
+    })
     this.projetoService.putProjeto(this.projeto).subscribe(response =>{
       this.projeto = response;
       this.dailyReviewComponent.abrirModal();

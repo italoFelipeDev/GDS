@@ -2,16 +2,27 @@
     <div class="card-header bg-primary" style="text-align: center; font-size: large;">
         Registros de Reuniões do Projeto
     </div>
-    <div *ngIf="temRegistro()" class="card-body bg-secondary">
-        <div *ngFor="let dailyLog of projeto.logReunioes">
-            <app-registro-daily [dailyLog]="dailyLog" [projeto]="projeto"></app-registro-daily>
+    <div class="card-body bg-secondary">
+        <div *ngIf= "temRegistro()" class="accordion" id="accordionRegistroDaily">
+            <div *ngFor="let dailyLog of projeto.logReunioes" class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" style="font-size: large; text-decoration: solid;"
+                        data-bs-target="#collapseRegistroDaily" aria-expanded="false" aria-controls="collapseRegistroDaily" (click)="collapse(getDataDailyLogMili(dailyLog))">
+                        Review da Daily: {{getDataDailyLog(dailyLog)}}
+                    </button>
+                </h2>
+                <div id="collapseRegistroDaily{{getDataDailyLogMili(dailyLog)}}" class="accordion-collapse collapse show" data-bs-parent="#accordionRegistroDaily">
+                    <div class="accordion-body">
+                        <app-registro-daily [dailyLog]="dailyLog" [projeto]="projeto"></app-registro-daily>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div *ngIf="!temRegistro()" class="container mt-3">
-        <div class="alert alert-info" role="alert">
-            O projeto não possui registros.
+        <div *ngIf="!temRegistro()" class="container mt-3">
+            <div class="alert alert-info" role="alert">
+                O projeto não possui registros.
+            </div>
         </div>
     </div>
-    
 </div>
