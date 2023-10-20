@@ -18,6 +18,8 @@ export class RegistroDailyComponent implements  OnInit{
 
   @Input() listaParticipante: Array<Usuario> = new Array<Usuario>();
 
+  @Input() isDailyReview: boolean = false;
+  
   reportsUsuarioConvertido: Array<ReportUsuarioLogConvertido> = new Array<ReportUsuarioLogConvertido>();
 
   constructor(

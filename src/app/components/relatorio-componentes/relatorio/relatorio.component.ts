@@ -1,27 +1,33 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { Projeto } from 'src/model/projeto.class';
 import { RelatorioMensal } from 'src/model/relatorioMensal.class';
+import { Usuario } from 'src/model/usuario.class';
 
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.scss']
 })
-export class RelatorioComponent implements OnInit{
-  
+export class RelatorioComponent implements OnInit {
+
   @Input() projeto: Projeto;
 
   @Input() relatorioMensal: RelatorioMensal;
-  
-  constructor(){
+
+  @Input() listaParticipantes: Array<Usuario> = new Array<Usuario>();
+
+  constructor(
+    private usuarioService: UsuarioService
+  ) {
 
   }
 
   ngOnInit(): void {
   }
 
-  getMesDailyLog(dailyLog: DailyLog){
+  getMesDailyLog(dailyLog: DailyLog) {
 
     let dailyLogConvertido: Date = new Date(dailyLog.data);
 
@@ -30,7 +36,7 @@ export class RelatorioComponent implements OnInit{
     return dailyLogMes
   }
 
-  getAnoDailyLog(dailyLog: DailyLog){
+  getAnoDailyLog(dailyLog: DailyLog) {
 
     let dailyLogConvertido: Date = new Date(dailyLog.data);
 
@@ -39,13 +45,13 @@ export class RelatorioComponent implements OnInit{
     return dailyLogAno;
   }
 
-  getTotalDeDailys(){
+  getTotalDeDailys() {
     return this.relatorioMensal.dailyLogMensal.length.toString();
   }
 
-  getMediaTempoDecorridoDailyMensal(): number{
+  getMediaTempoDecorridoDailyMensal(): number {
     let tempoTotal: number = 0;
-    this.relatorioMensal.dailyLogMensal.forEach(dailyLog =>{
+    this.relatorioMensal.dailyLogMensal.forEach(dailyLog => {
       tempoTotal += dailyLog.tempoDecorrido;
     })
 
@@ -53,20 +59,20 @@ export class RelatorioComponent implements OnInit{
   }
 
 
-  getMediaTempoDecorridoReportMensal(): number{
+  getMediaTempoDecorridoReportMensal(): number {
     let tempoTotal: number = 0;
-    this.relatorioMensal.dailyLogMensal.forEach(dailyLog =>{
+    this.relatorioMensal.dailyLogMensal.forEach(dailyLog => {
       tempoTotal += dailyLog.tempoMedioReports;
     })
 
     return (tempoTotal / this.relatorioMensal.dailyLogMensal.length);
   }
 
-  avaliarTempoDaily(): string{
+  avaliarTempoDaily(): string {
     return this.getMediaTempoDecorridoDailyMensal() <= this.projeto.tempoMedioDeDaily ? 'btn-success' : 'btn-danger';
   }
 
-  avaliarTempoReport(): string{
+  avaliarTempoReportMediaGeral(): string {
     return this.getMediaTempoDecorridoReportMensal() <= this.projeto.tempoMedioDeFala ? 'btn-success' : 'btn-danger';
   }
 
@@ -74,11 +80,36 @@ export class RelatorioComponent implements OnInit{
     return listDailyLog.sort((a => a.tempoDecorrido));
   }
 
-  getDailyMaisLonga(){
-    if(this.relatorioMensal.dailyLogMensal.length > 0){
+  getDailyMaisLonga() {
+    if (this.relatorioMensal.dailyLogMensal.length > 0) {
       return this.organizarListaDailyTempo(this.relatorioMensal.dailyLogMensal)[0].tempoDecorrido;
-    } else{
+    } else {
       return 0;
     }
+  }
+
+  getTempoTotalReunioes() {
+    let tempoTotal: number = 0
+    if (this.relatorioMensal.dailyLogMensal.length > 0) {
+      this.relatorioMensal.dailyLogMensal.forEach(dailyLog => {
+        tempoTotal += dailyLog.tempoDecorrido;
+      })
+    }
+    return tempoTotal;
+  }
+
+  getTempoMedioFalaUsuario(usuario: Usuario): number {
+    let tempoTotalFalaUsuario: number = 0;
+    let totalReports: number = 0
+
+    this.relatorioMensal.dailyLogMensal.forEach(dailyLog => {
+      dailyLog.tempoDecorridoReports.forEach(report => {
+        if (report.usuarioId == usuario.id.toString()) {
+          tempoTotalFalaUsuario += report.tempoDecorrido;
+          totalReports ++;
+        }
+      });
+    });
+    return tempoTotalFalaUsuario/totalReports;
   }
 }

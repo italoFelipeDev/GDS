@@ -4,7 +4,7 @@
     </div>
     <div class="card-body bg-secondary">
         <div *ngIf= "temRegistro()" class="accordion" id="accordionRegistroDaily">
-            <div *ngFor="let dailyLog of projeto.logReunioes" class="accordion-item">
+            <div *ngFor="let dailyLog of listaDailyLog" class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" style="font-size: large; text-decoration: solid;"
                         data-bs-target="#collapseRegistroDaily" aria-expanded="false" aria-controls="collapseRegistroDaily" (click)="collapse(getDataDailyLogMili(dailyLog))">
