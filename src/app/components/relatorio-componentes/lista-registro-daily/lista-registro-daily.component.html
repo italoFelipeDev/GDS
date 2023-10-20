@@ -1,12 +1,12 @@
-<div class="card  mb-5 ">
+<div class="card mb-5 border border-secondary">
     <div class="card-header bg-primary" style="text-align: center; font-size: large;">
         Registros de Reuniões do Projeto
     </div>
-    <div class="card-body bg-secondary">
+    <div class="card-body bg-dark border-secondary">
         <div *ngIf= "temRegistro()" class="accordion" id="accordionRegistroDaily">
             <div *ngFor="let dailyLog of listaDailyLog" class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" style="font-size: large; text-decoration: solid;"
+                    <button class="accordion-button bg-secondary" type="button" style="font-size: large; text-decoration: solid; color: #ebebeb;"
                         data-bs-target="#collapseRegistroDaily" aria-expanded="false" aria-controls="collapseRegistroDaily" (click)="collapse(getDataDailyLogMili(dailyLog))">
                         Review da Daily: {{getDataDailyLog(dailyLog)}}
                     </button>

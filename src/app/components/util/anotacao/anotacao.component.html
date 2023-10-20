@@ -1,7 +1,7 @@
 <form *ngIf="!isDailyDisplay" [formGroup]="anotacaoGroup" (ngSubmit)="submit()">
   <div class="input-group">
-    <span class="input-group-text">Suas Anotações</span>
-    <textarea class="form-control bg-dark" formControlName="textoAnotacao" aria-label="With textarea" style="color: #f8f9fa;"></textarea>
+    <span class="input-group-text border border-secondary">Suas Anotações</span>
+    <textarea class="form-control bg-dark border border-secondary" formControlName="textoAnotacao" aria-label="With textarea" style="color: #f8f9fa;"></textarea>
   </div>
 
   <button class="btn bg-primary mt-3" type="submit">

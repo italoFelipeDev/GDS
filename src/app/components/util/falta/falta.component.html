@@ -1,10 +1,11 @@
-<div class="card">
-    <div class="card-header">
-        {{falta.justificativa}}
+<div class="card border-secondary">
+    <div class="card-header bg-dark border border-secondary" style="border-radius: 0%;">
+       <h5>{{falta.justificativa}}</h5>
+        
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{'Falta no dia: ' + getDataFalta()}}</h5>
+        <h6 class="card-title">{{'Falta no dia: ' + getDataFalta()}}</h6>
 
-        <a *ngIf="podeRemoverFalta()" class="btn btn-primary" (click)="removerFaltaProjeto()">Remover Falta</a>
+        <a *ngIf="podeRemoverFalta()" class="btn btn-primary mt-3" (click)="removerFaltaProjeto()">Remover Falta</a>
     </div>
 </div>

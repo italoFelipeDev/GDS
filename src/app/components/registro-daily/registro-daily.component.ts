@@ -12,14 +12,14 @@ import { Usuario } from 'src/model/usuario.class';
 })
 export class RegistroDailyComponent implements  OnInit{
   
-  @Input() dailyLog: DailyLog;
+  @Input() dailyLog: DailyLog = new DailyLog();
 
   @Input() projeto: Projeto;
 
   @Input() listaParticipante: Array<Usuario> = new Array<Usuario>();
 
   @Input() isDailyReview: boolean = false;
-  
+
   reportsUsuarioConvertido: Array<ReportUsuarioLogConvertido> = new Array<ReportUsuarioLogConvertido>();
 
   constructor(
@@ -30,7 +30,7 @@ export class RegistroDailyComponent implements  OnInit{
   }
 
   ngOnInit(): void {
-   this.carregarParticipantesProjeto();
+    this.carregarParticipantesProjeto();
   }
 
   getDataDailyLog(): string{
@@ -59,6 +59,19 @@ export class RegistroDailyComponent implements  OnInit{
         this.cd.detectChanges();
       })
     })
-    
+  }
+
+  getTempoDecorridoDaily(){
+    if(this.dailyLog.tempoDecorrido){
+      return this.dailyLog.tempoDecorrido.toFixed(2);
+    }
+    return "";
+  }
+
+  getTotalImpedimentosDoDia(){
+    if(this.dailyLog.impedimentosDoDiaList){
+      return this.dailyLog.impedimentosDoDiaList.length;
+    }
+    return "";
   }
 }

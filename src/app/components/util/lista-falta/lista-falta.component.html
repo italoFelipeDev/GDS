@@ -1,12 +1,12 @@
-<div class="card  mb-5 ">
+<div class="card  mb-5 border border-secondary">
     <div class="card-header bg-primary" style="text-align: center; font-size: large;">
         Faltas do Dia
     </div>
-    <div class="card-body bg-secondary">
+    <div class="card-body bg-dark">
         <div *ngIf="temFalta()" class="accordion" id="accordionFalta">
             <div *ngFor="let falta of projeto.faltasDoDia" class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" style="font-size: large; text-decoration: solid;"
+                    <button class="accordion-button bg-secondary" type="button" style="font-size: large; text-decoration: solid; color: #ebebeb;"
                         data-bs-target="#collapseFalta" aria-expanded="false" aria-controls="collapseFalta" (click)="collapse(falta.idUsuario)">
 
                         <img class="rounded-circle align-self-center img-fluid" src={{falta.iconeParticipante}}
@@ -16,7 +16,7 @@
                     </button>
                 </h2>
                 <div id="collapseFalta{{falta.idUsuario}}" class="accordion-collapse collapse show" data-bs-parent="#accordionFalta">
-                    <div class="accordion-body">
+                    <div class="accordion-body" style="padding: 0%;">
                         <app-falta [falta]="falta" [projeto]="projeto"></app-falta>
                     </div>
                 </div>

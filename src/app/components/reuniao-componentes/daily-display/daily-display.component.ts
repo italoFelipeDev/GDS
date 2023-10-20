@@ -202,6 +202,8 @@ export class DailyDisplayComponent implements OnInit{
     this.calcularMediaTempoReport();
     this.dailyLog.impedimentosDoDiaList.concat(this.getNumeroReportPendente());
     this.projeto.logReunioes.push(this.dailyLog);
+
+    //Salva os dados no relatorio mensal
     this.projeto.relatorioMensalList.forEach(relatorio =>{
       if(DateUtils.converterDataObjeto(this.dailyLog.data).getMonth() == DateUtils.converterDataObjeto(relatorio.dataRelatorio).getMonth()){
         relatorio.dailyLogMensal.push(this.dailyLog);

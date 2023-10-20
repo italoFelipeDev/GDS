@@ -188,6 +188,10 @@ $btn-close-hover-opacity:    1 !default;
 $pre-color:                         inherit !default;
 
 $accordion-bg:                            var(--#{$primary}$primary);
+$accordion-border-color:                  #525151;
+$accordion-button-focus-border-color:     $gray-700;
+$accordion-icon-color: $gray-600;
+$accordion-icon-active-color: $gray-700;
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';

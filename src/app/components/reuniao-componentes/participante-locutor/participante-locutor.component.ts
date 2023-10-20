@@ -41,42 +41,43 @@ export class ParticipanteLocutorComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  isImpedimentoUsuarioLocutor(impedimento: Impedimento): boolean{
+  isImpedimentoUsuarioLocutor(impedimento: Impedimento): boolean {
     return !impedimento.solucionado && this.usuario.id == impedimento.idParticipante
   }
 
-  isImpedimentoUsuarioLocutorSolucionado(impedimento: Impedimento): boolean{
-    return impedimento.solucionado && this.usuario.id == impedimento.idParticipante
+  isImpedimentoUsuarioLocutorSolucionado(impedimento: Impedimento): boolean {
+    let dataFimImpedimento: Date = new Date(impedimento.dataFim);
+
+    let diaAtual: Date = new Date();
+
+    let diaAnterior = diaAtual.getDate() - 1;
+
+    return impedimento.solucionado && this.usuario.id == impedimento.idParticipante && dataFimImpedimento.getDate() >= diaAnterior;
   }
 
-  checarListaImpedimento(): boolean{
+  checarListaImpedimento(): boolean {
     let semImpedimentoAtual: boolean = true;
-    this.impedimentoList.forEach(impedimento =>{
-      
-      if(impedimento.solucionado && this.usuario.id == impedimento.idParticipante){
+    this.impedimentoList.forEach(impedimento => {
+
+      if (!impedimento.solucionado && this.usuario.id == impedimento.idParticipante) {
         semImpedimentoAtual = false;
       }
     })
 
-   return semImpedimentoAtual;
+    return semImpedimentoAtual;
   }
 
-  checarListaImpedimentoSuperado(): boolean{
+  checarListaImpedimentoSuperado(): boolean {
 
     let semImpedimentoSuperado: boolean = true;
 
-    this.impedimentoList.forEach(impedimento =>{
-      let dataFimImpedimento: Date = new Date(impedimento.dataFim);
-
-      let diaAtual: Date = new Date();
-
-      let diaAnterior = diaAtual.getDate() - 1;
-
-      if(this.isImpedimentoUsuarioLocutorSolucionado(impedimento) && dataFimImpedimento.getDate() >= diaAnterior){
+    this.impedimentoList.forEach(impedimento => {
+      
+      if (this.isImpedimentoUsuarioLocutorSolucionado(impedimento)) {
         semImpedimentoSuperado = false;
       }
     })
 
-   return semImpedimentoSuperado;
+    return semImpedimentoSuperado;
   }
 }

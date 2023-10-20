@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-body">
+  <div class="card-body mt-3">
     <div class="d-flex flex-column justify-content-center" style="align-items: center;">
       <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{projeto.icone}} alt="Icone projeto"
         style="width: 200px; height: 200px; object-fit:cover;">
@@ -7,25 +7,25 @@
       <p class="card-text d-flex">{{projeto.descricao}}</p>
     </div>
 
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <button type="button" class="btn btn-primary">
-          Horario da Reunião <span class="badge text-bg-secondary">{{formatarHorarioDaily()}}</span>
+    <ul class="list-group list-group-flush" >
+      <li class="list-group-item" style="max-width: 250px;">
+        <button type="button" class="btn btn-primary d-flex flex-row justify-content-between" style="width: auto;">
+          Horario da Reunião <span class="badge text-bg-secondary align-self-center" style="margin-left: 7px; font-size: 1rem;">{{formatarHorarioDaily()}}</span>
         </button>
       </li>
-      <li class="list-group-item">
-        <button type="button" class="btn btn-primary">
-          Nº de Faltas <span class="badge text-bg-secondary">{{getNumeroDeFaltas()}}</span>
+      <li class="list-group-item" style="max-width: 250px;">
+        <button type="button" class="btn btn-primary d-flex flex-row justify-content-between" style="width: 100%;">
+          Nº de Faltas: <span class="badge text-bg-secondary align-self-center">{{getNumeroDeFaltas()}}</span>
         </button>
       </li>
-      <li class="list-group-item">
-        <button type="button" class="btn btn-primary">
-          Nº de Impedimentos <span class="badge text-bg-secondary">{{getNumeroDeImpedimentos()}}</span>
+      <li class="list-group-item" style="max-width: 250px;">
+        <button type="button" class="btn btn-primary d-flex flex-row justify-content-between" style="width: 100%;">
+          Nº de Impedimentos <span class="badge text-bg-secondary align-self-center">{{getNumeroDeImpedimentos()}}</span>
         </button>
       </li>
-      <li class="list-group-item">
-        <button type="button" class="btn btn-primary">
-          Nº de Participantes <span class="badge text-bg-secondary">{{getNumeroDeParticipantes()}}</span>
+      <li class="list-group-item" style="max-width: 250px;">
+        <button type="button" class="btn btn-primary d-flex flex-row justify-content-between" style="width: 100%;">
+          Nº de Participantes <span class="badge text-bg-secondary align-self-center">{{getNumeroDeParticipantes()}}</span>
         </button>
       </li>
       <a class="btn btn-primary mt-4" (click)="direcionarProjetoView()">Detalhes</a>

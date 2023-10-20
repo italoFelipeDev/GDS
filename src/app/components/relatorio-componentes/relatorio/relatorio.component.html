@@ -12,66 +12,74 @@
           style="width: 200px; height: 200px; object-fit:cover;">
         <h4 class="card-title d-flex mb-3">{{projeto.nome}}</h4>
       </div>
-      
-      
-        <div class="d-flex flex-row justify-content-between mt-4">
-          <ul class="list-group list-group-flush">
+
+
+      <div class="d-flex flex-row justify-content-between mt-4 border border-secondary" style="margin-left: 10px;">
+        <ul class="list-group list-group-flush ">
           <li class="list-group-item">
-            <button type="button" class="btn btn-primary">
-              Total de Dailys <span class="badge text-bg-secondary"
-                style="margin-left: 7px;">{{getTotalDeDailys()}}</span>
+            <button type="button" class="btn btn-primary d-flex flex-row justify-content-between"
+              style="width: 100%; font-weight: bold;">
+              Total de Dailys:
+              <span class="badge text-bg-secondary align-self-center" style="margin-left: 7px;">{{getTotalDeDailys()}}
+              </span>
             </button>
           </li>
           <li class="list-group-item">
-            <button type="button" class="btn btn-primary">
-              Tempo Total de Reuniões<span class="badge text-bg-secondary"
-                style="margin-left: 7px;">{{getTempoTotalReunioes().toFixed(2)}}</span>
+            <button type="button" class="btn btn-primary d-flex flex-row justify-content-between"
+              style="width: 100%; font-weight: bold;">
+              Tempo Total de Reuniões:
+              <span class="badge text-bg-secondary" style="margin-left: 7px;">{{getTempoTotalReunioes().toFixed(2)}}
+              </span>
             </button>
           </li>
           <li class="list-group-item">
-            <button type="button" class="btn {{avaliarTempoDaily()}}">
+            <button type="button" class="btn {{avaliarTempoDaily()}} d-flex flex-row justify-content-between"
+              style="width: 100%; font-weight: bold;">
               Tempo Médio de Reunião <span class="badge text-bg-secondary"
                 style="margin-left: 7px;">{{getMediaTempoDecorridoDailyMensal().toFixed(2)}}</span>
             </button>
           </li>
           <li class="list-group-item">
-            <button type="button" class="btn {{avaliarTempoReportMediaGeral()}}">
+            <button type="button" class="btn {{avaliarTempoReportMediaGeral()}} d-flex flex-row justify-content-between"
+              style="width: 100%; font-weight: bold;">
               Tempo Médio de Report <span class="badge text-bg-secondary"
                 style="margin-left: 7px;">{{getMediaTempoDecorridoReportMensal().toFixed(2)}}</span>
             </button>
           </li>
 
           <li class="list-group-item">
-            <button type="button" class="btn {{avaliarTempoDaily()}}">
+            <button type="button" class="btn {{avaliarTempoDaily()}} d-flex flex-row justify-content-between"
+              style="width: 100%; font-weight: bold;">
               Tempo de Reunião Mais Longo <span class="badge text-bg-secondary"
                 style="margin-left: 7px;">{{getDailyMaisLonga().toFixed(2)}}</span>
             </button>
           </li>
         </ul>
 
-          <div style="text-align: center;">
-            <h5 class="card-title mt-4">Tempo Médio de Fala dos Participantes</h5>
-            <ul class="list-group d-flex flex-row mt-4">
-              <li *ngFor="let usuario of listaParticipantes"
-                class="d-flex flex-column list-group-item justify-content-center">
-                <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{usuario.icone}} alt="Icone usuario"
-                  style="width: 70px; height: 70px; object-fit:cover;">
-                <button type="button" class="btn btn-primary d-flex flex-column" style=" width: 170px; text-align: center;">
-                  <div class="align-self-center mb-1">
-                    {{usuario.nome}}
-                  </div>
-                  <span class="badge text-bg-secondary align-self-center"
-                    style="margin-left: 7px;">{{getTempoMedioFalaUsuario(usuario).toFixed(2)}}
-                  </span>
-                </button>
-              </li>
-            </ul>
-          </div>
+        <div style="text-align: center; margin-right: 30px;">
+          <h5 class="card-title mt-4">Tempo Médio de Fala dos Participantes</h5>
+          <ul class="list-group d-flex flex-row mt-4">
+            <li *ngFor="let usuario of listaParticipantes"
+              class="d-flex flex-column list-group-item justify-content-center border border-secondary bg-secondary">
+              <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{usuario.icone}} alt="Icone usuario"
+                style="width: 70px; height: 70px; object-fit:cover;">
+              <button type="button" class="btn btn-primary d-flex flex-column"
+                style=" width: 170px; text-align: center;">
+                <div class="align-self-center mb-1">
+                  {{usuario.nome}}
+                </div>
+                <span class="badge text-bg-secondary align-self-center"
+                  style="margin-left: 7px;">{{getTempoMedioFalaUsuario(usuario).toFixed(2)}}
+                </span>
+              </button>
+            </li>
+          </ul>
         </div>
+      </div>
 
 
     </div>
-    
+
 
 
   </div>
