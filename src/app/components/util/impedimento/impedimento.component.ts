@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProjetoService } from 'src/app/service/projeto.service';
+import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Impedimento } from 'src/model/impedimento.class';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
@@ -18,15 +19,19 @@ export class ImpedimentoComponent implements OnInit {
 
   @Input() isDailyDisplay: boolean = false;
 
+  usuario: Usuario = new Usuario();
+
   usuarioLogado: Usuario;
 
   constructor(
-    private projetoService: ProjetoService
+    private projetoService: ProjetoService,
+    private usuarioService: UsuarioService
   ) {
 
   }
   ngOnInit(): void {
     this.recuperarUsuarioLogado();
+    this.carregarParticipante();
   }
 
   getDataInicioImpedimento() {
@@ -61,5 +66,11 @@ export class ImpedimentoComponent implements OnInit {
 
   isImpedimentoSolucionavel(): boolean{
    return (this.usuarioLogado.id == this.impedimento.idParticipante && !this.impedimento.solucionado);
+  }
+
+  carregarParticipante(){
+    this.usuarioService.getUsuario(this.impedimento.idParticipante.toString()).subscribe(response =>{
+      this.usuario = response
+    })
   }
 }

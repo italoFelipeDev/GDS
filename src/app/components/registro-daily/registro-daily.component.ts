@@ -4,6 +4,8 @@ import { DailyLog } from 'src/model/dailyLog.class';
 import { Projeto } from 'src/model/projeto.class';
 import { ReportUsuarioLogConvertido } from 'src/model/reportUsuarioLogConvertido.class';
 import { Usuario } from 'src/model/usuario.class';
+import { DateUtils } from 'src/utils/date.class.util';
+import { StringUtil } from 'src/utils/string.class.util';
 
 @Component({
   selector: 'app-registro-daily',
@@ -40,12 +42,12 @@ export class RegistroDailyComponent implements  OnInit{
   }
 
   avaliarTempoDaily(): string{
-    return this.dailyLog.tempoDecorrido <= this.projeto.tempoMedioDeDaily ? 'btn-success' : 'btn-danger';
+    return DateUtils.converterTempoMinutos(this.dailyLog.tempoDecorrido) <= this.projeto.tempoMedioDeDaily ? 'btn-success' : 'btn-danger';
   }
 
   avaliarTempoReportUsuario(tempoDecorrido: number): string{
 
-    return tempoDecorrido <= this.projeto.tempoMedioDeFala ? 'btn-success' : 'btn-danger';
+    return DateUtils.converterTempoMinutos(tempoDecorrido) <= this.projeto.tempoMedioDeFala ? 'btn-success' : 'btn-danger';
   }
 
   avaliarNumeroReportPendente(): string{
@@ -73,5 +75,13 @@ export class RegistroDailyComponent implements  OnInit{
       return this.dailyLog.impedimentosDoDiaList.length;
     }
     return "";
+  }
+
+  temImpedimento(): boolean{
+    return this.dailyLog.impedimentosDoDiaList.length > 0;
+  }
+
+  getTempoConvertido(tempo: number) :string{
+    return StringUtil.timeConvert(tempo);
   }
 }

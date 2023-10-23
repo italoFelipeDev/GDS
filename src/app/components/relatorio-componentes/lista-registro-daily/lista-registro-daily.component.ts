@@ -41,12 +41,12 @@ export class ListaRegistroDailyComponent implements OnInit{
 
       let dataConvertidaB: Date = DateUtils.converterDataObjeto(b.data);
 
-      if(dataConvertidaA.getMilliseconds() > dataConvertidaB.getMilliseconds()){
-        return -1;
+      if(dataConvertidaA.getDate() < dataConvertidaB.getDate()){
+        return 1;
       }
 
-      if(dataConvertidaB.getMilliseconds() > dataConvertidaA.getMilliseconds()){
-        return 1
+      if(dataConvertidaB.getDate() < dataConvertidaA.getDate()){
+        return -1
       }
 
       return 0;

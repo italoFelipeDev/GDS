@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { DailyLog } from 'src/model/dailyLog.class';
+import { Impedimento } from 'src/model/impedimento.class';
 import { Projeto } from 'src/model/projeto.class';
 import { RelatorioMensal } from 'src/model/relatorioMensal.class';
 import { Usuario } from 'src/model/usuario.class';
+import { DateUtils } from 'src/utils/date.class.util';
+import { StringUtil } from 'src/utils/string.class.util';
 
 @Component({
   selector: 'app-relatorio',
@@ -17,6 +20,8 @@ export class RelatorioComponent implements OnInit {
   @Input() relatorioMensal: RelatorioMensal;
 
   @Input() listaParticipantes: Array<Usuario> = new Array<Usuario>();
+
+  impedimentosDoMes: Array<Impedimento> = new Array<Impedimento>;
 
   constructor(
     private usuarioService: UsuarioService
@@ -69,11 +74,15 @@ export class RelatorioComponent implements OnInit {
   }
 
   avaliarTempoDaily(): string {
-    return this.getMediaTempoDecorridoDailyMensal() <= this.projeto.tempoMedioDeDaily ? 'btn-success' : 'btn-danger';
+    return DateUtils.converterTempoMinutos(this.getMediaTempoDecorridoDailyMensal()) <= this.projeto.tempoMedioDeDaily ? 'btn-success' : 'btn-danger';
   }
 
   avaliarTempoReportMediaGeral(): string {
-    return this.getMediaTempoDecorridoReportMensal() <= this.projeto.tempoMedioDeFala ? 'btn-success' : 'btn-danger';
+    return DateUtils.converterTempoMinutos(this.getMediaTempoDecorridoReportMensal()) <= this.projeto.tempoMedioDeFala ? 'btn-success' : 'btn-danger';
+  }
+
+  avaliarTempoReportMediaParticipante(tempoMedioParticipante: number): string {
+    return DateUtils.converterTempoMinutos(tempoMedioParticipante) <= this.projeto.tempoMedioDeFala ? 'btn-success' : 'btn-danger';
   }
 
   private organizarListaDailyTempo(listDailyLog: Array<DailyLog>): Array<DailyLog> {
@@ -83,6 +92,16 @@ export class RelatorioComponent implements OnInit {
   getDailyMaisLonga() {
     if (this.relatorioMensal.dailyLogMensal.length > 0) {
       return this.organizarListaDailyTempo(this.relatorioMensal.dailyLogMensal)[0].tempoDecorrido;
+    } else {
+      return 0;
+    }
+  }
+
+  getDailyMaisCurta(){
+    if (this.relatorioMensal.dailyLogMensal.length > 0) {
+      let listaTemporaria = this.organizarListaDailyTempo(this.relatorioMensal.dailyLogMensal);
+     
+      return listaTemporaria.slice(-1)[0].tempoDecorrido;
     } else {
       return 0;
     }
@@ -111,5 +130,17 @@ export class RelatorioComponent implements OnInit {
       });
     });
     return tempoTotalFalaUsuario/totalReports;
+  }
+
+  getTempoConvertido(tempo: number) :string{
+    return StringUtil.timeConvert(tempo);
+  }
+
+  getTotalFaltaMes(){
+    let totalFaltas = 0;
+    this.relatorioMensal.dailyLogMensal.forEach(dailyLog => {
+
+      totalFaltas += dailyLog.faltas.length;
+    })
   }
 }

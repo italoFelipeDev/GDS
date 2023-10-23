@@ -1,4 +1,4 @@
-<div class="card mb-5 border border-secondary">
+<div *ngIf="!relatorioMensal" class="card mb-5 border border-secondary">
     <div class="card-header bg-primary" style="text-align: center; font-size: large;">
         Impedimentos do Projeto
     </div>
@@ -34,3 +34,33 @@
 
 <!-- Modal Cadastar Impedimento -->
 <app-cadastrar-impedimento [projeto]="projeto"></app-cadastrar-impedimento>
+
+
+<div *ngIf="relatorioMensal" class="card mb-5 border border-secondary">
+    <div class="card-header bg-primary" style="text-align: center; font-size: large;">
+        Impedimentos do Mês
+    </div>
+    <div class="card-body bg-dark border border-secondary">
+        <div *ngIf="temImpedimento()" class="accordion" id="accordionImpedimento">
+            <div *ngFor="let impedimento of listaImpedimentoRelatorio; index as i " class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button bg-secondary" type="button" style="font-size: large; text-decoration: solid; color: #ebebeb"
+                        data-bs-target="#collapseImpedimento" aria-expanded="false" aria-controls="collapseImpedimento" (click)="collapse(i)">
+                        {{impedimento.titulo}}
+                        <span *ngIf="impedimento.solucionado" class="badge badge-pill bg-primary"
+                            style="margin-left: 0.9rem;">SOLUCIONADO</span>
+                    </button>
+                </h2>
+                <div id="collapseImpedimento{{i}}" class="accordion-collapse collapse">
+                    <div class="accordion-body" style="padding: 0%;">
+                        <app-impedimento [projeto]="projeto" [impedimento]="impedimento"></app-impedimento>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!temImpedimentoNoMes()" class="alert alert-info" role="alert">
+            O projeto não possui impedimentos!
+        </div>
+    </div>
+</div>

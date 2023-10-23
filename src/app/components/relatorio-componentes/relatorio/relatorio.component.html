@@ -28,7 +28,8 @@
             <button type="button" class="btn btn-primary d-flex flex-row justify-content-between"
               style="width: 100%; font-weight: bold;">
               Tempo Total de Reuniões:
-              <span class="badge text-bg-secondary" style="margin-left: 7px;">{{getTempoTotalReunioes().toFixed(2)}}
+              <span class="badge text-bg-secondary"
+                style="margin-left: 7px;  font-size: medium;">{{getTempoConvertido(getTempoTotalReunioes())}}
               </span>
             </button>
           </li>
@@ -36,14 +37,14 @@
             <button type="button" class="btn {{avaliarTempoDaily()}} d-flex flex-row justify-content-between"
               style="width: 100%; font-weight: bold;">
               Tempo Médio de Reunião <span class="badge text-bg-secondary"
-                style="margin-left: 7px;">{{getMediaTempoDecorridoDailyMensal().toFixed(2)}}</span>
+                style="margin-left: 7px; font-size: medium;">{{getTempoConvertido(getMediaTempoDecorridoDailyMensal())}}</span>
             </button>
           </li>
           <li class="list-group-item">
             <button type="button" class="btn {{avaliarTempoReportMediaGeral()}} d-flex flex-row justify-content-between"
               style="width: 100%; font-weight: bold;">
               Tempo Médio de Report <span class="badge text-bg-secondary"
-                style="margin-left: 7px;">{{getMediaTempoDecorridoReportMensal().toFixed(2)}}</span>
+                style="margin-left: 7px; font-size: medium;">{{getTempoConvertido(getMediaTempoDecorridoReportMensal())}}</span>
             </button>
           </li>
 
@@ -51,7 +52,15 @@
             <button type="button" class="btn {{avaliarTempoDaily()}} d-flex flex-row justify-content-between"
               style="width: 100%; font-weight: bold;">
               Tempo de Reunião Mais Longo <span class="badge text-bg-secondary"
-                style="margin-left: 7px;">{{getDailyMaisLonga().toFixed(2)}}</span>
+                style="margin-left: 7px; font-size: medium;">{{getTempoConvertido(getDailyMaisLonga())}}</span>
+            </button>
+          </li>
+
+          <li class="list-group-item">
+            <button type="button" class="btn {{avaliarTempoDaily()}} d-flex flex-row justify-content-between"
+              style="width: 100%; font-weight: bold;">
+              Tempo de Reunião Mais Curto <span class="badge text-bg-secondary"
+                style="margin-left: 7px; font-size: medium;">{{getTempoConvertido(getDailyMaisCurta())}}</span>
             </button>
           </li>
         </ul>
@@ -63,25 +72,24 @@
               class="d-flex flex-column list-group-item justify-content-center border border-secondary bg-secondary">
               <img class="mr-3 rounded-circle d-flex align-self-center mb-3" src={{usuario.icone}} alt="Icone usuario"
                 style="width: 70px; height: 70px; object-fit:cover;">
-              <button type="button" class="btn btn-primary d-flex flex-column"
+              <button type="button"
+                class="btn {{avaliarTempoReportMediaParticipante(getTempoMedioFalaUsuario(usuario))}} d-flex flex-column"
                 style=" width: 170px; text-align: center;">
                 <div class="align-self-center mb-1">
                   {{usuario.nome}}
                 </div>
                 <span class="badge text-bg-secondary align-self-center"
-                  style="margin-left: 7px;">{{getTempoMedioFalaUsuario(usuario).toFixed(2)}}
+                  style="margin-left: 7px; font-size: medium;">{{getTempoConvertido(getTempoMedioFalaUsuario(usuario))}}
                 </span>
               </button>
             </li>
           </ul>
+          <div class="mt-4 align-self-end">
+            <app-lista-impedimento [relatorioMensal]="relatorioMensal" [projeto]="projeto"></app-lista-impedimento>
+          </div>
         </div>
       </div>
-
-
     </div>
-
-
-
   </div>
   <div class="card-footer text-body-secondary">
     <br>

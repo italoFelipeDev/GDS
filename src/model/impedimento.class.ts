@@ -5,7 +5,6 @@ export class Impedimento{
     idProjeto: string;
     titulo: string;
     nomeUsuario: string;
-    iconeUsuario: string;
     descricao: string;
     solucionado: boolean;
     dataInicio: Date;

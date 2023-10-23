@@ -11,7 +11,7 @@
                         Review da Daily: {{getDataDailyLog(dailyLog)}}
                     </button>
                 </h2>
-                <div id="collapseRegistroDaily{{getDataDailyLogMili(dailyLog)}}" class="accordion-collapse collapse show" data-bs-parent="#accordionRegistroDaily">
+                <div id="collapseRegistroDaily{{getDataDailyLogMili(dailyLog)}}" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <app-registro-daily [dailyLog]="dailyLog" [projeto]="projeto"></app-registro-daily>
                     </div>

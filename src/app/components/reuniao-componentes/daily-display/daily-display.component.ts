@@ -144,7 +144,7 @@ export class DailyDisplayComponent implements OnInit{
 
       //Registra o tempo decorrido do report do usuário
       this.fimReport = new Date().getTime() - this.inicioReport;
-      this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog.id.toString(), this.fimReport/10000));
+      this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog.id.toString(), this.fimReport));
 
       //Reinicia o registro para o proximo usuário
       this.inicioReport = new Date().getTime();
@@ -195,12 +195,13 @@ export class DailyDisplayComponent implements OnInit{
 
     //Registra o tempo decorrido do report do usuário
     this.fimReport = new Date().getTime() - this.inicioReport;
-    this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog.id.toString(), this.fimReport/10000));
+    this.dailyLog.tempoDecorridoReports.push(new ReportUsuarioLog(usuarioDailyLog.id.toString(), this.fimReport));
 
     this.fimDaily = new Date().getTime() - this.inicioDaily;
-    this.dailyLog.tempoDecorrido = this.fimDaily/10000;
+    this.dailyLog.tempoDecorrido = this.fimDaily;
     this.calcularMediaTempoReport();
-    this.dailyLog.impedimentosDoDiaList.concat(this.getNumeroReportPendente());
+    this.dailyLog.impedimentosDoDiaList = this.getImpedimentoPendente();
+    this.dailyLog.faltas.concat(this.projeto.faltasDoDia);
     this.projeto.logReunioes.push(this.dailyLog);
 
     //Salva os dados no relatorio mensal
@@ -225,9 +226,9 @@ export class DailyDisplayComponent implements OnInit{
     this.dailyLog.tempoMedioReports = somaTotalTempo/ this.dailyLog.tempoDecorridoReports.length;
   }
 
-  getNumeroReportPendente(): Array<Impedimento>{
+  getImpedimentoPendente(): Array<Impedimento>{
     let impedimentoPendenteList = this.projeto.impedimentos.filter(impedimento => {
-      return impedimento.solucionado != true;
+      return impedimento.solucionado == false;
     });
 
     return impedimentoPendenteList;

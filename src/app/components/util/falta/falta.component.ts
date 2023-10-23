@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProjetoService } from 'src/app/service/projeto.service';
+import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { Falta } from 'src/model/falta.class';
 import { Projeto } from 'src/model/projeto.class';
 import { Usuario } from 'src/model/usuario.class';
@@ -18,8 +19,11 @@ export class FaltaComponent implements OnInit {
 
   @Input() projeto: Projeto;
 
+  usuario: Usuario;
+
   constructor(
-    private projetoService: ProjetoService
+    private projetoService: ProjetoService,
+    private usuarioService: UsuarioService
   ){
   }
 
@@ -52,6 +56,12 @@ export class FaltaComponent implements OnInit {
 
   podeRemoverFalta(): boolean{
     return this.falta.idUsuario == this.usuarioLogado.id.toString();
+  }
+
+  carregarParticipante(){
+    this.usuarioService.getUsuario(this.falta.idUsuario.toString()).subscribe(response =>{
+      this.usuario = response
+    })
   }
 
 }

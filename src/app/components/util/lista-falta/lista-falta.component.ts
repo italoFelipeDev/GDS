@@ -49,4 +49,5 @@ export class ListaFaltaComponent implements OnInit {
     let collapse = new Collapse('#collapseFalta' + idUsuario );
     collapse.hide();
   }
+  
 }

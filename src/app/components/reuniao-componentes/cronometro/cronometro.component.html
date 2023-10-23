@@ -1,5 +1,5 @@
 <div *ngIf="isLocutor == false">
-    <div class="container d-inline-block justify-content-center w-50 bg-dark">
+    <div type="button" class="container d-inline-block justify-content-center w-50 bg-dark border border-secondary">
         <div class="display-cronometro d-flex justify-content-center align-items-center bg-dark" [style.color]="istempoExtrapoladoDaily()" >
             <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
         </div>
@@ -8,7 +8,7 @@
 
 
 <div *ngIf="isLocutor">
-    <div class="container-cronometro-locutor bg-dark">
+    <div class="container-cronometro-locutor bg-dark border border-secondary">
         <div class="display-cronometro d-flex justify-content-center align-items-center bg-dark" [style.color]="istempoExtrapoladoLocutor()" >
             <span class="digito">{{hoursDisplay}}</span>:<span class="digito">{{minutesDisplay}}</span>:<span class="digito">{{secondsDisplay}}</span>
         </div>

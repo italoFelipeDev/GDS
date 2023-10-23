@@ -58,7 +58,6 @@ export class CadastroFaltaComponent implements OnInit {
     falta.idProjeto = this.projeto.id.toString();
     falta.idUsuario = this.usuarioLogado.id.toString();
     falta.nomeParticipante = this.usuarioLogado.nome;
-    falta.iconeParticipante = this.usuarioLogado.icone;
     falta.justificativa = this.faltaGroup.get('justificativa')?.value;
 
     return falta;
