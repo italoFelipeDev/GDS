@@ -21,6 +21,9 @@
             </div>
         </div>
     </div>
+    <div *ngIf="isListaVazia()" class="alert alert-info" role="alert">
+        Você está em nenhum projeto!
+    </div>
 </div>
 
 <!-- Modal Cadastrar Projeto -->

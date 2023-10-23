@@ -31,6 +31,10 @@ export class ListaProjetosComponent implements OnInit {
     this.cd.detectChanges();
   }
 
+  isListaVazia(): boolean{
+    return this.listaProjetos.length <= 0;
+  }
+
   collapse(idProjeto: string): void{
     let collapse = new Collapse('#collapseProjeto' + idProjeto );
     collapse.hide();

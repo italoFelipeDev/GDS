@@ -1,87 +1,116 @@
 <div class="container d-flex justify-content-center flex-column">
     <!-- Cadastro de Usuario -->
-    <div *ngIf="isSingin() && !isPerfil()">
-        <div>
-            Registrar Usuário
+    <div *ngIf="isSingin() && !isPerfil()" class="d-flex flex-column justify-content-center">
+
+        <div class="border mb-3 mt-4 p-3 d-flex flex-column justify-content-center " style="border-radius: 4px;">
+            <div class="d-flex justify-content-center mb-3">
+                <h4>Registre-se</h4>
+            </div>
+            <form [formGroup]="usuarioGroup" (ngSubmit)="submit()" class="d-flex flex-column justify-content-center">
+                <div class="form-group input-group mb-3">
+                    <label class="input-group-text" for="nome">Nome</label>
+                    <input type="text" formControlName="nome" class="form-control" placeholder="Digite seu nome">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label class="input-group-text" for="email">E-mail</label>
+                    <input type="text" formControlName="email" class="form-control" placeholder="Digite seu e-mail">
+                </div>
+                <div class="form-group input-group mb-1">
+                    <label class="input-group-text" for="senha">Senha</label>
+                    <input type="password" formControlName="senha" class="form-control" placeholder="Digite sua senha">
+                </div>
+                <small id="tempoMedioDeDailyHelp" class="d-flex text-muted mb-3"> Sua senha precisa ter no mínimo 8
+                    digitos.</small>
+
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Ícone de Perfil:</label>
+                    <input class="form-control" type="file" id="icone" formControlName="icone"
+                        (change)="atribuirImagem($event)">
+                </div>
+
+                <button class="btn bg-primary align-self-center mt-3" type="submit">
+                    Cadastrar
+                </button>
+            </form>
+
         </div>
-        <form [formGroup]="usuarioGroup" (ngSubmit)="submit()">
-            <div class="form-group input-group mb-3">
-                <label class="input-group-text" for="nome">Nome</label>
-                <input type="text" formControlName="nome" class="form-control">
-            </div>
-            <div class="form-group input-group mb-3">
-                <label class="input-group-text" for="email">Email</label>
-                <input type="text" formControlName="email" class="form-control">
-            </div>
-            <div class="form-group input-group mb-1">
-                <label class="input-group-text" for="senha">Senha</label>
-                <input type="password" formControlName="senha" class="form-control">
-            </div>
-            <small id="tempoMedioDeDailyHelp" class="d-flex text-muted mb-3"> Sua senha precisa ter no mínimo 8
-                digitos.</small>
 
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Icone de Perfil:</label>
-                <input class="form-control" type="file" id="icone" formControlName="icone"
-                    (change)="atribuirImagem($event)">
-            </div>
 
-            <button class="btn bg-primary" type="submit">
-                Cadastrar
-            </button>
-        </form>
+
         <a class="card-link" (click)="direcionarLogin()">Já possuo conta.</a>
     </div>
 
     <!-- Login de Usuario -->
     <div *ngIf="!isSingin() && !isPerfil()" class="d-flex flex-column justify-content-center">
-        <div class="d-flex justify-content-center mb-3 mt-5">
-            <h4>Login</h4>
+        <img class="d-flex  justify-content-center align-self-center mt-5" src="../../../assets/img/gds.png"
+            alt="Logo GDS" style="width: 160px; height: 64px; margin-left: 1rem; margin-right: 1rem;">
+        <div class="d-flex justify-content-center mb-2 mt-2">
+            <h3>Bem-vindo</h3>
         </div>
-        <form [formGroup]="usuarioGroup" (ngSubmit)="submitLogin()">
-            <div class="form-group input-group mb-3">
-                <label class="input-group-text" for="email">Email</label>
-                <input type="text" formControlName="email" class="form-control">
-            </div>
-            <div class="form-group input-group mb-3">
-                <label class="input-group-text" for="senha">Senha</label>
-                <input type="password" formControlName="senha" class="form-control">
+        <div class="d-flex justify-content-center mb-3">
+            <h4>Seu Gerenciador de Daily Scrum.</h4>
+        </div>
+
+
+        <div class="border mb-3 mt-4 p-3" style="border-radius: 4px;">
+            <div class="d-flex justify-content-center mb-3">
+                <h4>Login</h4>
             </div>
 
-            <button class="btn bg-primary mb-3 mt-1" type="submit">
-                Entrar
-            </button>
-        </form>
+            <form [formGroup]="usuarioGroup" (ngSubmit)="submitLogin()"
+                class=" d-flex flex-column justify-content-center">
+                <div class="form-group input-group mb-3">
+                    <label class="input-group-text" for="email">E-mail</label>
+                    <input type="text" formControlName="email" class="form-control" placeholder="Digite seu e-mail">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label class="input-group-text" for="senha">Senha</label>
+                    <input type="password" formControlName="senha" class="form-control" placeholder="Digite sua senha">
+                </div>
+
+                <button class="btn btn-primary align-self-center mt-3" type="submit">
+                    Entrar
+                </button>
+            </form>
+        </div>
+
         <a class="card-link" (click)="direcionarSingIn()">Não possui conta? Cadastre-se aqui.</a>
     </div>
 
     <!-- View Perfil Usuario -->
     <div *ngIf="isPerfil()" class="d-flex flex-column align-items-center">
-        <form [formGroup]="usuarioGroup" (ngSubmit)="submit()" class=" d-flex flex-column align-items-center">
-            <img class="mr-3 mb-3 rounded-circle" src={{usuario.icone}} alt="Generic placeholder image"
-                style="width: 200px; height: 200px; object-fit:cover;">
+        <img class="mr-3 mb-3 rounded-circle" src={{usuario.icone}} alt="Generic placeholder image"
+            style="width: 200px; height: 200px; object-fit:cover;">
 
-            <!-- Botão Modal Editar Icone Usuario -->
-            <div class="btn bg-primary mb-3" style="font-size: smaller;" data-bs-toggle="modal"
-                data-bs-target="#alterarUsuarioIconelModal">
-                Alterar icone
-            </div>
+        <!-- Botão Modal Editar Icone Usuario -->
+        <div class="btn bg-primary mb-3" style="font-size: smaller;" data-bs-toggle="modal"
+            data-bs-target="#alterarUsuarioIconelModal">
+            Alterar icone
+            <img src="../../../../assets/img/edit-icon.png" alt="" class="align-self-center"
+                style="margin-left: 5px; align-self: center; margin-bottom: 2px;">
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center border p-3 bg-secondary mt-3" style="border-radius: 4px;">
+            <form [formGroup]="usuarioGroup" (ngSubmit)="submit()" class=" d-flex flex-column align-items-center">
 
-            <h5 class="card-title d-flex mb-4">{{usuario.nome}}</h5>
+                <h3 class="card-title d-flex mb-4 align-self-center">{{usuario.nome}}</h3>
 
-            <div class="form-group input-group mb-3">
-                <label class="input-group-text" for="email">Email</label>
-                <input readonly type="text" formControlName="email" class="form-control">
-            </div>
-            <div class="form-group input-group mb-3">
-                <label class="input-group-text" for="senha">Senha</label>
-                <input readonly type="password" formControlName="senha" class="form-control">
-            </div>
-        </form>
-        <!-- Botão Modal Editar Usuario -->
-        <button class="btn bg-primary align-self-center" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
-            Editar
-        </button>
+                <div class="form-group input-group mb-3">
+                    <label class="input-group-text" for="email">E-mail</label>
+                    <input readonly type="text" formControlName="email" class="form-control">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label class="input-group-text" for="senha">Senha</label>
+                    <input readonly type="password" formControlName="senha" class="form-control">
+                </div>
+                <!-- Botão Modal Editar Usuario -->
+            </form>
+            <button class="btn bg-primary align-self-center" data-bs-toggle="modal"
+                data-bs-target="#editarUsuarioModal">
+                Editar
+                <img src="../../../../assets/img/edit-icon.png" alt="" class="align-self-center"
+                    style="margin-left: 5px; align-self: center; margin-bottom: 2px;">
+            </button>
+        </div>
     </div>
 </div>
 
@@ -123,13 +152,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="alterarUsuarioIconelModalLabel">Adicionar Participante</h1>
+                <h1 class="modal-title fs-5" id="alterarUsuarioIconelModalLabel">Editar Ícone</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Icone de Perfil:</label>
+                        <label for="formFile" class="form-label">Ícone de Perfil:</label>
                         <input class="form-control" type="file" id="icone" (change)="atribuirImagem($event)">
                     </div>
                     <button class="btn bg-primary" (click)="submitAlterarIconeUsuario()">
