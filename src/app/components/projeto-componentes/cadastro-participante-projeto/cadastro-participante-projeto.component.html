@@ -12,12 +12,11 @@
                     (ngSubmit)="submitAdicionarParticipante()">
                     <div class="form-group mt-4">
                         <input type="text" class="form-control" id="tempoMedioDeDaily"
-                            placeholder="Digite o email do participante." formControlName="email">
+                            placeholder="E-mail do participante." formControlName="email">
                         <small id="emailHelp" class="form-text text-muted">Digite o e-mail do
                             participante.</small>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>
                     <app-toast [idToast]="'toastAddParticipante'"></app-toast>

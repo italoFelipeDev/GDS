@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
 import { DailyLog } from 'src/model/dailyLog.class';
 import { Impedimento } from 'src/model/impedimento.class';
@@ -7,6 +7,8 @@ import { RelatorioMensal } from 'src/model/relatorioMensal.class';
 import { Usuario } from 'src/model/usuario.class';
 import { DateUtils } from 'src/utils/date.class.util';
 import { StringUtil } from 'src/utils/string.class.util';
+import { ListaRegistroDailyComponent } from '../lista-registro-daily/lista-registro-daily.component';
+import { ListaImpedimentoComponent } from '../../util/lista-impedimento/lista-impedimento.component';
 
 @Component({
   selector: 'app-relatorio',
@@ -21,9 +23,14 @@ export class RelatorioComponent implements OnInit {
 
   @Input() listaParticipantes: Array<Usuario> = new Array<Usuario>();
 
+  @ViewChild(ListaRegistroDailyComponent) listaRegistroDailyComponent: ListaRegistroDailyComponent;
+  
+  @ViewChild(ListaImpedimentoComponent) listaImpedimentoComponent: ListaImpedimentoComponent;
+
   impedimentosDoMes: Array<Impedimento> = new Array<Impedimento>;
 
   constructor(
+    private cd: ChangeDetectorRef,
     private usuarioService: UsuarioService
   ) {
 
@@ -142,5 +149,16 @@ export class RelatorioComponent implements OnInit {
 
       totalFaltas += dailyLog.faltas.length;
     })
+  }
+
+  getMesRelatorioString() {
+
+    return StringUtil.dateMonthYear(DateUtils.converterDataObjeto(this.relatorioMensal.dataRelatorio));
+  }
+
+  organizarListaDailyLog(){
+    this.listaRegistroDailyComponent.organizalListaDailyLog();
+    this.listaImpedimentoComponent.getImpedimentoMensal();
+    this.cd.detectChanges();
   }
 }

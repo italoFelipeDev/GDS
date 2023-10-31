@@ -1,7 +1,6 @@
-<form *ngIf="!isEditar()" class="container d-flex justify-content-center flex-column mt-5" [formGroup]="projetoGroup" (ngSubmit)="submit()">
+<form *ngIf="!isEditar()" class="container d-flex justify-content-center flex-column mt-3" [formGroup]="projetoGroup" (ngSubmit)="submit()">
 
-  <h3 class="align-self-center mb-3">Cadastre seu Projeto</h3>
-
+  <h3 class="align-self-center mt-3 mb-4">Cadastre seu Novo Projeto!</h3>
   <div class="input-group flex-nowrap mb-4">
     <span class="input-group-text" id="nome">Nome do Projeto</span>
     <input type="text" class="form-control" placeholder="Nome do Projeto" aria-label="Nome"
@@ -16,9 +15,9 @@
 
   <div class="input-group flex-nowrap mb-4">
     <span class="input-group-text">Hora da Reunião (Horas e Minutos)</span>
-    <input type="number" min="0" max="23" aria-label="Horas" class="form-control" formControlName="horarioReuniaoHoras">
+    <input type="number" min="0" max="23" aria-label="Horas" placeholder="Horas" class="form-control" formControlName="horarioReuniaoHoras">
     <h3 style="margin-left: 3px; margin-right: 3px;">:</h3>
-    <input type="number" min="0" max="59" aria-label="Minutos" class="form-control" formControlName="horarioReuniaoMinutos">
+    <input type="number" min="0" max="59" aria-label="Minutos" placeholder="Minutos" class="form-control" formControlName="horarioReuniaoMinutos">
   </div>
 
   <div class="input-group flex-nowrap">
@@ -42,6 +41,9 @@
     <input class="form-control" type="file" id="icone" formControlName="icone" (change)="atribuirImagem($event)">
   </div>
 
+  <small id="tempoMedioDeDailyHelp" class="form-text text-muted mb-4">Recomendamos que para seguir os princípios ágeis propostos pelo Scrum, mantenha o seu time com no máximo 9 pessoas. 
+    Além disso, é aconselhável manter os valores recomendados para a duração da daily e o tempo de fala dos participantes. Esses valores podem ser ajustados conforme a necessidade do seu time, 
+    mas a aderência aos princípios do Scrum é fundamental para uma implementação eficaz desse framework ágil.</small>
   <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
 

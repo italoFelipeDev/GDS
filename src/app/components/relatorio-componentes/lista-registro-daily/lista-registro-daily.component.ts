@@ -13,7 +13,7 @@ export class ListaRegistroDailyComponent implements OnInit{
   
   @Input() projeto: Projeto;
 
-  listaDailyLog: Array<DailyLog> = new Array<DailyLog>();
+  @Input() listaDailyLog: Array<DailyLog> = new Array<DailyLog>();
 
   constructor(){
 
@@ -25,7 +25,7 @@ export class ListaRegistroDailyComponent implements OnInit{
   }
 
   temRegistro(): boolean{
-    return this.projeto.logReunioes.length > 0;
+    return this.listaDailyLog.length > 0;
   }
 
   getDataDailyLog(dailyLog: DailyLog): string{
@@ -36,7 +36,7 @@ export class ListaRegistroDailyComponent implements OnInit{
 
   organizalListaDailyLog(){
     
-    this.listaDailyLog = this.projeto.logReunioes.sort((a, b) => {
+    this.listaDailyLog = this.listaDailyLog.sort((a, b) => {
       let dataConvertidaA: Date = DateUtils.converterDataObjeto(a.data);
 
       let dataConvertidaB: Date = DateUtils.converterDataObjeto(b.data);

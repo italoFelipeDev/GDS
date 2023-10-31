@@ -3,7 +3,7 @@ import { DateUtils } from "./date.class.util";
 export class StringUtil {
 
     static formatarDigitoHorario(digito: number): string {
-        return digito < 9 ?  '0' + digito  : digito.toString();
+        return digito <= 9 ?  '0' + digito  : digito.toString();
     }
 
     static formatarHorario(hora: number, minuto: number): string{
@@ -12,5 +12,11 @@ export class StringUtil {
 
     static timeConvert(tempo: number) {
         return `${this.formatarDigitoHorario(DateUtils.converterTempoHoras(tempo))}:${this.formatarDigitoHorario(DateUtils.converterTempoMinutos(tempo))}:${this.formatarDigitoHorario(DateUtils.converterTempoSegundoDisplay(tempo))}`;
+    }
+
+    static dateMonthYear(data :Date){
+        let mes = data.getMonth() + 1;
+
+        return `${this.formatarDigitoHorario(mes)}/${data.getFullYear()}`;
     }
 }

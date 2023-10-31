@@ -1,3 +1,4 @@
+import { DateUtils } from "src/utils/date.class.util";
 import { DailyLog } from "./dailyLog.class";
 import { Falta } from "./falta.class";
 

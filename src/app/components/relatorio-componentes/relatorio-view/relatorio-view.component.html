@@ -1,5 +1,14 @@
-<app-relatorio [projeto]="projeto" [relatorioMensal]="getRelatorioMensalAtual()" [listaParticipantes]="listaParticipantes"></app-relatorio>
+<app-relatorio [projeto]="projeto" [relatorioMensal]="getRelatorioMensalAtual(dataDesignada)" [listaParticipantes]="listaParticipantes"></app-relatorio>
 
-<div class="container d-inline-flex flex-column mt-5" style="min-width: 300px; max-width: 900px;">
-    <app-lista-registro-daily [projeto]="projeto"></app-lista-registro-daily>
+<div class="d-inline-flex flex-row-reverse">
+    <div class="container d-flex flex-column" style="min-width: 900px; max-width: 900px;">
+        <h4 class="mt-2">Outros Relátorios:</h4>
+        <ul class="list-group mt-2">
+            <li *ngFor="let relatorioMensal of projeto.relatorioMensalList" class="list-group-item bg-secondary border border-dark" (click)="alterarDataRelatorio(relatorioMensal)">
+                {{ getMesRelatorioString(relatorioMensal)}}</li>
+        </ul>
+    </div>
 </div>
+
+
+

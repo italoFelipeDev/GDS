@@ -9,7 +9,6 @@ import { Usuario } from 'src/model/usuario.class';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
 import { RotaUtils } from 'src/utils/rota.class.util';
 import { ToastComponent } from '../../util/toast/toast.component';
-import { ToastMensagemUtil } from 'src/utils/toastMensagem.class.util';
 import { Anotacao } from 'src/model/anotacao.class';
 import { RelatorioMensal } from 'src/model/relatorioMensal.class';
 
@@ -70,17 +69,22 @@ export class ProjetoViewComponent implements OnInit {
   }
 
   atualizarRotinaRelatorio(projeto: Projeto): void{
+    let isRelatorioNovo: boolean = true;
     let hoje = new Date();
     if(projeto.relatorioMensalList.length <= 0){
       let relatorioNovo = new RelatorioMensal();
       projeto.relatorioMensalList.push(relatorioNovo);
     }
     projeto.relatorioMensalList.forEach(relatorio =>{
-      if(this.converterDataObjeto(relatorio.dataRelatorio).getMonth() < hoje.getMonth() && this.converterDataObjeto(relatorio.dataRelatorio).getMonth() + 1 == hoje.getMonth()){
-        let relatorioNovo = new RelatorioMensal();
-        projeto.relatorioMensalList.push(relatorioNovo);
+      if(this.converterDataObjeto(relatorio.dataRelatorio).getMonth() == hoje.getMonth()){
+        isRelatorioNovo = false;
       }
     })
+
+    if(isRelatorioNovo){
+      let relatorioNovo = new RelatorioMensal();
+        projeto.relatorioMensalList.push(relatorioNovo);
+    }
   }
 
   atualizarFaltas(projeto: Projeto): void {

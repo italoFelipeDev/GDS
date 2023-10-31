@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <h4 style="text-align: center;">
-      Relatório Mensal das Reuniões
+      Relatório Mensal das Reuniões: {{getMesRelatorioString()}}
     </h4>
   </div>
   <div class="card-body">
@@ -86,6 +86,9 @@
           </ul>
           <div class="mt-4 align-self-end">
             <app-lista-impedimento [relatorioMensal]="relatorioMensal" [projeto]="projeto"></app-lista-impedimento>
+            <div class="container d-inline-flex flex-column" style="min-width: 300px; max-width: 900px;">
+              <app-lista-registro-daily [projeto]="projeto" [listaDailyLog]="relatorioMensal.dailyLogMensal"></app-lista-registro-daily>
+            </div>
           </div>
         </div>
       </div>
@@ -95,3 +98,5 @@
     <br>
   </div>
 </div>
+
+

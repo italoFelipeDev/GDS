@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Collapse } from 'bootstrap';
 import { Projeto } from 'src/model/projeto.class';
-import { NgbAccordionModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CadastrarImpedimentoComponent } from '../../projeto-componentes/cadastrar-impedimento/cadastrar-impedimento.component';
 import { Impedimento } from 'src/model/impedimento.class';
 import { DateUtils } from 'src/utils/date.class.util';
@@ -23,6 +22,10 @@ export class ListaImpedimentoComponent implements OnInit {
   @Input() relatorioMensal: RelatorioMensal;
 
   listaImpedimentoRelatorio: Array<Impedimento> = new Array<Impedimento>();
+
+  constructor(
+    private cd: ChangeDetectorRef
+    ){}
 
   ngOnInit(): void {
     this.organizarListaImpedimento();
@@ -59,6 +62,8 @@ export class ListaImpedimentoComponent implements OnInit {
   }
 
   getImpedimentoMensal(){
+    this.listaImpedimentoRelatorio = new Array<Impedimento>();
+
     this.projeto.impedimentos.forEach(impedimento =>{
 
       if(DateUtils.converterDataObjeto(impedimento.dataInicio).getMonth() == DateUtils.converterDataObjeto(this.relatorioMensal.dataRelatorio).getMonth() 
@@ -66,5 +71,6 @@ export class ListaImpedimentoComponent implements OnInit {
         this.listaImpedimentoRelatorio.push(impedimento);
       }
     })
+    this.cd.detectChanges();
   }
 }

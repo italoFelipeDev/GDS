@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjetoService } from 'src/app/service/projeto.service';
 import { UsuarioService } from 'src/app/service/usuario-service.service';
@@ -7,6 +7,8 @@ import { RelatorioMensal } from 'src/model/relatorioMensal.class';
 import { Usuario } from 'src/model/usuario.class';
 import { DateUtils } from 'src/utils/date.class.util';
 import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
+import { StringUtil } from 'src/utils/string.class.util';
+import { RelatorioComponent } from '../relatorio/relatorio.component';
 
 @Component({
   selector: 'app-relatorio-view',
@@ -14,27 +16,28 @@ import { LocalStorageUtil } from 'src/utils/localStorage.class.util';
   styleUrls: ['./relatorio-view.component.scss']
 })
 export class RelatorioViewComponent implements OnInit {
-  
+
   usuarioLogado: Usuario;
   idProjeto: string;
   projeto: Projeto;
   listaParticipantes: Array<Usuario> = new Array<Usuario>;
-
+  dataDesignada: Date = new Date();
+  @ViewChild(RelatorioComponent) relatorioComponent: RelatorioComponent;
   ID_PROJETO_PATH = 'id';
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private cd: ChangeDetectorRef,
     private projetoService: ProjetoService,
     private usuarioService: UsuarioService
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.carregarUsuarioLogado();
     this.carregarProjeto();
   }
 
-  carregarUsuarioLogado(): void{
+  carregarUsuarioLogado(): void {
     this.usuarioLogado = LocalStorageUtil.recuperarUsuarioLogado();
   }
 
@@ -69,24 +72,34 @@ export class RelatorioViewComponent implements OnInit {
     listaParcipantes.sort((a, b) => a.nome.localeCompare(b.nome));
   }
 
-  isUsuarioAutorizadoAcesso(): boolean{
+  isUsuarioAutorizadoAcesso(): boolean {
     let isAutorizado: boolean = false
-    this.projeto.participantesId.forEach(idParticipante =>{
-      if(idParticipante == this.usuarioLogado.id.toString()){
+    this.projeto.participantesId.forEach(idParticipante => {
+      if (idParticipante == this.usuarioLogado.id.toString()) {
         isAutorizado = true;
       }
     });
     return isAutorizado;
   }
 
-  getRelatorioMensalAtual(){
-    let hoje = new Date();
+  getRelatorioMensalAtual(data: Date) {
     let relatorioAtual: RelatorioMensal = new RelatorioMensal();
-    this.projeto.relatorioMensalList.forEach(relatorio =>{
-      if(DateUtils.converterDataObjeto(relatorio.dataRelatorio).getMonth() == hoje.getMonth()){
+    this.projeto.relatorioMensalList.forEach(relatorio => {
+      if (DateUtils.converterDataObjeto(relatorio.dataRelatorio).getMonth() == data.getMonth()) {
         relatorioAtual = relatorio;
       }
     })
     return relatorioAtual;
+  }
+
+  getMesRelatorioString(relatorio: RelatorioMensal) {
+
+    return StringUtil.dateMonthYear(DateUtils.converterDataObjeto(relatorio.dataRelatorio));
+  }
+
+  alterarDataRelatorio(relatorio: RelatorioMensal){
+    this.dataDesignada = DateUtils.converterDataObjeto(relatorio.dataRelatorio);
+    this.relatorioComponent.organizarListaDailyLog();
+    this.cd.detectChanges();
   }
 }

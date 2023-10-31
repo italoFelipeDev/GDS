@@ -11,16 +11,15 @@
         <form [formGroup]="impedimentoGroup" (ngSubmit)="submit()">
           <div class="form-group mb-3">
             <label for="titulo">Título do Impedimento</label>
-            <input type="text" class="form-control" id="titulo" placeholder="Digite o nome do seu projeto"
+            <input type="text" class="form-control" id="titulo" placeholder="Digite o assunto de seu impedimento."
               formControlName="titulo">
           </div>
           <div class="form-group">
             <label for="descricao">Descrição do Impedimento</label>
-            <textarea class="form-control" id="descricao" rows="3" formControlName="descricao"></textarea>
+            <textarea class="form-control" id="descricao" rows="3" placeholder="Descreva os detalhes de seu impedimento." formControlName="descricao"></textarea>
           </div>
           <app-toast [idToast]="'toastAddImpedimento'"></app-toast>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="fecharModal()">Fechar</button>
             <button type="submit" class="btn btn-primary">Registrar</button>
           </div>
         </form>
